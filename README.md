@@ -1,6 +1,6 @@
 # Portfolio Manager
 
-I created this portfolio manager to practice my web development skills and gain experience. This portfolio manager allows users to create an account with multiple portfolios. Portfolios can contain various securities like stocks, ETFs and bonds. Users can place orders to buy and sell securities. The app also provides overview pages for portfolios and orders.
+I created this portfolio manager to practice my skills and gain experience in web development. This portfolio manager allows users to create an account with multiple portfolios. Portfolios can contain various securities like stocks, ETFs and bonds. Users can place orders to buy and sell securities. The app also provides overview pages for portfolios and orders.
 
 ## Used technologies and tutorials
 
