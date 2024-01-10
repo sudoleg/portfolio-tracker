@@ -10,6 +10,7 @@ I created this portfolio manager to practice my skills and gain experience in we
 - Authentication
   - [client-side](https://www.bezkoder.com/angular-14-spring-boot-jwt-auth/)
   - [server-side](https://www.bezkoder.com/spring-boot-security-login-jwt/)
+- [PostgreSQL & pgAdmin with docker-compose](https://github.com/khezen/compose-postgres/tree/master)
 
 ## Installation
 
