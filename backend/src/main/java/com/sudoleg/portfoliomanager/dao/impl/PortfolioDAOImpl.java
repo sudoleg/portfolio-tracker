@@ -3,6 +3,12 @@ package com.sudoleg.portfoliomanager.dao.impl;
 import com.sudoleg.portfoliomanager.dao.PortfolioDAO;
 import com.sudoleg.portfoliomanager.domain.Portfolio;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
 
 public class PortfolioDAOImpl implements PortfolioDAO {
 
@@ -21,4 +27,23 @@ public class PortfolioDAOImpl implements PortfolioDAO {
 
     }
 
+    @Override
+    public Optional<Portfolio> readOne(int portfolioId) {
+        List<Portfolio> results = jdbcTemplate.query(
+                "SELECT * FROM portfolios WHERE portfolio_id = ? LIMIT 1",
+                new PortfolioRowMapper(), portfolioId
+        );
+        return results.stream().findFirst();
+    }
+
+    public static class PortfolioRowMapper implements RowMapper<Portfolio> {
+        @Override
+        public Portfolio mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return Portfolio.builder()
+                    .portfolioId(rs.getInt("portfolio_id"))
+                    .name(rs.getString("name"))
+                    .userId(rs.getInt("owner"))
+                    .build();
+        }
+    }
 }

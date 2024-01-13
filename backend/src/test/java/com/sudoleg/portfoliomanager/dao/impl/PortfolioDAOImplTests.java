@@ -1,9 +1,9 @@
-package com.sudoleg.portfoliomanager.dao;
+package com.sudoleg.portfoliomanager.dao.impl;
 
-import com.sudoleg.portfoliomanager.dao.impl.PortfolioDAOImpl;
 import com.sudoleg.portfoliomanager.domain.Portfolio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -37,6 +37,16 @@ public class PortfolioDAOImplTests {
                 eq(1), eq("world"), eq(1)
         );
 
+    }
+
+    @Test
+    public void testReadOneGeneratesCorrectSQL() {
+        underTest.readOne(1);
+        verify(jdbcTemplate).query(
+                eq("SELECT * FROM portfolios WHERE portfolio_id = ? LIMIT 1"),
+                ArgumentMatchers.<PortfolioDAOImpl.PortfolioRowMapper>any(),
+                eq(1)
+        );
     }
 
 }
