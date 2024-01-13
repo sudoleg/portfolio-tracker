@@ -1,9 +1,9 @@
-package com.sudoleg.portfoliomanager.dao;
+package com.sudoleg.portfoliomanager.dao.impl;
 
-import com.sudoleg.portfoliomanager.dao.impl.UserDAOImpl;
 import com.sudoleg.portfoliomanager.domain.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -40,6 +40,16 @@ public class UserDAOImplTests {
                 eq(1), eq("johnd"), eq("John"), eq("Doe"), eq("john.doe@world.com")
         );
 
+    }
+
+    @Test
+    public void testReadOneGeneratesCorrectSQL() {
+        underTest.readOne(1);
+        verify(jdbcTemplate).query(
+                eq("SELECT * FROM users WHERE user_id = ? LIMIT 1"),
+                ArgumentMatchers.<UserDAOImpl.UserRowMapper>any(),
+                eq(1)
+        );
     }
 
 
