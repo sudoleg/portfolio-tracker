@@ -1,5 +1,6 @@
 package com.sudoleg.portfoliomanager.dao.impl;
 
+import com.sudoleg.portfoliomanager.TestDataUtil;
 import com.sudoleg.portfoliomanager.domain.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,13 +26,7 @@ public class UserDAOImplTests {
 
     @Test
     public void testCreateUserGeneratesCorrectSQL() {
-        User user = User.builder()
-                        .userId(1)
-                        .username("johnd")
-                        .name("John")
-                        .surname("Doe")
-                        .email("john.doe@world.com")
-                        .build();
+        User user = TestDataUtil.createTestUser();
 
         underTest.create(user);
 
