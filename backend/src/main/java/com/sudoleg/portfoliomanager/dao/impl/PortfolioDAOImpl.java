@@ -4,12 +4,14 @@ import com.sudoleg.portfoliomanager.dao.PortfolioDAO;
 import com.sudoleg.portfoliomanager.domain.Portfolio;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class PortfolioDAOImpl implements PortfolioDAO {
 
     private final JdbcTemplate jdbcTemplate;
@@ -28,7 +30,7 @@ public class PortfolioDAOImpl implements PortfolioDAO {
     }
 
     @Override
-    public Optional<Portfolio> readOne(int portfolioId) {
+    public Optional<Portfolio> readOne(Integer portfolioId) {
         List<Portfolio> results = jdbcTemplate.query(
                 "SELECT * FROM portfolios WHERE portfolio_id = ? LIMIT 1",
                 new PortfolioRowMapper(), portfolioId

@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface PortfolioDAO {
     void create(Portfolio portfolio);
 
-    Optional<Portfolio> readOne(int i);
+    Optional<Portfolio> readOne(Integer i);
 }

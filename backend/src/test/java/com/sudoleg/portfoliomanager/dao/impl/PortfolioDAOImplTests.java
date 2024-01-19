@@ -1,5 +1,6 @@
 package com.sudoleg.portfoliomanager.dao.impl;
 
+import com.sudoleg.portfoliomanager.TestDataUtil;
 import com.sudoleg.portfoliomanager.domain.Portfolio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,11 +25,7 @@ public class PortfolioDAOImplTests {
     @Test
     public void testCreatePortfolioGeneratesCorrectSQL() {
 
-        Portfolio portfolio = Portfolio.builder()
-                .portfolioId(1)
-                .name("world")
-                .userId(1)
-                .build();
+        Portfolio portfolio = TestDataUtil.createTestPortfolio();
 
         underTest.create(portfolio);
 
