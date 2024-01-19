@@ -38,12 +38,29 @@ public class TestDataUtil {
                 .build();
     }
 
-    public static Portfolio createTestPortfolio() {
+    public static Portfolio createTestPortfolioA() {
         return Portfolio.builder()
                 .portfolioId(1)
-                .name("world")
+                .name("foo")
                 .userId(1)
                 .build();
     }
+
+    public static Portfolio createTestPortfolioB() {
+        return Portfolio.builder()
+                .portfolioId(2)
+                .name("bar")
+                .userId(1)
+                .build();
+    }
+
+    public static Portfolio createTestPortfolioC() {
+        return Portfolio.builder()
+                .portfolioId(3)
+                .name("baz")
+                .userId(2)
+                .build();
+    }
+
 
 }
