@@ -4,9 +4,15 @@ I created this portfolio manager to practice my skills and gain experience in we
 
 ## Used technologies and tutorials
 
+### Technologies/Frameworks
+
 - Backend: SpringBoot
-- Fronend: Angular
+- Frontend: Angular
   - Angular Materials for UI components
+
+### Tutorials
+
+- [Ultimate Guide to SpringBoot](https://youtu.be/Nv2DERaMx-4?si=FHX_haHS5XoMwo3i)
 - Authentication
   - [client-side](https://www.bezkoder.com/angular-14-spring-boot-jwt-auth/)
   - [server-side](https://www.bezkoder.com/spring-boot-security-login-jwt/)
