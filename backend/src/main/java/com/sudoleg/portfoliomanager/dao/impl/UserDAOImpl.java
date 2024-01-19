@@ -37,6 +37,14 @@ public class UserDAOImpl implements UserDAO {
         return results.stream().findFirst();
     }
 
+    @Override
+    public List<User> readMany() {
+        return jdbcTemplate.query(
+                "SELECT * FROM users",
+                new UserRowMapper()
+        );
+    }
+
     // converts from result set to an object - in this case User object
     public static class UserRowMapper implements RowMapper<User> {
 

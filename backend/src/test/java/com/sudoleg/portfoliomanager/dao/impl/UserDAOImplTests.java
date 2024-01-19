@@ -26,7 +26,7 @@ public class UserDAOImplTests {
 
     @Test
     public void testCreateUserGeneratesCorrectSQL() {
-        User user = TestDataUtil.createTestUser();
+        User user = TestDataUtil.createTestUserA();
 
         underTest.create(user);
 
@@ -44,6 +44,15 @@ public class UserDAOImplTests {
                 eq("SELECT * FROM users WHERE user_id = ? LIMIT 1"),
                 ArgumentMatchers.<UserDAOImpl.UserRowMapper>any(),
                 eq(1)
+        );
+    }
+
+    @Test
+    public void testReadManyGeneratesCorrectSQL() {
+        underTest.readMany();
+        verify(jdbcTemplate).query(
+                eq("SELECT * FROM users"),
+                ArgumentMatchers.<UserDAOImpl.UserRowMapper>any()
         );
     }
 

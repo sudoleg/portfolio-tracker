@@ -28,7 +28,7 @@ public class PortfolioDAOIntegrationTest {
 
     @Test
     public void testPortfolioDAOCreationAndRecall() {
-        User user = TestDataUtil.createTestUser();
+        User user = TestDataUtil.createTestUserA();
         userDAO.create(user);
 
         Portfolio portfolio = TestDataUtil.createTestPortfolio();
