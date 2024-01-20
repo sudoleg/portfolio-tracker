@@ -55,4 +55,14 @@ public class PortfolioDAOImplTests {
         );
     }
 
+    @Test
+    public void testFullPortfolioUpdateGeneratesCorrectSQL() {
+        Portfolio portfolioA = TestDataUtil.createTestPortfolioA();
+        underTest.update(156, portfolioA);
+        verify(jdbcTemplate).update(
+                "UPDATE portfolios SET portfolio_id = ?, name = ?, owner = ? WHERE portfolio_id = ?",
+                portfolioA.getPortfolioId(), portfolioA.getName(), portfolioA.getUserId(), 156
+        );
+    }
+
 }

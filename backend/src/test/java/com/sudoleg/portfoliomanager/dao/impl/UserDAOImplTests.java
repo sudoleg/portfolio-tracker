@@ -57,7 +57,7 @@ public class UserDAOImplTests {
     }
 
     @Test
-    public void testFullUpdateGeneratesCorrectSQL() {
+    public void testFullUserUpdateGeneratesCorrectSQL() {
         User userA = TestDataUtil.createTestUserA();
         underTest.update(156, userA);
         verify(jdbcTemplate).update(

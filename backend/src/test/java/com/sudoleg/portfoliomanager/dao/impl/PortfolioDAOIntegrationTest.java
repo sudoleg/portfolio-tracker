@@ -64,4 +64,28 @@ public class PortfolioDAOIntegrationTest {
         assertThat(result).hasSize(3).containsExactly(portfolioA, portfolioB, portfolioC);
     }
 
+    @Test
+    public void testPortfolioFullUpdate() {
+        User userA = TestDataUtil.createTestUserA();
+        userDAO.create(userA);
+
+        Portfolio portfolioA = TestDataUtil.createTestPortfolioA();
+        underTest.create(portfolioA);
+        portfolioA.setName("UPDATED");
+        underTest.update(portfolioA.getPortfolioId(), portfolioA);
+
+        Optional<Portfolio> result = underTest.readOne(portfolioA.getPortfolioId());
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(portfolioA);
+
+        portfolioA.setPortfolioId(156);
+        underTest.update(1, portfolioA);
+
+        result = underTest.readOne(portfolioA.getPortfolioId());
+        assertThat(result).isPresent();
+        assertThat(result.get().getPortfolioId()).isEqualTo(156);
+        assertThat(result.get().getUserId()).isEqualTo(userA.getUserId());
+        assertThat(result.get().getName()).isEqualTo("UPDATED");
+    }
+
 }
