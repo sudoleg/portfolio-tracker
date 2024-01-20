@@ -53,6 +53,14 @@ public class UserDAOImpl implements UserDAO {
         );
     }
 
+    @Override
+    public void delete(Integer userId) {
+        jdbcTemplate.update(
+                "DELETE FROM users WHERE user_id = ?",
+                userId
+        );
+    }
+
     // converts from result set to an object - in this case User object
     public static class UserRowMapper implements RowMapper<User> {
 
