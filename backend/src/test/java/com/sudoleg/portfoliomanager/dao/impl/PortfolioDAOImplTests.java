@@ -25,13 +25,13 @@ public class PortfolioDAOImplTests {
     @Test
     public void testCreatePortfolioGeneratesCorrectSQL() {
 
-        Portfolio portfolio = TestDataUtil.createTestPortfolio();
+        Portfolio portfolio = TestDataUtil.createTestPortfolioA();
 
         underTest.create(portfolio);
 
         verify(jdbcTemplate).update(
                 eq("INSERT INTO portfolios (portfolio_id, name, owner) VALUES (?, ?, ?)"),
-                eq(1), eq("world"), eq(1)
+                eq(1), eq("foo"), eq(1)
         );
 
     }
@@ -43,6 +43,15 @@ public class PortfolioDAOImplTests {
                 eq("SELECT * FROM portfolios WHERE portfolio_id = ? LIMIT 1"),
                 ArgumentMatchers.<PortfolioDAOImpl.PortfolioRowMapper>any(),
                 eq(1)
+        );
+    }
+
+    @Test
+    public void testReadManyGeneratesCorrectSQL() {
+        underTest.readMany();
+        verify(jdbcTemplate).query(
+                eq("SELECT * FROM portfolios"),
+                ArgumentMatchers.<PortfolioDAOImpl.PortfolioRowMapper>any()
         );
     }
 

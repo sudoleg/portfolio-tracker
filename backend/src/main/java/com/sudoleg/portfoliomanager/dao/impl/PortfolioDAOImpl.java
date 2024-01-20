@@ -38,6 +38,14 @@ public class PortfolioDAOImpl implements PortfolioDAO {
         return results.stream().findFirst();
     }
 
+    @Override
+    public List<Portfolio> readMany() {
+        return jdbcTemplate.query(
+                "SELECT * FROM portfolios",
+                new PortfolioRowMapper()
+        );
+    }
+
     public static class PortfolioRowMapper implements RowMapper<Portfolio> {
         @Override
         public Portfolio mapRow(ResultSet rs, int rowNum) throws SQLException {
