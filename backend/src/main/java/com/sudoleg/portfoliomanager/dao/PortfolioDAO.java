@@ -13,4 +13,6 @@ public interface PortfolioDAO {
     List<Portfolio> readMany();
 
     void update(Integer portfolioId, Portfolio portfolio);
+
+    void delete(Integer portfolioId);
 }

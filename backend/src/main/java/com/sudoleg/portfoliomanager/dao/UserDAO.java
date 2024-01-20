@@ -13,4 +13,6 @@ public interface UserDAO {
     List<User> readMany();
 
     void update(Integer userId, User user);
+
+    void delete(Integer userId);
 }

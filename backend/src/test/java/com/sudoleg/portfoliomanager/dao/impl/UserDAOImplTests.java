@@ -66,4 +66,12 @@ public class UserDAOImplTests {
         );
     }
 
+    @Test
+    public void testUserDeletionGeneratesCorrectSQL() {
+        underTest.delete(1);
+        verify(jdbcTemplate).update(
+                "DELETE FROM users WHERE user_id = ?", 1
+        );
+    }
+
 }
