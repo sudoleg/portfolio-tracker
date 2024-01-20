@@ -56,5 +56,14 @@ public class UserDAOImplTests {
         );
     }
 
+    @Test
+    public void testFullUpdateGeneratesCorrectSQL() {
+        User userA = TestDataUtil.createTestUserA();
+        underTest.update(156, userA);
+        verify(jdbcTemplate).update(
+                "UPDATE users SET user_id = ?, username = ?, name = ?, surname = ?, email = ? WHERE user_id = ?",
+                userA.getUserId(), userA.getUsername(), userA.getName(), userA.getSurname(), userA.getEmail(), 156
+        );
+    }
 
 }
