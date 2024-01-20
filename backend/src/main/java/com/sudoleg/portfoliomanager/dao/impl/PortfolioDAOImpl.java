@@ -54,6 +54,13 @@ public class PortfolioDAOImpl implements PortfolioDAO {
         );
     }
 
+    @Override
+    public void delete(Integer portfolioId) {
+        jdbcTemplate.update(
+                "DELETE FROM portfolios WHERE portfolio_id = ?", portfolioId
+        );
+    }
+
     public static class PortfolioRowMapper implements RowMapper<Portfolio> {
         @Override
         public Portfolio mapRow(ResultSet rs, int rowNum) throws SQLException {

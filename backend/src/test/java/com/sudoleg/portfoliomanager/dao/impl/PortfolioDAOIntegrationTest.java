@@ -88,4 +88,17 @@ public class PortfolioDAOIntegrationTest {
         assertThat(result.get().getName()).isEqualTo("UPDATED");
     }
 
+    @Test
+    public void testPortfolioDeletion() {
+        User userA = TestDataUtil.createTestUserA();
+        userDAO.create(userA);
+
+        Portfolio portfolioA = TestDataUtil.createTestPortfolioA();
+        underTest.create(portfolioA);
+
+        underTest.delete(portfolioA.getPortfolioId());
+        Optional<Portfolio> result = underTest.readOne(portfolioA.getPortfolioId());
+        assertThat(result).isEmpty();
+    }
+
 }

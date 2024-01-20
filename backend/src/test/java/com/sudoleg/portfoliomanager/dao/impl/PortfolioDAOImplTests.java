@@ -65,4 +65,12 @@ public class PortfolioDAOImplTests {
         );
     }
 
+    @Test
+    public void testPortfolioDeleteGeneratesCorrectSQL() {
+        underTest.delete(1);
+        verify(jdbcTemplate).update(
+                "DELETE FROM portfolios WHERE portfolio_id = ?", 1
+        );
+    }
+
 }
