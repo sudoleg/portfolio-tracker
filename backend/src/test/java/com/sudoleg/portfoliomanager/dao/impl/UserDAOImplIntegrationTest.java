@@ -49,4 +49,16 @@ public class UserDAOImplIntegrationTest {
         assertThat(result).hasSize(3).containsExactly(userA, userB, userC);
     }
 
+    @Test
+    public void testUserUpdate() {
+        User userA = TestDataUtil.createTestUserA();
+        underTest.create(userA);
+        userA.setEmail("john.doe@updated.com");
+        underTest.update(userA.getUserId(), userA);
+
+        Optional<User> updatedUserA = underTest.readOne(userA.getUserId());
+        assertThat(updatedUserA).isPresent();
+        assertThat(updatedUserA.get()).isEqualTo(userA);
+    }
+
 }

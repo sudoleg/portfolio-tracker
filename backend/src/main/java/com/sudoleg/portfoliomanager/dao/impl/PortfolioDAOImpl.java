@@ -46,6 +46,14 @@ public class PortfolioDAOImpl implements PortfolioDAO {
         );
     }
 
+    @Override
+    public void update(Integer portfolioId, Portfolio portfolio) {
+        jdbcTemplate.update(
+                "UPDATE portfolios SET portfolio_id = ?, name = ?, owner = ? WHERE portfolio_id = ?",
+                portfolio.getPortfolioId(), portfolio.getName(), portfolio.getUserId(), portfolioId
+        );
+    }
+
     public static class PortfolioRowMapper implements RowMapper<Portfolio> {
         @Override
         public Portfolio mapRow(ResultSet rs, int rowNum) throws SQLException {

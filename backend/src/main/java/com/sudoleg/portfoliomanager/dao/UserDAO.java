@@ -11,4 +11,6 @@ public interface UserDAO {
     Optional<User> readOne(Integer i);
 
     List<User> readMany();
+
+    void update(Integer userId, User user);
 }

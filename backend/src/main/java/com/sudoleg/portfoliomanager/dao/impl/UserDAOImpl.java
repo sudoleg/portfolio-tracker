@@ -45,6 +45,14 @@ public class UserDAOImpl implements UserDAO {
         );
     }
 
+    @Override
+    public void update(Integer userId, User user) {
+        jdbcTemplate.update(
+                "UPDATE users SET user_id = ?, username = ?, name = ?, surname = ?, email = ? WHERE user_id = ?",
+                user.getUserId(), user.getUsername(), user.getName(), user.getSurname(), user.getEmail(), userId
+        );
+    }
+
     // converts from result set to an object - in this case User object
     public static class UserRowMapper implements RowMapper<User> {
 
