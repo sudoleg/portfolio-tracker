@@ -61,14 +61,14 @@ public class UserRepositoryIntegrationTests {
         assertThat(updatedUserA.get().getEmail()).isEqualTo("john.doe@updated.com");
     }
 
-//    @Test
-//    public void testUserDeletion() {
-//        User userA = TestDataUtil.createTestUserA();
-//        underTest.create(userA);
-//
-//        underTest.delete(userA.getUserId());
-//        Optional<User> result = underTest.readOne(userA.getUserId());
-//        assertThat(result).isEmpty();
-//    }
+    @Test
+    public void testUserDeletion() {
+        User userA = TestDataUtil.createTestUserA();
+        underTest.save(userA);
+
+        underTest.deleteById(userA.getUserId());
+        Optional<User> result = underTest.findById(userA.getUserId());
+        assertThat(result).isEmpty();
+    }
 
 }
