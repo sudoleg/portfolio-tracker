@@ -51,6 +51,7 @@ public class PortfolioRepositoryIntegrationTests {
         assertThat(result).hasSize(3).containsExactly(portfolioA, portfolioB, portfolioC);
 
         Optional<Portfolio> retrievedPortfolioA = underTest.findById(portfolioA.getPortfolioId());
+        assertThat(retrievedPortfolioA).isPresent();
         assertThat(retrievedPortfolioA.get().getUser()).isEqualTo(userA);
     }
 //

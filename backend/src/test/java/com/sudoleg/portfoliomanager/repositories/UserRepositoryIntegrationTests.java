@@ -48,18 +48,19 @@ public class UserRepositoryIntegrationTests {
         assertThat(result).hasSize(3).containsExactly(userA, userB, userC);
     }
 
-//    @Test
-//    public void testUserUpdate() {
-//        User userA = TestDataUtil.createTestUserA();
-//        underTest.create(userA);
-//        userA.setEmail("john.doe@updated.com");
-//        underTest.update(userA.getUserId(), userA);
-//
-//        Optional<User> updatedUserA = underTest.readOne(userA.getUserId());
-//        assertThat(updatedUserA).isPresent();
-//        assertThat(updatedUserA.get()).isEqualTo(userA);
-//    }
-//
+    @Test
+    public void testUserUpdate() {
+        User userA = TestDataUtil.createTestUserA();
+        underTest.save(userA);
+        userA.setEmail("john.doe@updated.com");
+        underTest.save(userA);
+
+        Optional<User> updatedUserA = underTest.findById(userA.getUserId());
+        assertThat(updatedUserA).isPresent();
+        assertThat(updatedUserA.get()).isEqualTo(userA);
+        assertThat(updatedUserA.get().getEmail()).isEqualTo("john.doe@updated.com");
+    }
+
 //    @Test
 //    public void testUserDeletion() {
 //        User userA = TestDataUtil.createTestUserA();
