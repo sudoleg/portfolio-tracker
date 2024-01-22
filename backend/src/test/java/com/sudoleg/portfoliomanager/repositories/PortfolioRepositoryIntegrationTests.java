@@ -1,47 +1,39 @@
-//package com.sudoleg.portfoliomanager.repositories;
-//
-//import com.sudoleg.portfoliomanager.TestDataUtil;
-//import com.sudoleg.portfoliomanager.dao.UserDAO;
-//import com.sudoleg.portfoliomanager.domain.Portfolio;
-//import com.sudoleg.portfoliomanager.domain.User;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.test.annotation.DirtiesContext;
-//
-//import java.util.List;
-//import java.util.Optional;
-//
-//import static org.assertj.core.api.Assertions.assertThat;
-//
-//@SpringBootTest
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-//public class PortfolioDAOIntegrationTest {
-//
-//    private PortfolioDAOImpl underTest;
-//
-//    // the framework determines what implementation of userDAO we need
-//    private UserDAO userDAO;
-//
-//    @Autowired
-//    public PortfolioDAOIntegrationTest(PortfolioDAOImpl underTest, UserDAO userDAO) {
-//        this.underTest = underTest;
-//        this.userDAO = userDAO;
-//    }
-//
-//    @Test
-//    public void testPortfolioDAOCreationAndRecall() {
-//        User user = TestDataUtil.createTestUserA();
-//        userDAO.create(user);
-//
-//        Portfolio portfolio = TestDataUtil.createTestPortfolioA();
-//        underTest.create(portfolio);
-//
-//        Optional<Portfolio> result = underTest.readOne(portfolio.getPortfolioId());
-//        assertThat(result).isPresent();
-//        assertThat(result.get()).isEqualTo(portfolio);
-//    }
-//
+package com.sudoleg.portfoliomanager.repositories;
+
+import com.sudoleg.portfoliomanager.TestDataUtil;
+import com.sudoleg.portfoliomanager.domain.Portfolio;
+import com.sudoleg.portfoliomanager.domain.User;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+public class PortfolioRepositoryIntegrationTests {
+
+    private PortfolioRepository underTest;
+
+    @Autowired
+    public PortfolioRepositoryIntegrationTests(PortfolioRepository underTest) {
+        this.underTest = underTest;
+    }
+
+    @Test
+    public void testPortfolioDAOCreationAndRecall() {
+        User user = TestDataUtil.createTestUserA();
+        Portfolio portfolio = TestDataUtil.createTestPortfolioA(user);
+        underTest.save(portfolio);
+
+        Optional<Portfolio> result = underTest.findById(portfolio.getPortfolioId());
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(portfolio);
+    }
+
 //    @Test
 //    public void testMultiplePortfolioCreationAndRecall() {
 //        User userA = TestDataUtil.createTestUserA();
@@ -100,5 +92,5 @@
 //        Optional<Portfolio> result = underTest.readOne(portfolioA.getPortfolioId());
 //        assertThat(result).isEmpty();
 //    }
-//
-//}
+
+}

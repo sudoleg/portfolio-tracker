@@ -1,4 +1,3 @@
-/*
 package com.sudoleg.portfoliomanager;
 
 import com.sudoleg.portfoliomanager.domain.Portfolio;
@@ -39,30 +38,28 @@ public class TestDataUtil {
                 .build();
     }
 
-    public static Portfolio createTestPortfolioA() {
+    public static Portfolio createTestPortfolioA(final User user) {
         return Portfolio.builder()
                 .portfolioId(1)
                 .name("foo")
-                .userId(1)
+                .user(user)
                 .build();
     }
 
-    public static Portfolio createTestPortfolioB() {
+    public static Portfolio createTestPortfolioB(final User user) {
         return Portfolio.builder()
                 .portfolioId(2)
                 .name("bar")
-                .userId(1)
+                .user(user)
                 .build();
     }
 
-    public static Portfolio createTestPortfolioC() {
+    public static Portfolio createTestPortfolioC(final User user) {
         return Portfolio.builder()
                 .portfolioId(3)
                 .name("baz")
-                .userId(2)
+                .user(user)
                 .build();
     }
 
-
 }
-*/
