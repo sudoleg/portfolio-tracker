@@ -34,27 +34,25 @@ public class PortfolioRepositoryIntegrationTests {
         assertThat(result.get()).isEqualTo(portfolio);
     }
 
-//    @Test
-//    public void testMultiplePortfolioCreationAndRecall() {
-//        User userA = TestDataUtil.createTestUserA();
-//        User userB = TestDataUtil.createTestUserB();
-//        userDAO.create(userA);
-//        userDAO.create(userB);
-//
-//        Portfolio portfolioA = TestDataUtil.createTestPortfolioA();
-//        portfolioA.setUserId(userA.getUserId());
-//        Portfolio portfolioB = TestDataUtil.createTestPortfolioB();
-//        portfolioB.setUserId(userA.getUserId());
-//        Portfolio portfolioC = TestDataUtil.createTestPortfolioC();
-//        portfolioC.setUserId(userB.getUserId());
-//
-//        underTest.create(portfolioA);
-//        underTest.create(portfolioB);
-//        underTest.create(portfolioC);
-//
-//        List<Portfolio> result = underTest.readMany();
-//        assertThat(result).hasSize(3).containsExactly(portfolioA, portfolioB, portfolioC);
-//    }
+    @Test
+    public void testMultiplePortfolioCreationAndRecall() {
+        User userA = TestDataUtil.createTestUserA();
+        User userB = TestDataUtil.createTestUserB();
+
+        Portfolio portfolioA = TestDataUtil.createTestPortfolioA(userA);
+        Portfolio portfolioB = TestDataUtil.createTestPortfolioB(userA);
+        Portfolio portfolioC = TestDataUtil.createTestPortfolioC(userB);
+
+        underTest.save(portfolioA);
+        underTest.save(portfolioB);
+        underTest.save(portfolioC);
+
+        Iterable<Portfolio> result = underTest.findAll();
+        assertThat(result).hasSize(3).containsExactly(portfolioA, portfolioB, portfolioC);
+
+        Optional<Portfolio> retrievedPortfolioA = underTest.findById(portfolioA.getPortfolioId());
+        assertThat(retrievedPortfolioA.get().getUser()).isEqualTo(userA);
+    }
 //
 //    @Test
 //    public void testPortfolioFullUpdate() {
