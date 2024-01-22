@@ -68,17 +68,15 @@ public class PortfolioRepositoryIntegrationTests {
         assertThat(result.get()).isEqualTo(portfolioA);
     }
 
-//    @Test
-//    public void testPortfolioDeletion() {
-//        User userA = TestDataUtil.createTestUserA();
-//        userDAO.create(userA);
-//
-//        Portfolio portfolioA = TestDataUtil.createTestPortfolioA();
-//        underTest.create(portfolioA);
-//
-//        underTest.delete(portfolioA.getPortfolioId());
-//        Optional<Portfolio> result = underTest.readOne(portfolioA.getPortfolioId());
-//        assertThat(result).isEmpty();
-//    }
+    @Test
+    public void testPortfolioDeletion() {
+        User userA = TestDataUtil.createTestUserA();
+        Portfolio portfolioA = TestDataUtil.createTestPortfolioA(userA);
+        underTest.save(portfolioA);
+
+        underTest.deleteById(portfolioA.getPortfolioId());
+        Optional<Portfolio> result = underTest.findById(portfolioA.getPortfolioId());
+        assertThat(result).isEmpty();
+    }
 
 }
