@@ -35,19 +35,19 @@ public class UserRepositoryIntegrationTests {
         assertThat(result.get()).isEqualTo(user);
     }
 
-//    @Test
-//    public void testMultipleUserCreationAndRecall() {
-//        User userA = TestDataUtil.createTestUserA();
-//        User userB = TestDataUtil.createTestUserB();
-//        User userC = TestDataUtil.createTestUserC();
-//        underTest.create(userA);
-//        underTest.create(userB);
-//        underTest.create(userC);
-//
-//        List<User> result = underTest.readMany();
-//        assertThat(result).hasSize(3).containsExactly(userA, userB, userC);
-//    }
-//
+    @Test
+    public void testMultipleUserCreationAndRecall() {
+        User userA = TestDataUtil.createTestUserA();
+        User userB = TestDataUtil.createTestUserB();
+        User userC = TestDataUtil.createTestUserC();
+        underTest.save(userA);
+        underTest.save(userB);
+        underTest.save(userC);
+
+        Iterable<User> result = underTest.findAll();
+        assertThat(result).hasSize(3).containsExactly(userA, userB, userC);
+    }
+
 //    @Test
 //    public void testUserUpdate() {
 //        User userA = TestDataUtil.createTestUserA();
