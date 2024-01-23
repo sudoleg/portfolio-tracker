@@ -1,15 +1,15 @@
 package com.sudoleg.portfoliomanager;
 
-import com.sudoleg.portfoliomanager.domain.Portfolio;
-import com.sudoleg.portfoliomanager.domain.User;
+import com.sudoleg.portfoliomanager.domain.entities.PortfolioEntity;
+import com.sudoleg.portfoliomanager.domain.entities.UserEntity;
 
 public class TestDataUtil {
 
     private TestDataUtil() {
     }
 
-    public static User createTestUserA() {
-        return User.builder()
+    public static UserEntity createTestUserA() {
+        return UserEntity.builder()
                 .userId(1)
                 .username("johnd")
                 .name("John")
@@ -18,8 +18,8 @@ public class TestDataUtil {
                 .build();
     }
 
-    public static User createTestUserB() {
-        return User.builder()
+    public static UserEntity createTestUserB() {
+        return UserEntity.builder()
                 .userId(2)
                 .username("perterp")
                 .name("Peter")
@@ -28,8 +28,8 @@ public class TestDataUtil {
                 .build();
     }
 
-    public static User createTestUserC() {
-        return User.builder()
+    public static UserEntity createTestUserC() {
+        return UserEntity.builder()
                 .userId(3)
                 .username("maryj")
                 .name("Mary")
@@ -38,27 +38,27 @@ public class TestDataUtil {
                 .build();
     }
 
-    public static Portfolio createTestPortfolioA(final User user) {
-        return Portfolio.builder()
+    public static PortfolioEntity createTestPortfolioA(final UserEntity userEntity) {
+        return PortfolioEntity.builder()
                 .portfolioId(1)
                 .name("foo")
-                .user(user)
+                .userEntity(userEntity)
                 .build();
     }
 
-    public static Portfolio createTestPortfolioB(final User user) {
-        return Portfolio.builder()
+    public static PortfolioEntity createTestPortfolioB(final UserEntity userEntity) {
+        return PortfolioEntity.builder()
                 .portfolioId(2)
                 .name("bar")
-                .user(user)
+                .userEntity(userEntity)
                 .build();
     }
 
-    public static Portfolio createTestPortfolioC(final User user) {
-        return Portfolio.builder()
+    public static PortfolioEntity createTestPortfolioC(final UserEntity userEntity) {
+        return PortfolioEntity.builder()
                 .portfolioId(3)
                 .name("baz")
-                .user(user)
+                .userEntity(userEntity)
                 .build();
     }
 

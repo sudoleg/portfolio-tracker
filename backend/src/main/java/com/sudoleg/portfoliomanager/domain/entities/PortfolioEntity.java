@@ -1,4 +1,4 @@
-package com.sudoleg.portfoliomanager.domain;
+package com.sudoleg.portfoliomanager.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,13 +6,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Persistance layer. Represents a portfolio in the DB.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "portfolios")
-public class Portfolio {
+public class PortfolioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "portfolio_id_seq")
@@ -24,6 +27,6 @@ public class Portfolio {
     // to that user, they get saved to the DB as well.
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity userEntity;
 
 }
