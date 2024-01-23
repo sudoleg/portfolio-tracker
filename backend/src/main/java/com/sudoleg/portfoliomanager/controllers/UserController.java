@@ -24,7 +24,7 @@ public class UserController {
 
     private Mapper<UserEntity, UserDto> userMapper;
 
-    public UserController(UserService userService, Mapper userMapper) {
+    public UserController(UserService userService, Mapper<UserEntity, UserDto> userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
     }
