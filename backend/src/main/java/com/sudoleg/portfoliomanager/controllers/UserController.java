@@ -4,6 +4,8 @@ import com.sudoleg.portfoliomanager.domain.dto.UserDto;
 import com.sudoleg.portfoliomanager.domain.entities.UserEntity;
 import com.sudoleg.portfoliomanager.mappers.Mapper;
 import com.sudoleg.portfoliomanager.services.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,10 +30,10 @@ public class UserController {
     }
 
     @PostMapping(path = "/users")
-    public UserDto createUser(@RequestBody UserDto user) {
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
         UserEntity userEntity = userMapper.mapFrom(user);
         UserEntity savedUser = userService.createUser(userEntity);
-        return userMapper.mapTo(savedUser);
+        return new ResponseEntity<>(userMapper.mapTo(savedUser), HttpStatus.CREATED);
     }
 
 }
