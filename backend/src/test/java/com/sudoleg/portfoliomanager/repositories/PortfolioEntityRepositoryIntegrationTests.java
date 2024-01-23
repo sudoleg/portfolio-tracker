@@ -26,7 +26,7 @@ public class PortfolioEntityRepositoryIntegrationTests {
     @Test
     public void testPortfolioDAOCreationAndRecall() {
         UserEntity userEntity = TestDataUtil.createTestUserA();
-        PortfolioEntity portfolioEntity = TestDataUtil.createTestPortfolioA(userEntity);
+        PortfolioEntity portfolioEntity = TestDataUtil.createTestPortfolioEntityA(userEntity);
         underTest.save(portfolioEntity);
 
         Optional<PortfolioEntity> result = underTest.findById(portfolioEntity.getPortfolioId());
@@ -39,7 +39,7 @@ public class PortfolioEntityRepositoryIntegrationTests {
         UserEntity userEntityA = TestDataUtil.createTestUserA();
         UserEntity userEntityB = TestDataUtil.createTestUserB();
 
-        PortfolioEntity portfolioEntityA = TestDataUtil.createTestPortfolioA(userEntityA);
+        PortfolioEntity portfolioEntityA = TestDataUtil.createTestPortfolioEntityA(userEntityA);
         PortfolioEntity portfolioEntityB = TestDataUtil.createTestPortfolioB(userEntityA);
         PortfolioEntity portfolioEntityC = TestDataUtil.createTestPortfolioC(userEntityB);
 
@@ -58,7 +58,7 @@ public class PortfolioEntityRepositoryIntegrationTests {
     @Test
     public void testPortfolioFullUpdate() {
         UserEntity userEntityA = TestDataUtil.createTestUserA();
-        PortfolioEntity portfolioEntityA = TestDataUtil.createTestPortfolioA(userEntityA);
+        PortfolioEntity portfolioEntityA = TestDataUtil.createTestPortfolioEntityA(userEntityA);
         underTest.save(portfolioEntityA);
         portfolioEntityA.setName("UPDATED");
         underTest.save(portfolioEntityA);
@@ -71,7 +71,7 @@ public class PortfolioEntityRepositoryIntegrationTests {
     @Test
     public void testPortfolioDeletion() {
         UserEntity userEntityA = TestDataUtil.createTestUserA();
-        PortfolioEntity portfolioEntityA = TestDataUtil.createTestPortfolioA(userEntityA);
+        PortfolioEntity portfolioEntityA = TestDataUtil.createTestPortfolioEntityA(userEntityA);
         underTest.save(portfolioEntityA);
 
         underTest.deleteById(portfolioEntityA.getPortfolioId());

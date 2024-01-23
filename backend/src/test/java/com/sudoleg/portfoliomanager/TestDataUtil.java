@@ -1,5 +1,7 @@
 package com.sudoleg.portfoliomanager;
 
+import com.sudoleg.portfoliomanager.domain.dto.PortfolioDto;
+import com.sudoleg.portfoliomanager.domain.dto.UserDto;
 import com.sudoleg.portfoliomanager.domain.entities.PortfolioEntity;
 import com.sudoleg.portfoliomanager.domain.entities.UserEntity;
 
@@ -38,11 +40,19 @@ public class TestDataUtil {
                 .build();
     }
 
-    public static PortfolioEntity createTestPortfolioA(final UserEntity userEntity) {
+    public static PortfolioEntity createTestPortfolioEntityA(final UserEntity userEntity) {
         return PortfolioEntity.builder()
                 .portfolioId(1)
                 .name("foo")
                 .userEntity(userEntity)
+                .build();
+    }
+
+    public static PortfolioDto createTestPortfolioDtoA(final UserDto userDto) {
+        return PortfolioDto.builder()
+                .portfolioId(1)
+                .name("foo")
+                .user(userDto)
                 .build();
     }
 
