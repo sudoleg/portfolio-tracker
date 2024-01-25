@@ -4,7 +4,10 @@ import com.sudoleg.portfoliomanager.domain.entities.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-// With Spring JPA we don't need to provide an implementation for the interface.
+/**
+ * Repository for users.
+ * Repositories are used to perform database operations automatically.
+ */
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Integer> {
 }

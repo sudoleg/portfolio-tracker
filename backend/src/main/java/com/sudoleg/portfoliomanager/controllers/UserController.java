@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Presentation layer.
- * Receives request containing user as JSON in the request body.
- * Maps from user (DTO) to user entity.
- * Performs CRUD on user using service.
+/** Presentation layer.
+ * Handles HTTP requests containing user as JSON in the request body.
+ * Maps from JSON user (DTO) to user entity (object).
+ * Transfer it to the business layer, which handles the business logic.
  * Optionally: returns answer.
  */
 @RestController

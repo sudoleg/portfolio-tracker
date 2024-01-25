@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Persistance layer. Represents a user in the DB.
+ * Database entity for users.
  */
 @Data
 @AllArgsConstructor

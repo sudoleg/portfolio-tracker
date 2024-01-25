@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Persistance layer. Represents a portfolio in the DB.
+ * Database entity for portfolios.
  */
 @Data
 @AllArgsConstructor
