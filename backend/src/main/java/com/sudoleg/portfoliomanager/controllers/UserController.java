@@ -6,9 +6,13 @@ import com.sudoleg.portfoliomanager.mappers.Mapper;
 import com.sudoleg.portfoliomanager.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /** Presentation layer.
  * Handles HTTP requests containing user as JSON in the request body.
@@ -33,6 +37,12 @@ public class UserController {
         UserEntity userEntity = userMapper.mapFrom(user);
         UserEntity savedUser = userService.createUser(userEntity);
         return new ResponseEntity<>(userMapper.mapTo(savedUser), HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "/users")
+    public List<UserDto> listUsers() {
+        List<UserEntity> users = userService.findAll();
+        return users.stream().map(userMapper::mapTo).collect(Collectors.toList());
     }
 
 }

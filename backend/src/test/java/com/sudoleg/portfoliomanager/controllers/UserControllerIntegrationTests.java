@@ -3,6 +3,7 @@ package com.sudoleg.portfoliomanager.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sudoleg.portfoliomanager.TestDataUtil;
 import com.sudoleg.portfoliomanager.domain.entities.UserEntity;
+import com.sudoleg.portfoliomanager.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 public class UserControllerIntegrationTests {
 
     private MockMvc mockMvc;
+    private UserService userService;
 
     private ObjectMapper objectMapper;
 
     @Autowired
-    public UserControllerIntegrationTests(MockMvc mockMvc, ObjectMapper objectMapper) {
+    public UserControllerIntegrationTests(MockMvc mockMvc, UserService userService, ObjectMapper objectMapper) {
         this.mockMvc = mockMvc;
+        this.userService = userService;
         this.objectMapper = objectMapper;
     }
 
@@ -62,6 +65,31 @@ public class UserControllerIntegrationTests {
                 MockMvcResultMatchers.jsonPath("$.name").value(testUserA.getName())
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.surname").value(testUserA.getSurname())
+        );
+    }
+
+    @Test
+    public void testListAllUsersReturnsOk() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/users")
+        ).andExpect(
+                MockMvcResultMatchers.status().is2xxSuccessful()
+        );
+    }
+
+    @Test
+    public void testListAllUsersReturnsCorrectList() throws Exception {
+        UserEntity userA = TestDataUtil.createTestUserA();
+        userService.createUser(userA);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/users")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("[0].userId").isNumber()
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("[0].username").value(userA.getUsername())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("[0].name").value(userA.getName())
         );
     }
 
