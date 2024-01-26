@@ -8,8 +8,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: changeme
       PGDATA: /data/postgres
-    #volumes:
-    #  - postgres:/data/postgres
+    volumes:
+      - postgres:/data/postgres
     ports:
       - "5432:5432"
     networks:
@@ -23,8 +23,8 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
       PGADMIN_CONFIG_SERVER_MODE: 'False'
-    #volumes:
-    #  - pgadmin:/var/lib/pgadmin
+    volumes:
+      - pgadmin:/var/lib/pgadmin
 
     ports:
       - "${PGADMIN_PORT:-5050}:80"
@@ -36,6 +36,6 @@ networks:
   postgres:
     driver: bridge
 
-#volumes:
-#  postgres:
-#  pgadmin:
+volumes:
+  postgres:
+  pgadmin:
