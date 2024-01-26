@@ -33,7 +33,7 @@ public class UserController {
     @PostMapping(path = "/users")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
         UserEntity userEntity = userMapper.mapFrom(user);
-        UserEntity savedUser = userService.createUser(userEntity);
+        UserEntity savedUser = userService.save(userEntity);
         return new ResponseEntity<>(userMapper.mapTo(savedUser), HttpStatus.CREATED);
     }
 
@@ -51,6 +51,24 @@ public class UserController {
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         }).orElse(
                 new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        );
+    }
+
+    @PutMapping(path = "/users/{id}")
+    public ResponseEntity<UserDto> fullUpdateUser(
+            @PathVariable Integer id,
+            @RequestBody UserDto userDto
+    ) {
+        if (!userService.isExists(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        userDto.setUserId(id);
+        UserEntity userEntity = userMapper.mapFrom(userDto);
+
+        UserEntity savedUserEntity = userService.save(userEntity);
+        return new ResponseEntity<>(
+                userMapper.mapTo(savedUserEntity), HttpStatus.OK
         );
     }
 

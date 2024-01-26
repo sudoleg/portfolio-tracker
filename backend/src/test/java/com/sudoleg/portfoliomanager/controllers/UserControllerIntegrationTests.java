@@ -2,6 +2,7 @@ package com.sudoleg.portfoliomanager.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sudoleg.portfoliomanager.TestDataUtil;
+import com.sudoleg.portfoliomanager.domain.dto.UserDto;
 import com.sudoleg.portfoliomanager.domain.entities.UserEntity;
 import com.sudoleg.portfoliomanager.services.UserService;
 import org.junit.jupiter.api.Test;
@@ -80,7 +81,7 @@ public class UserControllerIntegrationTests {
     @Test
     public void testListAllUsersReturnsCorrectList() throws Exception {
         UserEntity userA = TestDataUtil.createTestUserA();
-        userService.createUser(userA);
+        userService.save(userA);
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/users")
@@ -105,7 +106,7 @@ public class UserControllerIntegrationTests {
     @Test
     public void testGetUserByIdReturnsCorrectUser() throws Exception {
         UserEntity userA = TestDataUtil.createTestUserA();
-        userService.createUser(userA);
+        userService.save(userA);
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/users/1")
@@ -118,6 +119,29 @@ public class UserControllerIntegrationTests {
         );
     }
 
+    @Test
+    public void testUserFullUpdateReturnsUpdatedUser() throws Exception {
+        UserEntity userEntity = TestDataUtil.createTestUserA();
+        UserEntity savedUser = userService.save(userEntity);
 
+        UserDto userDto = TestDataUtil.createTestUserDtoA();
+        userDto.setUsername("UPDATED");
+
+        String userJson = objectMapper.writeValueAsString(userDto);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/users/" + savedUser.getUserId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson)
+        ).andExpect(
+                MockMvcResultMatchers.status().isOk()
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.username").value(userDto.getUsername())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.userId").value(userDto.getUserId())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.email").value(userDto.getEmail())
+        );
+    }
 
 }

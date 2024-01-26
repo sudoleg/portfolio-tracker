@@ -20,6 +20,16 @@ public class TestDataUtil {
                 .build();
     }
 
+    public static UserDto createTestUserDtoA() {
+        return UserDto.builder()
+                .userId(1)
+                .username("johnd")
+                .name("John")
+                .surname("Doe")
+                .email("john.doe@world.com")
+                .build();
+    }
+
     public static UserEntity createTestUserB() {
         return UserEntity.builder()
                 .userId(2)
