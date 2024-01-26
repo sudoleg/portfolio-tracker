@@ -6,12 +6,10 @@ import com.sudoleg.portfoliomanager.mappers.Mapper;
 import com.sudoleg.portfoliomanager.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /** Presentation layer.
@@ -43,6 +41,17 @@ public class UserController {
     public List<UserDto> listUsers() {
         List<UserEntity> users = userService.findAll();
         return users.stream().map(userMapper::mapTo).collect(Collectors.toList());
+    }
+
+    @GetMapping(path = "/users/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Integer id) {
+        Optional<UserEntity> result = userService.findOne(id);
+        return result.map(userEntity -> {
+            UserDto userDto = userMapper.mapTo(userEntity);
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
+        }).orElse(
+                new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        );
     }
 
 }

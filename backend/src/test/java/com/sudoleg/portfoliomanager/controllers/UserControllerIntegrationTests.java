@@ -93,4 +93,31 @@ public class UserControllerIntegrationTests {
         );
     }
 
+    @Test
+    public void testGetUserByIdReturns404IfNotExist() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/users/1")
+        ).andExpect(
+                MockMvcResultMatchers.status().isNotFound()
+        );
+    }
+
+    @Test
+    public void testGetUserByIdReturnsCorrectUser() throws Exception {
+        UserEntity userA = TestDataUtil.createTestUserA();
+        userService.createUser(userA);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/users/1")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.userId").isNumber()
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.username").value(userA.getUsername())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.name").value(userA.getName())
+        );
+    }
+
+
+
 }
