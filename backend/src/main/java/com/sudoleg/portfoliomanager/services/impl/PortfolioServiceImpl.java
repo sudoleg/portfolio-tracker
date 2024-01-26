@@ -5,6 +5,10 @@ import com.sudoleg.portfoliomanager.repositories.PortfolioRepository;
 import com.sudoleg.portfoliomanager.services.PortfolioService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service
 public class PortfolioServiceImpl implements PortfolioService {
 
@@ -17,6 +21,15 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Override
     public PortfolioEntity createPortfolio(PortfolioEntity portfolio) {
         return portfolioRepository.save(portfolio);
+    }
+
+    @Override
+    public List<PortfolioEntity> findAll() {
+        return StreamSupport.stream(portfolioRepository
+                                .findAll()
+                                .spliterator(),
+                        false)
+                .collect(Collectors.toList());
     }
 
 }
