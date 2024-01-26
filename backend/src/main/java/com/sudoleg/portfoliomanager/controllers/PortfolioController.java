@@ -6,12 +6,10 @@ import com.sudoleg.portfoliomanager.mappers.Mapper;
 import com.sudoleg.portfoliomanager.services.PortfolioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,7 +37,16 @@ public class PortfolioController {
         return portfolioEntities.stream().map(portfolioMapper::mapTo).collect(Collectors.toList());
     }
 
-
+    @GetMapping(path = "/portfolios/{id}")
+    public ResponseEntity<PortfolioDto> getPortfolioById(@PathVariable Integer id) {
+        Optional<PortfolioEntity> result = portfolioService.findOne(id);
+        return result.map(portfolioEntity -> {
+            PortfolioDto portfolioDto = portfolioMapper.mapTo(portfolioEntity);
+            return new ResponseEntity<>(portfolioDto, HttpStatus.OK);
+        }).orElse(
+                new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        );
+    }
 
 
 }

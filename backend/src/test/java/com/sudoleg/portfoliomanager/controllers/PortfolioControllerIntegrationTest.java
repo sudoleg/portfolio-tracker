@@ -89,4 +89,32 @@ public class PortfolioControllerIntegrationTest {
                 );
     }
 
+    @Test
+    public void testFindOnePortfolioReturns404IfNotExist() throws Exception {
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/portfolios/156"))
+                .andExpect(
+                        MockMvcResultMatchers.status().isNotFound()
+                );
+    }
+
+    @Test
+    public void testFindOnePortfolioReturnsCorrectResponse() throws Exception {
+        UserEntity userA = TestDataUtil.createTestUserA();
+        PortfolioEntity portfolioA = TestDataUtil.createTestPortfolioEntityA(userA);
+        portfolioService.createPortfolio(portfolioA);
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/portfolios/1"))
+                .andExpect(
+                        MockMvcResultMatchers.status().isOk()
+                )
+                .andExpect(
+                        MockMvcResultMatchers.jsonPath("$.portfolioId").value(portfolioA.getPortfolioId())
+                )
+                .andExpect(
+                        MockMvcResultMatchers.jsonPath("$.name").value(portfolioA.getName())
+                );
+    }
+
 }

@@ -6,6 +6,7 @@ import com.sudoleg.portfoliomanager.services.PortfolioService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -30,6 +31,11 @@ public class PortfolioServiceImpl implements PortfolioService {
                                 .spliterator(),
                         false)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<PortfolioEntity> findOne(Integer id) {
+        return portfolioRepository.findById(id);
     }
 
 }
