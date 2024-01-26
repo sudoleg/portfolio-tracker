@@ -7,10 +7,11 @@ import java.util.Optional;
 
 public interface PortfolioService {
 
-    PortfolioEntity createPortfolio(PortfolioEntity portfolioEntity);
+    PortfolioEntity save(PortfolioEntity portfolioEntity);
 
     List<PortfolioEntity> findAll();
 
     Optional<PortfolioEntity> findOne(Integer id);
 
+    boolean isExists(Integer id);
 }

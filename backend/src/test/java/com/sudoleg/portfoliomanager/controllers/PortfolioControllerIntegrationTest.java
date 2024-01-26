@@ -76,8 +76,8 @@ public class PortfolioControllerIntegrationTest {
         PortfolioEntity portfolioA = TestDataUtil.createTestPortfolioEntityA(userA);
         PortfolioEntity portfolioB = TestDataUtil.createTestPortfolioB(userA);
 
-        portfolioService.createPortfolio(portfolioA);
-        portfolioService.createPortfolio(portfolioB);
+        portfolioService.save(portfolioA);
+        portfolioService.save(portfolioB);
 
         mockMvc.perform(
                         MockMvcRequestBuilders.get("/portfolios"))
@@ -102,7 +102,7 @@ public class PortfolioControllerIntegrationTest {
     public void testFindOnePortfolioReturnsCorrectResponse() throws Exception {
         UserEntity userA = TestDataUtil.createTestUserA();
         PortfolioEntity portfolioA = TestDataUtil.createTestPortfolioEntityA(userA);
-        portfolioService.createPortfolio(portfolioA);
+        portfolioService.save(portfolioA);
 
         mockMvc.perform(
                         MockMvcRequestBuilders.get("/portfolios/1"))
@@ -115,6 +115,28 @@ public class PortfolioControllerIntegrationTest {
                 .andExpect(
                         MockMvcResultMatchers.jsonPath("$.name").value(portfolioA.getName())
                 );
+    }
+
+    @Test
+    public void testPortfolioFullUpdateReturnsUpdatedPortfolio() throws Exception {
+        PortfolioEntity portfolioEntity = TestDataUtil.createTestPortfolioEntityA(null);
+        PortfolioEntity savedPortfolio = portfolioService.save(portfolioEntity);
+
+        PortfolioDto portfolioDto = TestDataUtil.createTestPortfolioDtoA(null);
+        portfolioDto.setName("UPDATED");
+        String portfolioJson = objectMapper.writeValueAsString(portfolioDto);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/portfolios/" + portfolioDto.getPortfolioId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(portfolioJson)
+        ).andExpect(
+                MockMvcResultMatchers.status().isOk()
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.portfolioId").value(savedPortfolio.getPortfolioId())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.name").value(portfolioDto.getName())
+        );
     }
 
 }

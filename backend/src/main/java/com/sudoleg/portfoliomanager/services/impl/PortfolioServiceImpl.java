@@ -20,7 +20,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public PortfolioEntity createPortfolio(PortfolioEntity portfolio) {
+    public PortfolioEntity save(PortfolioEntity portfolio) {
         return portfolioRepository.save(portfolio);
     }
 
@@ -36,6 +36,11 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Override
     public Optional<PortfolioEntity> findOne(Integer id) {
         return portfolioRepository.findById(id);
+    }
+
+    @Override
+    public boolean isExists(Integer id) {
+        return portfolioRepository.existsById(id);
     }
 
 }
