@@ -17,6 +17,7 @@ I created this portfolio manager to practice my skills and gain experience in we
   - [client-side](https://www.bezkoder.com/angular-14-spring-boot-jwt-auth/)
   - [server-side](https://www.bezkoder.com/spring-boot-security-login-jwt/)
 - [PostgreSQL & pgAdmin with docker-compose](https://github.com/khezen/compose-postgres/tree/master)
+- [Custom REST-API error handling in SpringBoot](https://www.toptal.com/java/spring-boot-rest-api-error-handling)
 
 ## Installation
 

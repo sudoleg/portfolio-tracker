@@ -2,7 +2,6 @@ package com.sudoleg.portfoliomanager.controllers;
 
 import com.sudoleg.portfoliomanager.domain.dto.UserDto;
 import com.sudoleg.portfoliomanager.domain.entities.UserEntity;
-import com.sudoleg.portfoliomanager.exceptions.UserAlreadyExistsException;
 import com.sudoleg.portfoliomanager.mappers.Mapper;
 import com.sudoleg.portfoliomanager.services.UserService;
 import org.springframework.http.HttpStatus;
@@ -33,14 +32,10 @@ public class UserController {
     }
 
     @PostMapping(path = "/users")
-    public ResponseEntity createUser(@RequestBody UserDto user) {
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
         UserEntity userEntity = userMapper.mapFrom(user);
-        try {
-            UserEntity savedUser = userService.save(userEntity);
-            return new ResponseEntity<>(userMapper.mapTo(savedUser), HttpStatus.CREATED);
-        } catch (UserAlreadyExistsException e) {
-            return new ResponseEntity<String>("User with this username or email already exists!", HttpStatus.CONFLICT);
-        }
+        UserEntity savedUser = userService.save(userEntity);
+        return new ResponseEntity<>(userMapper.mapTo(savedUser), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/users")
