@@ -52,4 +52,9 @@ public class PortfolioServiceImpl implements PortfolioService {
         }).orElseThrow(() -> new RuntimeException("Portfolio doesn't exist!"));
     }
 
+    @Override
+    public void delete(Integer id) {
+        portfolioRepository.deleteById(id);
+    }
+
 }

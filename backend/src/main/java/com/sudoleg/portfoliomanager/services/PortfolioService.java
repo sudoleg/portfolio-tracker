@@ -16,4 +16,6 @@ public interface PortfolioService {
     boolean isExists(Integer id);
 
     PortfolioEntity partialUpdate(Integer id, PortfolioEntity portfolioEntity);
+
+    void delete(Integer id);
 }

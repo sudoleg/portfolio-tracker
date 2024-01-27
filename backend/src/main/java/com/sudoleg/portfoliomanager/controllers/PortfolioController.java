@@ -79,4 +79,13 @@ public class PortfolioController {
         return new ResponseEntity<>(portfolioMapper.mapTo(updatedPortfolioEntity), HttpStatus.OK);
     }
 
+    @DeleteMapping(path = "/portfolios/{id}")
+    public ResponseEntity deletePortfolio(@PathVariable Integer id) {
+        if (!portfolioService.isExists(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        portfolioService.delete(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
 }

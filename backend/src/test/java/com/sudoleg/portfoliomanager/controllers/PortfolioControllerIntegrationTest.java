@@ -15,9 +15,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -165,7 +168,7 @@ public class PortfolioControllerIntegrationTest {
         testPortfolioDto.setName("UPDATED");
         String portfolioDtoJson = objectMapper.writeValueAsString(testPortfolioDto);
 
-        ResultActions updated = mockMvc.perform(
+        mockMvc.perform(
                 MockMvcRequestBuilders.patch("/portfolios/" + savedPortfolio.getPortfolioId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(portfolioDtoJson)
@@ -174,6 +177,26 @@ public class PortfolioControllerIntegrationTest {
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.portfolioId").value(savedPortfolio.getPortfolioId())
         );
+    }
+
+    @Test
+    public void testDeleteNonExistentPortfolioReturns404() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/portfolios/156")
+        ).andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    public void testDeleteUserReturns204NoContent() throws Exception {
+        PortfolioEntity portfolioEntity = TestDataUtil.createTestPortfolioEntityA(null);
+        PortfolioEntity savedPortfolio = portfolioService.save(portfolioEntity);
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/portfolios/" + savedPortfolio.getPortfolioId())
+        ).andExpect(
+                MockMvcResultMatchers.status().isNoContent()
+        );
+        Optional<PortfolioEntity> result = portfolioService.findOne(portfolioEntity.getPortfolioId());
+        assertThat(result).isEmpty();
     }
 
 }
