@@ -14,9 +14,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -170,7 +173,7 @@ public class UserControllerIntegrationTests {
         testUserDto.setName("UPDATED");
         String userDtoJson = objectMapper.writeValueAsString(testUserDto);
 
-        ResultActions updated = mockMvc.perform(
+        mockMvc.perform(
                 MockMvcRequestBuilders.patch("/users/" + savedUser.getUserId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userDtoJson)
@@ -182,6 +185,30 @@ public class UserControllerIntegrationTests {
                 MockMvcResultMatchers.jsonPath("$.userId").value(savedUser.getUserId())
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.email").value(savedUser.getEmail())
+        );
+    }
+
+    @Test
+    public void testDeleteUserReturns204NoContent() throws Exception {
+        UserEntity userEntity = TestDataUtil.createTestUserA();
+        UserEntity savedUser = userService.save(userEntity);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/users/" + savedUser.getUserId())
+        ).andExpect(
+                MockMvcResultMatchers.status().isNoContent()
+        );
+
+        Optional<UserEntity> result = userService.findOne(userEntity.getUserId());
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    public void testDeleteNonExistentUserReturns404() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/users/999")
+        ).andExpect(
+                MockMvcResultMatchers.status().isNotFound()
         );
     }
 

@@ -16,4 +16,6 @@ public interface UserService {
     boolean isExists(Integer id);
 
     UserEntity partialUpdate(Integer id, UserEntity userEntity);
+
+    void delete(Integer id);
 }
