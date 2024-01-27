@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/** Presentation layer.
+/**
+ * Presentation layer.
  * Handles HTTP requests containing user as JSON in the request body.
  * Maps from JSON user (DTO) to user entity (object).
  * Transfer it to the business layer, which handles the business logic.
@@ -21,9 +22,9 @@ import java.util.stream.Collectors;
 @RestController
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
-    private Mapper<UserEntity, UserDto> userMapper;
+    private final Mapper<UserEntity, UserDto> userMapper;
 
     public UserController(UserService userService, Mapper<UserEntity, UserDto> userMapper) {
         this.userService = userService;
@@ -72,4 +73,19 @@ public class UserController {
         );
     }
 
+    @PatchMapping(path = "/users/{id}")
+    public ResponseEntity<UserDto> partialUpdateUser(
+            @PathVariable Integer id,
+            @RequestBody UserDto userDto
+    ) {
+        if (!userService.isExists(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        UserEntity userEntity = userMapper.mapFrom(userDto);
+        UserEntity updatedUserEntity = userService.partialUpdate(id, userEntity);
+        return new ResponseEntity<>(
+                userMapper.mapTo(updatedUserEntity), HttpStatus.OK
+        );
+    }
 }

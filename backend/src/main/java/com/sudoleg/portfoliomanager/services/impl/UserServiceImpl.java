@@ -43,4 +43,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.existsById(id);
     }
 
+    @Override
+    public UserEntity partialUpdate(Integer id, UserEntity userEntity) {
+        userEntity.setUserId(id);
+        return userRepository.findById(id).map(existingUser -> {
+            Optional.ofNullable(userEntity.getUsername()).ifPresent(existingUser::setUsername);
+            Optional.ofNullable(userEntity.getName()).ifPresent(existingUser::setName);
+            Optional.ofNullable(userEntity.getSurname()).ifPresent(existingUser::setSurname);
+            Optional.ofNullable(userEntity.getEmail()).ifPresent(existingUser::setEmail);
+            return userRepository.save(existingUser);
+        }).orElseThrow(() -> new RuntimeException("User doesn't exist!"));
+    }
+
 }

@@ -14,4 +14,6 @@ public interface UserService {
     Optional<UserEntity> findOne(Integer id);
 
     boolean isExists(Integer id);
+
+    UserEntity partialUpdate(Integer id, UserEntity userEntity);
 }

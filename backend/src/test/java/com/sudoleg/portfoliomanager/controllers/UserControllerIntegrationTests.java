@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -141,6 +142,46 @@ public class UserControllerIntegrationTests {
                 MockMvcResultMatchers.jsonPath("$.userId").value(userDto.getUserId())
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.email").value(userDto.getEmail())
+        );
+    }
+
+    @Test
+    public void testPartialUpdateOnExistingUserReturnsHttpOk() throws Exception {
+        UserEntity userEntity = TestDataUtil.createTestUserA();
+        UserEntity savedUser = userService.save(userEntity);
+
+        UserDto testUserDto = TestDataUtil.createTestUserDtoA();
+        testUserDto.setName("UPDATED");
+        String userDtoJson = objectMapper.writeValueAsString(testUserDto);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.patch("/users/" + savedUser.getUserId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userDtoJson)
+        ).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testPartialUpdateOnExistingUserReturnsUpdatedUser() throws Exception {
+        UserEntity userEntity = TestDataUtil.createTestUserA();
+        UserEntity savedUser = userService.save(userEntity);
+
+        UserDto testUserDto = TestDataUtil.createTestUserDtoA();
+        testUserDto.setName("UPDATED");
+        String userDtoJson = objectMapper.writeValueAsString(testUserDto);
+
+        ResultActions updated = mockMvc.perform(
+                MockMvcRequestBuilders.patch("/users/" + savedUser.getUserId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userDtoJson)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.name").value("UPDATED")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.surname").value(savedUser.getSurname())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.userId").value(savedUser.getUserId())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.email").value(savedUser.getEmail())
         );
     }
 
