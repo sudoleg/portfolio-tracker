@@ -14,4 +14,6 @@ public interface PortfolioService {
     Optional<PortfolioEntity> findOne(Integer id);
 
     boolean isExists(Integer id);
+
+    PortfolioEntity partialUpdate(Integer id, PortfolioEntity portfolioEntity);
 }

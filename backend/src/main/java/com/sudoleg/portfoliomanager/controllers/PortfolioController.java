@@ -64,4 +64,19 @@ public class PortfolioController {
         return new ResponseEntity<>(portfolioMapper.mapTo(saved), HttpStatus.OK);
     }
 
+    @PatchMapping(path = "/portfolios/{id}")
+    public ResponseEntity<PortfolioDto> partialUpdatePortfolio(
+            @PathVariable Integer id,
+            @RequestBody PortfolioDto portfolioDto
+    ) {
+        if (!portfolioService.isExists(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        PortfolioEntity portfolioEntity = portfolioMapper.mapFrom(portfolioDto);
+
+        PortfolioEntity updatedPortfolioEntity = portfolioService.partialUpdate(id, portfolioEntity);
+        return new ResponseEntity<>(portfolioMapper.mapTo(updatedPortfolioEntity), HttpStatus.OK);
+    }
+
 }

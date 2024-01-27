@@ -43,4 +43,13 @@ public class PortfolioServiceImpl implements PortfolioService {
         return portfolioRepository.existsById(id);
     }
 
+    @Override
+    public PortfolioEntity partialUpdate(Integer id, PortfolioEntity portfolioEntity) {
+        portfolioEntity.setPortfolioId(id);
+        return portfolioRepository.findById(id).map(existingUser -> {
+            Optional.ofNullable(portfolioEntity.getName()).ifPresent(existingUser::setName);
+            return portfolioRepository.save(existingUser);
+        }).orElseThrow(() -> new RuntimeException("Portfolio doesn't exist!"));
+    }
+
 }

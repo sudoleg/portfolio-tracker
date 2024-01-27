@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -136,6 +137,42 @@ public class PortfolioControllerIntegrationTest {
                 MockMvcResultMatchers.jsonPath("$.portfolioId").value(savedPortfolio.getPortfolioId())
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.name").value(portfolioDto.getName())
+        );
+    }
+
+    @Test
+    public void testPartialUpdateOnExistingPortfolioReturnsHttpOk() throws Exception {
+        PortfolioEntity savedPortfolio = TestDataUtil.createTestPortfolioEntityA(null);
+        portfolioService.save(savedPortfolio);
+        PortfolioDto testPortfolioDto = TestDataUtil.createTestPortfolioDtoA(null);
+
+        testPortfolioDto.setName("UPDATED");
+        String portfolioDtoJson = objectMapper.writeValueAsString(testPortfolioDto);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.patch("/portfolios/" + savedPortfolio.getPortfolioId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(portfolioDtoJson)
+        ).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testPartialUpdateOnExistingPortfolioReturnsUpdatedPortfolio() throws Exception {
+        PortfolioEntity savedPortfolio = TestDataUtil.createTestPortfolioEntityA(null);
+        portfolioService.save(savedPortfolio);
+        PortfolioDto testPortfolioDto = TestDataUtil.createTestPortfolioDtoA(null);
+
+        testPortfolioDto.setName("UPDATED");
+        String portfolioDtoJson = objectMapper.writeValueAsString(testPortfolioDto);
+
+        ResultActions updated = mockMvc.perform(
+                MockMvcRequestBuilders.patch("/portfolios/" + savedPortfolio.getPortfolioId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(portfolioDtoJson)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.name").value("UPDATED")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.portfolioId").value(savedPortfolio.getPortfolioId())
         );
     }
 
