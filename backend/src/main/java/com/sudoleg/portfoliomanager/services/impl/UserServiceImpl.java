@@ -1,6 +1,7 @@
 package com.sudoleg.portfoliomanager.services.impl;
 
 import com.sudoleg.portfoliomanager.domain.entities.UserEntity;
+import com.sudoleg.portfoliomanager.exceptions.UserAlreadyExistsException;
 import com.sudoleg.portfoliomanager.repositories.UserRepository;
 import com.sudoleg.portfoliomanager.services.UserService;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity save(UserEntity userEntity) {
+        checkUsernameTaken(userEntity.getUsername());
+        checkEmailTaken(userEntity.getEmail());
         return userRepository.save(userEntity);
+    }
+
+    private void checkUsernameTaken(String username) {
+        boolean exists = userRepository.findByUsername(username).isPresent();
+        if (exists) throw new UserAlreadyExistsException("Username '" + username + "' is already taken!");
+    }
+
+    private void checkEmailTaken(String email) {
+        boolean exists = userRepository.findByUsername(email).isPresent();
+        if (exists) throw new UserAlreadyExistsException("Email '" + email + "' is already taken!");
     }
 
     @Override
