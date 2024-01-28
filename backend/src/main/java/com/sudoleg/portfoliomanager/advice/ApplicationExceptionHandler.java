@@ -2,6 +2,7 @@ package com.sudoleg.portfoliomanager.advice;
 
 import com.sudoleg.portfoliomanager.ApiError;
 import com.sudoleg.portfoliomanager.exceptions.UserAlreadyExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Order;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,14 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         List<String> errors = new ArrayList<>();
         errors.add(e.getMessage());
         ApiError apiError = new ApiError(HttpStatus.CONFLICT, errors);
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException e) {
+        List<String> errors = new ArrayList<>();
+        errors.add(e.getMessage());
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, errors);
         return buildResponseEntity(apiError);
     }
 
