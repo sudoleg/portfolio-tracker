@@ -98,4 +98,13 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping(path = "/users", params = "username")
+    public ResponseEntity<UserDto> getUserByUsername(@RequestParam String username) {
+        Optional<UserEntity> result = userService.getUserByUsername(username);
+        return result.map(userEntity -> {
+            UserDto userDto = userMapper.mapTo(userEntity);
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
 }

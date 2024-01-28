@@ -18,4 +18,6 @@ public interface UserService {
     UserEntity partialUpdate(Integer id, UserEntity userEntity);
 
     void delete(Integer id);
+
+    Optional<UserEntity> getUserByUsername(String username);
 }
