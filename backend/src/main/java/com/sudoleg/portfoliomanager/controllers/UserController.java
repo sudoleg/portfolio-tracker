@@ -1,8 +1,11 @@
 package com.sudoleg.portfoliomanager.controllers;
 
+import com.sudoleg.portfoliomanager.domain.dto.PortfolioDto;
 import com.sudoleg.portfoliomanager.domain.dto.UserDto;
+import com.sudoleg.portfoliomanager.domain.entities.PortfolioEntity;
 import com.sudoleg.portfoliomanager.domain.entities.UserEntity;
 import com.sudoleg.portfoliomanager.mappers.Mapper;
+import com.sudoleg.portfoliomanager.services.PortfolioService;
 import com.sudoleg.portfoliomanager.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,31 +23,52 @@ import java.util.stream.Collectors;
  * Optionally: returns answer.
  */
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
+    private final PortfolioService portfolioService;
 
     private final Mapper<UserEntity, UserDto> userMapper;
+    private final Mapper<PortfolioEntity, PortfolioDto> portfolioMapper;
 
-    public UserController(UserService userService, Mapper<UserEntity, UserDto> userMapper) {
+    public UserController(UserService userService, PortfolioService portfolioService, Mapper<UserEntity, UserDto> userMapper, Mapper<PortfolioEntity, PortfolioDto> portfolioMapper) {
         this.userService = userService;
+        this.portfolioService = portfolioService;
         this.userMapper = userMapper;
+        this.portfolioMapper = portfolioMapper;
     }
 
-    @PostMapping(path = "/users")
+    @PostMapping(path = "")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
         UserEntity userEntity = userMapper.mapFrom(user);
         UserEntity savedUser = userService.save(userEntity);
         return new ResponseEntity<>(userMapper.mapTo(savedUser), HttpStatus.CREATED);
     }
 
-    @GetMapping(path = "/users")
+    @PostMapping(path = "/{id}/portfolios")
+    public ResponseEntity<PortfolioDto> createPortfolioForUser(
+            @PathVariable Integer id,
+            @RequestBody PortfolioDto portfolioDto) {
+        Optional<UserEntity> userEntity = userService.findOne(id);
+        return userEntity.map(user -> {
+            PortfolioEntity portfolioEntity = portfolioMapper.mapFrom(portfolioDto);
+            portfolioEntity.setUserEntity(user);
+            PortfolioEntity saved = portfolioService.save(portfolioEntity);
+            PortfolioDto returnedPortfolioDto = portfolioMapper.mapTo(saved);
+            return new ResponseEntity<>(returnedPortfolioDto, HttpStatus.OK);
+        }).orElse(
+                new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        );
+    }
+
+    @GetMapping(path = "")
     public List<UserDto> listUsers() {
         List<UserEntity> users = userService.findAll();
         return users.stream().map(userMapper::mapTo).collect(Collectors.toList());
     }
 
-    @GetMapping(path = "/users/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("id") Integer id) {
         Optional<UserEntity> result = userService.findOne(id);
         return result.map(userEntity -> {
@@ -55,7 +79,7 @@ public class UserController {
         );
     }
 
-    @GetMapping(path = "/users", params = "username")
+    @GetMapping(path = "", params = "username")
     public ResponseEntity<UserDto> getUserByUsername(@RequestParam String username) {
         Optional<UserEntity> result = userService.getUserByUsername(username);
         return result.map(userEntity -> {
@@ -64,7 +88,7 @@ public class UserController {
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping(path = "/users/{id}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<UserDto> fullUpdateUser(
             @PathVariable Integer id,
             @RequestBody UserDto userDto
@@ -82,7 +106,7 @@ public class UserController {
         );
     }
 
-    @PatchMapping(path = "/users/{id}")
+    @PatchMapping(path = "/{id}")
     public ResponseEntity<UserDto> partialUpdateUser(
             @PathVariable Integer id,
             @RequestBody UserDto userDto
@@ -98,7 +122,7 @@ public class UserController {
         );
     }
 
-    @DeleteMapping(path = "/users/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity deleteUser(@PathVariable Integer id) {
         if (!userService.isExists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
