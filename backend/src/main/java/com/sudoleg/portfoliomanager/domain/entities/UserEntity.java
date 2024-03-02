@@ -11,16 +11,16 @@ import lombok.NoArgsConstructor;
  * The username and the email are unique.
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
-    private Integer userId;
+    private Integer id;
 
     @Column(unique = true)
     private String username;
@@ -31,5 +31,7 @@ public class UserEntity {
 
     @Column(unique = true)
     private String email;
+
+    private String password;
 
 }

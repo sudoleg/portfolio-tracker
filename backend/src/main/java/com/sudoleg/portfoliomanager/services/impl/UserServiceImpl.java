@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity partialUpdate(Integer id, UserEntity userEntity) {
-        userEntity.setUserId(id);
+        userEntity.setId(id);
         return userRepository.findById(id).map(existingUser -> {
             Optional.ofNullable(userEntity.getUsername()).ifPresent(existingUser::setUsername);
             Optional.ofNullable(userEntity.getName()).ifPresent(existingUser::setName);

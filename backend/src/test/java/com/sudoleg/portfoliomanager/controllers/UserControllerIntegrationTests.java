@@ -40,9 +40,9 @@ public class UserControllerIntegrationTests {
     }
 
     @Test
-    public void testUserCreationReturnsExpectedStatusCode() throws Exception {
+    public void testUserCreationReturns201Created() throws Exception {
         UserEntity userEntity = TestDataUtil.createTestUserA();
-        userEntity.setUserId(null);
+        userEntity.setId(null);
         String userJson = objectMapper.writeValueAsString(userEntity);
 
         mockMvc.perform(
@@ -57,7 +57,7 @@ public class UserControllerIntegrationTests {
     @Test
     public void testUserCreationReturnsSavedUSer() throws Exception {
         UserEntity testUserA = TestDataUtil.createTestUserA();
-        testUserA.setUserId(null);
+        testUserA.setId(null);
         String userJson = objectMapper.writeValueAsString(testUserA);
 
         mockMvc.perform(
@@ -65,7 +65,7 @@ public class UserControllerIntegrationTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userJson)
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.userId").isNumber()
+                MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.name").value(testUserA.getName())
         ).andExpect(
@@ -90,7 +90,7 @@ public class UserControllerIntegrationTests {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/users")
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("[0].userId").isNumber()
+                MockMvcResultMatchers.jsonPath("[0].id").isNumber()
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("[0].username").value(userA.getUsername())
         ).andExpect(
@@ -101,7 +101,7 @@ public class UserControllerIntegrationTests {
     @Test
     public void testGetUserByIdReturns404IfNotExist() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/users/1")
+                MockMvcRequestBuilders.get("/users/42")
         ).andExpect(
                 MockMvcResultMatchers.status().isNotFound()
         );
@@ -115,7 +115,7 @@ public class UserControllerIntegrationTests {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/users/1")
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.userId").isNumber()
+                MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.username").value(userA.getUsername())
         ).andExpect(
@@ -134,7 +134,7 @@ public class UserControllerIntegrationTests {
         String userJson = objectMapper.writeValueAsString(userDto);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.put("/users/" + savedUser.getUserId())
+                MockMvcRequestBuilders.put("/users/" + savedUser.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userJson)
         ).andExpect(
@@ -142,7 +142,7 @@ public class UserControllerIntegrationTests {
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.username").value(userDto.getUsername())
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.userId").value(userDto.getUserId())
+                MockMvcResultMatchers.jsonPath("$.id").value(userDto.getId())
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.email").value(userDto.getEmail())
         );
@@ -158,7 +158,7 @@ public class UserControllerIntegrationTests {
         String userDtoJson = objectMapper.writeValueAsString(testUserDto);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.patch("/users/" + savedUser.getUserId())
+                MockMvcRequestBuilders.patch("/users/" + savedUser.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userDtoJson)
         ).andExpect(MockMvcResultMatchers.status().isOk());
@@ -174,7 +174,7 @@ public class UserControllerIntegrationTests {
         String userDtoJson = objectMapper.writeValueAsString(testUserDto);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.patch("/users/" + savedUser.getUserId())
+                MockMvcRequestBuilders.patch("/users/" + savedUser.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userDtoJson)
         ).andExpect(
@@ -182,7 +182,7 @@ public class UserControllerIntegrationTests {
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.surname").value(savedUser.getSurname())
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.userId").value(savedUser.getUserId())
+                MockMvcResultMatchers.jsonPath("$.id").value(savedUser.getId())
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.email").value(savedUser.getEmail())
         );
@@ -194,12 +194,12 @@ public class UserControllerIntegrationTests {
         UserEntity savedUser = userService.save(userEntity);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.delete("/users/" + savedUser.getUserId())
+                MockMvcRequestBuilders.delete("/users/" + savedUser.getId())
         ).andExpect(
                 MockMvcResultMatchers.status().isNoContent()
         );
 
-        Optional<UserEntity> result = userService.findOne(userEntity.getUserId());
+        Optional<UserEntity> result = userService.findOne(userEntity.getId());
         assertThat(result).isEmpty();
     }
 

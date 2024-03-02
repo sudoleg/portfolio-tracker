@@ -12,7 +12,7 @@ public class TestDataUtil {
 
     public static UserEntity createTestUserA() {
         return UserEntity.builder()
-                .userId(1)
+                .id(1)
                 .username("johnd")
                 .name("John")
                 .surname("Doe")
@@ -22,7 +22,7 @@ public class TestDataUtil {
 
     public static UserDto createTestUserDtoA() {
         return UserDto.builder()
-                .userId(1)
+                .id(1)
                 .username("johnd")
                 .name("John")
                 .surname("Doe")
@@ -32,7 +32,7 @@ public class TestDataUtil {
 
     public static UserEntity createTestUserB() {
         return UserEntity.builder()
-                .userId(2)
+                .id(2)
                 .username("perterp")
                 .name("Peter")
                 .surname("Parker")
@@ -42,7 +42,7 @@ public class TestDataUtil {
 
     public static UserEntity createTestUserC() {
         return UserEntity.builder()
-                .userId(3)
+                .id(3)
                 .username("maryj")
                 .name("Mary")
                 .surname("Jane")
