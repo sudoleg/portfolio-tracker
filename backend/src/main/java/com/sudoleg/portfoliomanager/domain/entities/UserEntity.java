@@ -26,7 +26,7 @@ import java.util.List;
 public class UserEntity implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
+    @GeneratedValue
     private Integer id;
 
     @Column(unique = true)
@@ -66,6 +66,6 @@ public class UserEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

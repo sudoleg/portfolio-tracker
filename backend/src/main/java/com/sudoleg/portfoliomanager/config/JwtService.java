@@ -1,4 +1,4 @@
-package com.sudoleg.portfoliomanager.auth;
+package com.sudoleg.portfoliomanager.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -30,7 +30,7 @@ import java.util.function.Function;
 public class JwtService {
 
     @Value("${application.security.jwt.secret-key}")
-    private static String secretKey;
+    private String secretKey;
     @Value("${application.security.jwt.expiration}")
     private long jwtExpiration;
     @Value("${application.security.jwt.refresh-token.expiration}")
@@ -96,7 +96,7 @@ public class JwtService {
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
-                .parseClaimsJwt(jwt)
+                .parseClaimsJws(jwt)
                 .getBody();
     }
 

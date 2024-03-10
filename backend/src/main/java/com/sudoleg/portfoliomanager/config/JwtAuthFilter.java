@@ -1,4 +1,4 @@
-package com.sudoleg.portfoliomanager.auth;
+package com.sudoleg.portfoliomanager.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -47,14 +47,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization"); // Extracts the Authorization header.
+        final String jwt;
+        final String username;
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response); // Proceed without authentication if no valid Authorization header is present.
             return;
         }
 
-        final String jwt = authHeader.substring(7); // Extracts the JWT token from the header.
-        final String username = jwtService.extractUsername(jwt); // Extracts the username from the JWT.
+        jwt = authHeader.substring(7);
+        username = jwtService.extractUsername(jwt);
 
         // Checks if user details are not already set in the security context.
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -62,11 +64,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             // Validates the token and sets the user authentication in the security context.
             if (jwtService.isTokenValid(jwt, userDetails)) {
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
 
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
 
