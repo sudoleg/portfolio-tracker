@@ -30,7 +30,7 @@ public class UserEntityRepositoryIntegrationTests {
     public void testUserCreationAndRecall() {
         UserEntity userEntity = TestDataUtil.createTestUserA();
         underTest.save(userEntity);
-        Optional<UserEntity> result = underTest.findById(userEntity.getUserId());
+        Optional<UserEntity> result = underTest.findById(userEntity.getId());
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(userEntity);
     }
@@ -55,7 +55,7 @@ public class UserEntityRepositoryIntegrationTests {
         userEntityA.setEmail("john.doe@updated.com");
         underTest.save(userEntityA);
 
-        Optional<UserEntity> updatedUserA = underTest.findById(userEntityA.getUserId());
+        Optional<UserEntity> updatedUserA = underTest.findById(userEntityA.getId());
         assertThat(updatedUserA).isPresent();
         assertThat(updatedUserA.get()).isEqualTo(userEntityA);
         assertThat(updatedUserA.get().getEmail()).isEqualTo("john.doe@updated.com");
@@ -66,8 +66,8 @@ public class UserEntityRepositoryIntegrationTests {
         UserEntity userEntityA = TestDataUtil.createTestUserA();
         underTest.save(userEntityA);
 
-        underTest.deleteById(userEntityA.getUserId());
-        Optional<UserEntity> result = underTest.findById(userEntityA.getUserId());
+        underTest.deleteById(userEntityA.getId());
+        Optional<UserEntity> result = underTest.findById(userEntityA.getId());
         assertThat(result).isEmpty();
     }
 
