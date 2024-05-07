@@ -2,6 +2,13 @@
 
 I created this portfolio manager to practice my skills and gain experience in web development. This portfolio manager allows users to create an account with multiple portfolios. Portfolios can contain various securities like stocks, ETFs and bonds. Users can place orders to buy and sell securities. The app also provides overview pages for portfolios and orders.
 
+## Backend
+
+### API docs
+
+- OpenAPI descriptions are available under http://localhost:8080/api-docs
+- The Swagger UI is available under http://localhost:8080/swagger.html
+
 ## Used technologies and tutorials
 
 ### Technologies/Frameworks
