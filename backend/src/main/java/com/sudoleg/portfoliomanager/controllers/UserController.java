@@ -39,29 +39,6 @@ public class UserController {
         this.portfolioMapper = portfolioMapper;
     }
 
-    @PostMapping(path = "")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
-        UserEntity userEntity = userMapper.mapFromDto(user);
-        UserEntity savedUser = userService.save(userEntity);
-        return new ResponseEntity<>(userMapper.mapToDto(savedUser), HttpStatus.CREATED);
-    }
-
-    @PostMapping(path = "/{id}/portfolios")
-    public ResponseEntity<PortfolioDto> createPortfolioForUser(
-            @PathVariable Integer id,
-            @RequestBody PortfolioDto portfolioDto) {
-        Optional<UserEntity> userEntity = userService.findOne(id);
-        return userEntity.map(user -> {
-            PortfolioEntity portfolioEntity = portfolioMapper.mapFromDto(portfolioDto);
-            portfolioEntity.setUserEntity(user);
-            PortfolioEntity saved = portfolioService.save(portfolioEntity);
-            PortfolioDto returnedPortfolioDto = portfolioMapper.mapToDto(saved);
-            return new ResponseEntity<>(returnedPortfolioDto, HttpStatus.OK);
-        }).orElse(
-                new ResponseEntity<>(HttpStatus.NOT_FOUND)
-        );
-    }
-
     @GetMapping(path = "")
     public List<UserDto> listUsers() {
         List<UserEntity> users = userService.findAll();
@@ -86,6 +63,13 @@ public class UserController {
             UserDto userDto = userMapper.mapToDto(userEntity);
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PostMapping(path = "")
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
+        UserEntity userEntity = userMapper.mapFromDto(user);
+        UserEntity savedUser = userService.save(userEntity);
+        return new ResponseEntity<>(userMapper.mapToDto(savedUser), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/{id}")
