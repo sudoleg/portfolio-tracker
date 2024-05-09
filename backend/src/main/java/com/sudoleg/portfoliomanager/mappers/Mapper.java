@@ -2,8 +2,8 @@ package com.sudoleg.portfoliomanager.mappers;
 
 public interface Mapper<A, B> {
 
-    B mapTo(A a);
+    B mapToDto(A a);
 
-    A mapFrom(B b);
+    A mapFromDto(B b);
 
 }

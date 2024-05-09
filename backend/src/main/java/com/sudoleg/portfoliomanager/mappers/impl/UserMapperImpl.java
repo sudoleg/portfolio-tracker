@@ -20,7 +20,7 @@ public class UserMapperImpl implements Mapper<UserEntity, UserDto> {
      * Maps from a user entity to user DTO.
      */
     @Override
-    public UserDto mapTo(UserEntity userEntity) {
+    public UserDto mapToDto(UserEntity userEntity) {
 
         return modelMapper.map(userEntity, UserDto.class);
     }
@@ -29,7 +29,7 @@ public class UserMapperImpl implements Mapper<UserEntity, UserDto> {
      * Maps from a user DTO to user entity.
      */
     @Override
-    public UserEntity mapFrom(UserDto userDto) {
+    public UserEntity mapFromDto(UserDto userDto) {
         return modelMapper.map(userDto, UserEntity.class);
     }
 

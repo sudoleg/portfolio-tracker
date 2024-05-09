@@ -41,9 +41,9 @@ public class UserController {
 
     @PostMapping(path = "")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
-        UserEntity userEntity = userMapper.mapFrom(user);
+        UserEntity userEntity = userMapper.mapFromDto(user);
         UserEntity savedUser = userService.save(userEntity);
-        return new ResponseEntity<>(userMapper.mapTo(savedUser), HttpStatus.CREATED);
+        return new ResponseEntity<>(userMapper.mapToDto(savedUser), HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/{id}/portfolios")
@@ -52,10 +52,10 @@ public class UserController {
             @RequestBody PortfolioDto portfolioDto) {
         Optional<UserEntity> userEntity = userService.findOne(id);
         return userEntity.map(user -> {
-            PortfolioEntity portfolioEntity = portfolioMapper.mapFrom(portfolioDto);
+            PortfolioEntity portfolioEntity = portfolioMapper.mapFromDto(portfolioDto);
             portfolioEntity.setUserEntity(user);
             PortfolioEntity saved = portfolioService.save(portfolioEntity);
-            PortfolioDto returnedPortfolioDto = portfolioMapper.mapTo(saved);
+            PortfolioDto returnedPortfolioDto = portfolioMapper.mapToDto(saved);
             return new ResponseEntity<>(returnedPortfolioDto, HttpStatus.OK);
         }).orElse(
                 new ResponseEntity<>(HttpStatus.NOT_FOUND)
@@ -65,14 +65,14 @@ public class UserController {
     @GetMapping(path = "")
     public List<UserDto> listUsers() {
         List<UserEntity> users = userService.findAll();
-        return users.stream().map(userMapper::mapTo).collect(Collectors.toList());
+        return users.stream().map(userMapper::mapToDto).collect(Collectors.toList());
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("id") Integer id) {
         Optional<UserEntity> result = userService.findOne(id);
         return result.map(userEntity -> {
-            UserDto userDto = userMapper.mapTo(userEntity);
+            UserDto userDto = userMapper.mapToDto(userEntity);
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         }).orElse(
                 new ResponseEntity<>(HttpStatus.NOT_FOUND)
@@ -83,7 +83,7 @@ public class UserController {
     public ResponseEntity<UserDto> getUserByUsername(@RequestParam String username) {
         Optional<UserEntity> result = userService.getUserByUsername(username);
         return result.map(userEntity -> {
-            UserDto userDto = userMapper.mapTo(userEntity);
+            UserDto userDto = userMapper.mapToDto(userEntity);
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -98,11 +98,11 @@ public class UserController {
         }
 
         userDto.setId(id);
-        UserEntity userEntity = userMapper.mapFrom(userDto);
+        UserEntity userEntity = userMapper.mapFromDto(userDto);
 
         UserEntity savedUserEntity = userService.save(userEntity);
         return new ResponseEntity<>(
-                userMapper.mapTo(savedUserEntity), HttpStatus.OK
+                userMapper.mapToDto(savedUserEntity), HttpStatus.OK
         );
     }
 
@@ -115,10 +115,10 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        UserEntity userEntity = userMapper.mapFrom(userDto);
+        UserEntity userEntity = userMapper.mapFromDto(userDto);
         UserEntity updatedUserEntity = userService.partialUpdate(id, userEntity);
         return new ResponseEntity<>(
-                userMapper.mapTo(updatedUserEntity), HttpStatus.OK
+                userMapper.mapToDto(updatedUserEntity), HttpStatus.OK
         );
     }
 

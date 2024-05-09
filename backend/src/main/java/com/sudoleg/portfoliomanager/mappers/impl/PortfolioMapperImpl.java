@@ -16,12 +16,12 @@ public class PortfolioMapperImpl implements Mapper<PortfolioEntity, PortfolioDto
     }
 
     @Override
-    public PortfolioDto mapTo(PortfolioEntity portfolio) {
+    public PortfolioDto mapToDto(PortfolioEntity portfolio) {
         return modelMapper.map(portfolio, PortfolioDto.class);
     }
 
     @Override
-    public PortfolioEntity mapFrom(PortfolioDto portfolio) {
+    public PortfolioEntity mapFromDto(PortfolioDto portfolio) {
         return modelMapper.map(portfolio, PortfolioEntity.class);
     }
 

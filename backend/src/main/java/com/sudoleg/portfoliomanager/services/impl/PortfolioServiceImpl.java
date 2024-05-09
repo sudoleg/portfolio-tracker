@@ -1,8 +1,12 @@
 package com.sudoleg.portfoliomanager.services.impl;
 
+import com.sudoleg.portfoliomanager.domain.dto.PortfolioDto;
 import com.sudoleg.portfoliomanager.domain.entities.PortfolioEntity;
+import com.sudoleg.portfoliomanager.domain.entities.UserEntity;
 import com.sudoleg.portfoliomanager.repositories.PortfolioRepository;
+import com.sudoleg.portfoliomanager.repositories.UserRepository;
 import com.sudoleg.portfoliomanager.services.PortfolioService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +18,11 @@ import java.util.stream.StreamSupport;
 public class PortfolioServiceImpl implements PortfolioService {
 
     private PortfolioRepository portfolioRepository;
+    private UserRepository userRepository;
 
-    public PortfolioServiceImpl(PortfolioRepository portfolioRepository) {
+    public PortfolioServiceImpl(PortfolioRepository portfolioRepository, UserRepository userRepository) {
         this.portfolioRepository = portfolioRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -57,4 +63,16 @@ public class PortfolioServiceImpl implements PortfolioService {
         portfolioRepository.deleteById(id);
     }
 
+    @Override
+    public PortfolioEntity createPortfolio(PortfolioDto requestDTO) {
+        UserEntity userEntity = userRepository.findById(requestDTO.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException("User not found!"));
+
+        PortfolioEntity portfolioEntity = PortfolioEntity.builder()
+                .name(requestDTO.getName())
+                .userEntity(userEntity)
+                .build();
+
+        return portfolioRepository.save(portfolioEntity);
+    }
 }

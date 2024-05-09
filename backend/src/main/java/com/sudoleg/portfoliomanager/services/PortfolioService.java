@@ -1,5 +1,6 @@
 package com.sudoleg.portfoliomanager.services;
 
+import com.sudoleg.portfoliomanager.domain.dto.PortfolioDto;
 import com.sudoleg.portfoliomanager.domain.entities.PortfolioEntity;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface PortfolioService {
     PortfolioEntity partialUpdate(Integer id, PortfolioEntity portfolioEntity);
 
     void delete(Integer id);
+
+    PortfolioEntity createPortfolio(PortfolioDto requestDTO);
 }
