@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/portfolios")
 public class PortfolioController {
 
     private PortfolioService portfolioService;
@@ -24,21 +25,13 @@ public class PortfolioController {
         this.portfolioMapper = portfolioMapper;
     }
 
-    @PostMapping(path = "/portfolios")
-    public ResponseEntity<PortfolioDto> createPortfolio(
-            @RequestBody PortfolioDto portfolioDto
-    ) {
-        PortfolioEntity savedPortfolio = portfolioService.createPortfolio(portfolioDto);
-        return new ResponseEntity<>(portfolioMapper.mapToDto(savedPortfolio), HttpStatus.CREATED);
-    }
-
-    @GetMapping(path = "/portfolios")
+    @GetMapping(path = "")
     public List<PortfolioDto> getAllPortfolios() {
         List<PortfolioEntity> portfolioEntities = portfolioService.findAll();
         return portfolioEntities.stream().map(portfolioMapper::mapToDto).collect(Collectors.toList());
     }
 
-    @GetMapping(path = "/portfolios/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<PortfolioDto> getPortfolioById(@PathVariable Integer id) {
         Optional<PortfolioEntity> result = portfolioService.findOne(id);
         return result.map(portfolioEntity -> {
@@ -49,7 +42,15 @@ public class PortfolioController {
         );
     }
 
-    @PutMapping(path = "/portfolios/{id}")
+    @PostMapping(path = "")
+    public ResponseEntity<PortfolioDto> createPortfolio(
+            @RequestBody PortfolioDto portfolioDto
+    ) {
+        PortfolioEntity savedPortfolio = portfolioService.createPortfolio(portfolioDto);
+        return new ResponseEntity<>(portfolioMapper.mapToDto(savedPortfolio), HttpStatus.CREATED);
+    }
+
+    @PutMapping(path = "/{id}")
     public ResponseEntity<PortfolioDto> fullUpdatePortfolio(
             @PathVariable Integer id,
             @RequestBody PortfolioDto portfolioDto
@@ -65,7 +66,7 @@ public class PortfolioController {
         return new ResponseEntity<>(portfolioMapper.mapToDto(saved), HttpStatus.OK);
     }
 
-    @PatchMapping(path = "/portfolios/{id}")
+    @PatchMapping(path = "/{id}")
     public ResponseEntity<PortfolioDto> partialUpdatePortfolio(
             @PathVariable Integer id,
             @RequestBody PortfolioDto portfolioDto
@@ -80,7 +81,7 @@ public class PortfolioController {
         return new ResponseEntity<>(portfolioMapper.mapToDto(updatedPortfolioEntity), HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/portfolios/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity deletePortfolio(@PathVariable Integer id) {
         if (!portfolioService.isExists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
