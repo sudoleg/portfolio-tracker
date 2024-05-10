@@ -13,6 +13,8 @@ public interface UserService {
 
     Optional<UserEntity> findOne(Integer id);
 
+    Optional<UserEntity> findByIdentifier(String identifier);
+
     boolean isExists(Integer id);
 
     UserEntity partialUpdate(Integer id, UserEntity userEntity);

@@ -51,6 +51,21 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id);
     }
 
+
+    /**
+     * Find user by identifier (username or email).
+     */
+    @Override
+    public Optional<UserEntity> findByIdentifier(String identifier) {
+        Optional<UserEntity> userEntity = userRepository.findByUsername(identifier);
+
+        if (userEntity.isEmpty()) {
+            userEntity = userRepository.findByEmail(identifier);
+        }
+
+        return userEntity;
+    }
+
     @Override
     public boolean isExists(Integer id) {
         return userRepository.existsById(id);
