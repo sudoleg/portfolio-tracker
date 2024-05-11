@@ -15,8 +15,8 @@ import java.util.Optional;
 @RequestMapping("/portfolios")
 public class PortfolioController {
 
-    private PortfolioService portfolioService;
-    private Mapper<PortfolioEntity, PortfolioDto> portfolioMapper;
+    private final PortfolioService portfolioService;
+    private final Mapper<PortfolioEntity, PortfolioDto> portfolioMapper;
 
     public PortfolioController(PortfolioService portfolioService, Mapper<PortfolioEntity, PortfolioDto> portfolioMapper) {
         this.portfolioService = portfolioService;
