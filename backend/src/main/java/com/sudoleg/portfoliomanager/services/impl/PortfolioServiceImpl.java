@@ -75,4 +75,11 @@ public class PortfolioServiceImpl implements PortfolioService {
 
         return portfolioRepository.save(portfolioEntity);
     }
+
+    @Override
+    public List<PortfolioEntity> getUsersPortfolios(Integer userId) {
+        UserEntity userEntity = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found!"));
+        return portfolioRepository.findByUserEntity_Id(userId);
+    }
 }

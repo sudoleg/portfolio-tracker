@@ -10,14 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/portfolios")
 public class PortfolioController {
 
     private PortfolioService portfolioService;
-
     private Mapper<PortfolioEntity, PortfolioDto> portfolioMapper;
 
     public PortfolioController(PortfolioService portfolioService, Mapper<PortfolioEntity, PortfolioDto> portfolioMapper) {
@@ -25,11 +23,6 @@ public class PortfolioController {
         this.portfolioMapper = portfolioMapper;
     }
 
-    @GetMapping(path = "")
-    public List<PortfolioDto> getAllPortfolios() {
-        List<PortfolioEntity> portfolioEntities = portfolioService.findAll();
-        return portfolioEntities.stream().map(portfolioMapper::mapToDto).collect(Collectors.toList());
-    }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<PortfolioDto> getPortfolioById(@PathVariable Integer id) {
@@ -40,6 +33,29 @@ public class PortfolioController {
         }).orElse(
                 new ResponseEntity<>(HttpStatus.NOT_FOUND)
         );
+    }
+
+    /**
+     * Retrieve all portfolios. If userId is provided (as request parameter),
+     * only portfolios owned by a user are returned.
+     * Else all existing portfolios are returned.
+     *
+     * @return List of portfolios
+     */
+    @GetMapping(path = "")
+    public ResponseEntity<List<PortfolioDto>> getAllPortfolios(
+            @RequestParam(value = "userId", required = false) Integer userId
+    ) {
+        List<PortfolioEntity> portfolioEntities;
+
+        if (userId != null) {
+            portfolioEntities = portfolioService.getUsersPortfolios(userId);
+        } else {
+            portfolioEntities = portfolioService.findAll();
+        }
+
+        List<PortfolioDto> portfolioDTOs = portfolioEntities.stream().map(portfolioMapper::mapToDto).toList();
+        return new ResponseEntity<>(portfolioDTOs, HttpStatus.OK);
     }
 
     @PostMapping(path = "")
@@ -82,12 +98,12 @@ public class PortfolioController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity deletePortfolio(@PathVariable Integer id) {
+    public ResponseEntity<?> deletePortfolio(@PathVariable Integer id) {
         if (!portfolioService.isExists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         portfolioService.delete(id);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

@@ -21,4 +21,6 @@ public interface PortfolioService {
     void delete(Integer id);
 
     PortfolioEntity createPortfolio(PortfolioDto requestDTO);
+
+    List<PortfolioEntity> getUsersPortfolios(Integer userId);
 }
