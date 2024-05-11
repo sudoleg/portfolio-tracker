@@ -27,16 +27,11 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
-    private final PortfolioService portfolioService;
-
     private final Mapper<UserEntity, UserDto> userMapper;
-    private final Mapper<PortfolioEntity, PortfolioDto> portfolioMapper;
 
     public UserController(UserService userService, PortfolioService portfolioService, Mapper<UserEntity, UserDto> userMapper, Mapper<PortfolioEntity, PortfolioDto> portfolioMapper) {
         this.userService = userService;
-        this.portfolioService = portfolioService;
         this.userMapper = userMapper;
-        this.portfolioMapper = portfolioMapper;
     }
 
     @GetMapping(path = "")
