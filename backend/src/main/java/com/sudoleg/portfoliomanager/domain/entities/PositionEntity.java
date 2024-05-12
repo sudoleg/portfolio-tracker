@@ -33,6 +33,6 @@ public class PositionEntity {
     private FinancialInstrumentEntity financialInstrumentEntity;
 
     @Column(nullable = false)
-    private double purchasePrice;
+    private Double purchasePrice;
 
 }
