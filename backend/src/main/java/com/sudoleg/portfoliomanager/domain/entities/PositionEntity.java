@@ -30,7 +30,7 @@ public class PositionEntity {
 
     @ManyToOne
     @JoinColumn(name = "financial_instrument_id", nullable = false)
-    private FinancialInstrument financialInstrument;
+    private FinancialInstrumentEntity financialInstrumentEntity;
 
     @Column(nullable = false)
     private double purchasePrice;

@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "financial_instruments")
-public class FinancialInstrument {
+public class FinancialInstrumentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
