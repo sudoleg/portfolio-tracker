@@ -4,7 +4,9 @@ import com.sudoleg.portfoliomanager.domain.dto.PositionDto;
 import com.sudoleg.portfoliomanager.domain.entities.PositionEntity;
 import com.sudoleg.portfoliomanager.mappers.Mapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PositionMapperImpl implements Mapper<PositionEntity, PositionDto> {
 
     private final ModelMapper modelMapper;
