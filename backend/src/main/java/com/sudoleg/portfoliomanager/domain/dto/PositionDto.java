@@ -16,7 +16,7 @@ public class PositionDto {
     private Long id;
 
     @Schema(description = "Reference to portfolio (by it's ID)", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-    private Long portfolioId;
+    private Integer portfolioId;
 
     @Schema(description = "Quantity", example = "42", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private Integer quantity;
