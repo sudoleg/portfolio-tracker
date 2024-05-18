@@ -11,12 +11,6 @@ import { CommonModule } from '@angular/common';
 })
 export class UsersComponent {
 
-  user: User = {
-    id: 1,
-    username: "tonys",
-    firstName: "Tony",
-    lastName: "Stark",
-    email: "tony.stark@marvel.com"
-  }
+  users: User[] = []
 
 }
