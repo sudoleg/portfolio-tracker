@@ -33,9 +33,9 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Override
     public List<PortfolioEntity> findAll() {
         return StreamSupport.stream(portfolioRepository
-                                .findAll()
-                                .spliterator(),
-                        false)
+                .findAll()
+                .spliterator(),
+                false)
                 .collect(Collectors.toList());
     }
 
@@ -78,8 +78,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     @Override
     public List<PortfolioEntity> getUsersPortfolios(Integer userId) {
-        UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found!"));
+        userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found!"));
         return portfolioRepository.findByUserEntity_Id(userId);
     }
 }
