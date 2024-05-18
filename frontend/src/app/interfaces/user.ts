@@ -1,7 +1,7 @@
 export interface User {
-    id: number,
+    readonly id?: number,
     username: string,
-    firstName: string,
-    lastName: string,
+    name: string,
+    surname: string,
     email: string
 }

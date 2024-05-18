@@ -14,8 +14,8 @@ export class UserDetailsComponent {
   user: User = {
     id: 1,
     username: "tonys",
-    firstName: "Tony",
-    lastName: "Stark",
+    name: "Tony",
+    surname: "Stark",
     email: "tony.stark@marvel.com"
   }
 
