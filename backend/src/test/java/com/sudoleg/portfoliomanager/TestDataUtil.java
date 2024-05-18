@@ -62,7 +62,7 @@ public class TestDataUtil {
         return PortfolioDto.builder()
                 .portfolioId(1)
                 .name("foo")
-                .user(userDto)
+                .userId(userDto.getId())
                 .build();
     }
 
