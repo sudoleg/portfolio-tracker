@@ -8,6 +8,7 @@
     /* Allow horizontal scrolling if necessary */
     padding: 1rem;
     background-color: rgb(236, 230, 227);
+    border-radius: 8px;
 }
 
 .portfolio-card {
