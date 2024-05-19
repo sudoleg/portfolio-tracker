@@ -1,0 +1,50 @@
+.securities-container {
+    display: grid;
+    /* Changed from flex to grid */
+    grid-template-columns: repeat(4, minmax(250px, 1fr));
+    /* Adjust this to fit 4 items per row */
+    gap: 3rem;
+    padding: 2rem;
+    background-color: rgb(236, 230, 227);
+    justify-items: center;
+    /* This can be kept if you want to center the content of each cell */
+    border-radius: 8px;
+}
+
+.security-card {
+    background-color: rgb(206, 191, 182);
+    border: 1px solid rgb(193, 177, 166);
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    /* Ensure cards take full width within the grid */
+    max-width: 300px;
+    /* Optional: set a maximum width for the cards */
+}
+
+.security-info h3 {
+    margin: 0;
+    color: rgb(154, 160, 163);
+}
+
+.security-info p {
+    margin: 0.5rem 0;
+    color: rgb(141, 152, 141);
+}
+
+.add-to-portfolio-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(154, 160, 163);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-portfolio-btn:hover {
+    background-color: rgb(141, 152, 141);
+}

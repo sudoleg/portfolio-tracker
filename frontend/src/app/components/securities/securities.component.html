@@ -1,0 +1,10 @@
+<div class="securities-container">
+    <div class="security-card" *ngFor="let security of securities">
+        <div class="security-info">
+            <h3>{{ security.name }}</h3>
+            <p><strong>ISIN:</strong> {{ security.isin }}</p>
+            <p>{{ security.description }}</p>
+        </div>
+        <button class="add-to-portfolio-btn" (click)="addToPortfolio(security)">Add to portfolio</button>
+    </div>
+</div>
