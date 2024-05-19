@@ -1,0 +1,46 @@
+.users-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    justify-content: center;
+    padding: 2rem;
+    background-color: rgb(236, 230, 227);
+    max-width: 1200px;
+    /* Optional: set a maximum width for the grid */
+    width: 100%;
+    /* Make sure the container takes full width */
+}
+
+.user-card {
+    background-color: rgb(206, 191, 182);
+    border: 1px solid rgb(193, 177, 166);
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-info h3 {
+    margin: 0;
+    color: rgb(154, 160, 163);
+}
+
+.user-info p {
+    margin: 0.5rem 0;
+    color: rgb(141, 152, 141);
+}
+
+.impersonate-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(154, 160, 163);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.impersonate-btn:hover {
+    background-color: rgb(141, 152, 141);
+}
