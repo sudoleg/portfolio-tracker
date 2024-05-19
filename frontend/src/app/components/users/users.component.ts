@@ -1,7 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { User } from '../../interfaces/user';
 import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { User } from '../../interfaces/user';
 import { UserService } from '../../services/user.service';
+import { ImpersonationService } from '../../services/impersonation.service';
 
 @Component({
   selector: 'app-users',
@@ -13,12 +14,15 @@ import { UserService } from '../../services/user.service';
 export class UsersComponent {
 
   users: User[] = []
-  userService: UserService = inject(UserService)
 
-  constructor() {
-    this.userService.getUsers().subscribe(users => {
+  constructor(private userService: UserService, private impersonationService: ImpersonationService) {
+    userService.getUsers().subscribe(users => {
       this.users = users;
     });
+  }
+
+  impersonateUser(userId: number) {
+    this.impersonationService.setImpersonatedUserId(userId)
   }
 
 }

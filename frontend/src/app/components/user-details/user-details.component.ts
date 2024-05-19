@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { User } from '../../interfaces/user';
 import { CommonModule } from '@angular/common';
+import { ImpersonationService } from '../../services/impersonation.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-details',
@@ -11,12 +13,25 @@ import { CommonModule } from '@angular/common';
 })
 export class UserDetailsComponent {
 
-  user: User = {
-    id: 1,
-    username: "tonys",
-    name: "Tony",
-    surname: "Stark",
-    email: "tony.stark@marvel.com"
+  impersonatedUser: User | null = null
+  impersonatedUserId: number | null = null
+
+  constructor(
+    private impersonationService: ImpersonationService,
+    private userService: UserService,
+    private cd: ChangeDetectorRef
+  ) {
+    this.impersonatedUserId = impersonationService.getImpersonatedUserId()
+    if (this.impersonatedUserId != null) {
+      userService.getUser(this.impersonatedUserId).subscribe(
+        user => this.impersonatedUser = user)
+    }
+  }
+
+  clearImpersonation(): void {
+    this.impersonationService.clearImpersonatedUserId();
+    this.impersonatedUser = null;
+    this.cd.detectChanges(); // Trigger change detection
   }
 
 }
