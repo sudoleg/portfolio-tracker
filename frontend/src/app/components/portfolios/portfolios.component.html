@@ -1,10 +1,12 @@
-<div *ngIf="portfolios.length != 0; else noPortfoliosPresent" class="portfolios-container">
+<div class="portfolios-container">
     <div class="portfolio-card" *ngFor="let portfolio of portfolios" (click)="selectPortfolio(portfolio)">
         <div class="portfolio-info">
             <h3>{{ portfolio.name }}</h3>
         </div>
     </div>
+    <!-- New Portfolio Input Tile -->
+    <div class="new-portfolio-card">
+        <input type="text" placeholder="Enter portfolio name" class="new-portfolio-input">
+        <button class="add-to-portfolio-btn">Add New</button>
+    </div>
 </div>
-<ng-template #noPortfoliosPresent>
-    <p>You don't have any portfolios yet!</p>
-</ng-template>

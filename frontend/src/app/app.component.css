@@ -11,10 +11,14 @@ body {
 
 .content {
     display: flex;
-    justify-content: center;
-    /* Center horizontally */
+    flex-direction: row;
+    /* Ensure side-by-side layout */
+    justify-content: flex-start;
+    /* Align content to the left */
     align-items: flex-start;
     /* Align items to the top */
     padding-top: 70px;
     /* Adjust based on the height of your navbar */
+    height: calc(100vh - 70px);
+    /* Full height minus navbar */
 }

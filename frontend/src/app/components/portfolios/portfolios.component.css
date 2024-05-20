@@ -1,14 +1,18 @@
 .portfolios-container {
     display: flex;
-    justify-content: center;
-    /* Center the container within its parent */
+    flex-direction: column;
+    justify-content: flex-start;
+    /* Align content to the top */
     align-items: center;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    /* Allow horizontal scrolling if necessary */
+    /* Center items horizontally */
     padding: 1rem;
+    margin-left: 20px;
+    /* Margin to the left edge of the screen */
+    width: 300px;
+    /* Set a fixed width or max-width as needed */
     background-color: rgb(236, 230, 227);
     border-radius: 8px;
+
 }
 
 .portfolio-card {
@@ -18,23 +22,73 @@
     text-align: center;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-right: 1rem;
+    margin-bottom: 1rem;
     /* Space between cards */
+    width: 100%;
+    /* Ensure all cards are of equal width */
     cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.portfolio-card:last-child {
-    margin-right: 0;
-    /* Remove margin from the last card */
+    transition: box-shadow 0.3s ease, transform 0.2s ease, background-color 0.3s ease;
 }
 
 .portfolio-card:hover {
-    transform: translateY(-5px);
-    /* Slight lift on hover */
+    background-color: rgb(226, 211, 202);
+    /* Lighter shade for hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    /* More pronounced shadow */
+}
+
+.portfolio-card:active {
+    transform: scale(0.97);
+    /* Slight shrink to mimic a button press */
+}
+
+.portfolio-card:last-child {
+    margin-bottom: 0;
+    /* Remove margin from the last card */
 }
 
 .portfolio-info h3 {
     margin: 0;
     color: rgb(154, 160, 163);
+}
+
+.new-portfolio-card {
+    background-color: rgb(206, 191, 182);
+    border: 1px solid rgb(193, 177, 166);
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    /* Ensure alignment with other cards */
+    margin-bottom: 1rem;
+    /* Consistent spacing */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Space between the input and button */
+    align-items: center;
+}
+
+.new-portfolio-input {
+    width: 90%;
+    /* Adjust based on your preference */
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.add-to-portfolio-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(154, 160, 163);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.add-to-portfolio-btn:hover {
+    background-color: rgb(141, 152, 141);
 }

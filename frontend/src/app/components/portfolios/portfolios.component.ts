@@ -26,8 +26,6 @@ export class PortfoliosComponent {
       this.portfolioService.getPortfolios(userId).subscribe(
         portfolios => this.portfolios = portfolios
       )
-    } else {
-      throw new Error("Impersonate a user to fetch portfolios!")
     }
   }
 
