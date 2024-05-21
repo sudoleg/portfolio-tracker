@@ -5,8 +5,48 @@ import { PortfoliosComponent } from './components/portfolios/portfolios.componen
 import { SecuritiesComponent } from './components/securities/securities.component';
 
 export const routes: Routes = [
-    { path: 'users', component: UsersComponent, title: "Users" },
-    { path: 'profile', component: UserDetailsComponent, title: "Profile" },
-    { path: 'portfolios', component: PortfoliosComponent, title: "Portfolios" },
-    { path: 'securities', component: SecuritiesComponent, title: "Securities" }
+    {
+        path: 'users',
+        children: [
+            {
+                path: '',
+                component: UsersComponent,
+                outlet: 'primary'
+            }
+        ],
+        title: "Users"
+    },
+    {
+        path: 'profile',
+        children: [
+            {
+                path: '',
+                component: UserDetailsComponent,
+                outlet: 'primary'
+            }
+        ],
+        title: "Profile"
+    },
+    {
+        path: 'portfolios',
+        children: [
+            {
+                path: '',
+                component: PortfoliosComponent,
+                outlet: "leftAside"
+            }
+        ],
+        title: "Portfolios"
+    },
+    {
+        path: 'securities',
+        children: [
+            {
+                path: '',
+                component: SecuritiesComponent,
+                outlet: "primary"
+            }
+        ],
+        title: "Securities"
+    }
 ];

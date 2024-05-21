@@ -1,24 +1,41 @@
-.content {
-    padding-top: 60px;
-    /* Adjust based on navbar height */
-}
-
+html,
 body {
+    height: 100%;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
 }
 
-.content {
+.container {
     display: flex;
-    flex-direction: row;
-    /* Ensure side-by-side layout */
-    justify-content: flex-start;
-    /* Align content to the left */
-    align-items: flex-start;
-    /* Align items to the top */
-    padding-top: 70px;
-    /* Adjust based on the height of your navbar */
-    height: calc(100vh - 70px);
-    /* Full height minus navbar */
+    flex-direction: column;
+    /* Full viewport height */
+    height: 100vh;
+    width: 60vw;
+    margin: auto;
+}
+
+header,
+footer {
+    text-align: center;
+}
+
+.layout-wrapper {
+    display: flex;
+    /* Take up remaining space */
+    flex: 1;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.left-aside,
+.right-aside {
+    width: 15%;
+    min-height: 100%;
+}
+
+footer {
+    width: 100%;
+    padding: 10px 0;
+    /* Pushes footer to the bottom */
+    margin-top: auto;
 }

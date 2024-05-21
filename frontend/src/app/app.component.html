@@ -1,4 +1,35 @@
-<app-nav-bar></app-nav-bar>
-<div class="content">
-    <router-outlet></router-outlet>
+<div class="container">
+    <!-- Header -->
+    <header>
+        <h1>Portfolio Tracker</h1>
+    </header>
+
+    <!-- Navbar -->
+    <nav>
+        <app-nav-bar></app-nav-bar>
+    </nav>
+
+    <!-- Main Layout Wrapper -->
+    <div class="layout-wrapper">
+
+        <!-- Left Aside -->
+        <aside class="left-aside">
+            <router-outlet name="leftAside"></router-outlet> <!-- Named outlet for the left aside -->
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            <router-outlet></router-outlet> <!-- Default outlet for main content -->
+        </main>
+
+        <!-- Right Aside -->
+        <aside class="right-aside">
+            <router-outlet name="rightAside"></router-outlet> <!-- Named outlet for the right aside -->
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Copyright © Oleg Korznikov 2024</p>
+    </footer>
 </div>

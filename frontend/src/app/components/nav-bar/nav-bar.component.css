@@ -1,8 +1,4 @@
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,6 +9,7 @@
     z-index: 1000;
     box-sizing: border-box;
     /* Ensure padding is included in the width calculation */
+    border-radius: 8px;
 }
 
 .nav-left {

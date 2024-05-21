@@ -5,10 +5,8 @@
     justify-content: center;
     padding: 2rem;
     background-color: rgb(236, 230, 227);
-    max-width: 1200px;
-    /* Optional: set a maximum width for the grid */
-    width: 100%;
     /* Make sure the container takes full width */
+    width: 100%;
 }
 
 .user-card {
