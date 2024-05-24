@@ -1,8 +1,10 @@
 <div class="portfolios-container">
-    <div class="portfolio-card" *ngFor="let portfolio of portfolios" (click)="selectPortfolio(portfolio)">
-        <div class="portfolio-info">
-            <h3>{{ portfolio.name }}</h3>
-        </div>
+    <div class="portfolio-card" *ngFor="let portfolio of portfolios">
+        <a [routerLink]="['/portfolios', portfolio.portfolioId]" class="portfolio-link">
+            <div class="portfolio-info">
+                {{ portfolio.name }}
+            </div>
+        </a>
     </div>
     <!-- New Portfolio Input Tile -->
     <div class="new-portfolio-card">
