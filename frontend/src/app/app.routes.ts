@@ -6,6 +6,7 @@ import { SecuritiesComponent } from './components/securities/securities.componen
 import { PositionsComponent } from './components/positions/positions.component';
 
 export const routes: Routes = [
+    { path: '', redirectTo: 'users', pathMatch: 'full' },
     {
         path: 'users',
         children: [
