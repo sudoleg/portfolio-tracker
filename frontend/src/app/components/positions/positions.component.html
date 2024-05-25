@@ -1,0 +1,16 @@
+<div class="positions-container">
+    <div class="position-header">
+        <p>Security</p>
+        <p>Quantity</p>
+        <p>Purchase Price</p>
+        <p>Total Value</p>
+    </div>
+    <div class="position-card" *ngFor="let position of positions">
+        <div class="position-info">
+            <p>{{ getSecurityName(position.financialInstrumentId) }}</p>
+            <p>{{ position.quantity }}</p>
+            <p>{{ position.purchasePrice | number:'1.2-2' }}</p>
+            <p>{{ getTotalValue(position) | number:'1.2-2' }}</p>
+        </div>
+    </div>
+</div>
