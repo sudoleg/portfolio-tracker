@@ -1,35 +1,54 @@
-import { Component } from '@angular/core';
-import { Portfolio } from '../../interfaces/portfolio';
-import { PortfolioService } from '../../services/portfolio.service';
-import { ImpersonationService } from '../../services/impersonation.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { Portfolio } from '../../interfaces/portfolio';
+import { ImpersonationService } from '../../services/impersonation.service';
+import { PortfolioService } from '../../services/portfolio.service';
 
 @Component({
   selector: 'app-portfolios',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './portfolios.component.html',
   styleUrl: './portfolios.component.css'
 })
-export class PortfoliosComponent {
+export class PortfoliosComponent implements OnInit {
 
-  portfolios: Portfolio[] = []
-  selectedPortfolio: Portfolio | null = null
+  portfolios = signal<Portfolio[]>([]);
+  newPortfolioName: any;
+  impersonatedUserId: number | null;
 
   constructor(
     private portfolioService: PortfolioService,
-    private impersonationService: ImpersonationService
+    private impersonationService: ImpersonationService,
+    private router: Router
   ) {
-    this.loadUsersPortfolios()
+    this.impersonatedUserId = this.impersonationService.getImpersonatedUserId()
+    if (this.impersonatedUserId == null) {
+      alert("Impersonate a user!")
+      this.router.navigate(['']);
+    }
   }
 
-  loadUsersPortfolios(): void {
-    let userId = this.impersonationService.getImpersonatedUserId()
-    if (userId != null) {
-      this.portfolioService.getPortfolios(userId).subscribe(
-        portfolios => this.portfolios = portfolios
+  ngOnInit(): void {
+    if (this.impersonatedUserId != null) {
+      this.portfolioService.getPortfolios(this.impersonatedUserId).subscribe(
+        portfolios => this.portfolios.set(portfolios)
       )
+    }
+  }
+
+  addPortfolio(): void {
+    if (this.newPortfolioName.trim()) {
+      const newPortfolio: Portfolio = {
+        name: this.newPortfolioName,
+        userId: this.impersonationService.getImpersonatedUserId() || 0
+      };
+      this.portfolioService.createPortfolio(newPortfolio).subscribe(portfolio => {
+        this.portfolios.update(value => [...value, portfolio]);
+        this.newPortfolioName = '';
+      });
     }
   }
 

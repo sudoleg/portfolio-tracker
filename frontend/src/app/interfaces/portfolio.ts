@@ -1,5 +1,5 @@
 export interface Portfolio {
-    portfolioId: number,
+    portfolioId?: number,
     name: string,
     userId: number
 }

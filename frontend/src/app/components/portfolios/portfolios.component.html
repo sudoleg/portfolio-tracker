@@ -1,5 +1,6 @@
+<!-- portfolios.component.html -->
 <div class="portfolios-container">
-    <div class="portfolio-card" *ngFor="let portfolio of portfolios">
+    <div class="portfolio-card" *ngFor="let portfolio of portfolios()">
         <a [routerLink]="['/portfolios', portfolio.portfolioId]" class="portfolio-link">
             <div class="portfolio-info">
                 {{ portfolio.name }}
@@ -8,7 +9,8 @@
     </div>
     <!-- New Portfolio Input Tile -->
     <div class="new-portfolio-card">
-        <input type="text" placeholder="Enter portfolio name" class="new-portfolio-input">
-        <button class="add-to-portfolio-btn">Add New</button>
+        <input type="text" [(ngModel)]="newPortfolioName" placeholder="Enter portfolio name"
+            class="new-portfolio-input">
+        <button (click)="addPortfolio()" class="add-to-portfolio-btn">Add New</button>
     </div>
 </div>
