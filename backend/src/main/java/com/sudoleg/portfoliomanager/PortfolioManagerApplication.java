@@ -24,7 +24,9 @@ public class PortfolioManagerApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins(allowedDomains);
+				registry.addMapping("/**")
+						.allowedOrigins(allowedDomains)
+						.allowedMethods("*");
 			}
 		};
 	}
