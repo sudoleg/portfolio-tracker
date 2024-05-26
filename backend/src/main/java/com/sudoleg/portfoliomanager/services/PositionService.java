@@ -1,10 +1,10 @@
 package com.sudoleg.portfoliomanager.services;
 
-import com.sudoleg.portfoliomanager.domain.dto.PositionDto;
-import com.sudoleg.portfoliomanager.domain.entities.PositionEntity;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.sudoleg.portfoliomanager.domain.dto.PositionDto;
+import com.sudoleg.portfoliomanager.domain.entities.PositionEntity;
 
 public interface PositionService {
 
@@ -15,5 +15,7 @@ public interface PositionService {
     List<PositionEntity> findAll();
 
     List<PositionEntity> findAllByPortfolioId(Integer portfolioId);
+
+    void delete(Long id);
 
 }

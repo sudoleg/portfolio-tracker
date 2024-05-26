@@ -1,5 +1,12 @@
 package com.sudoleg.portfoliomanager.services.impl;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import org.springframework.stereotype.Service;
+
 import com.sudoleg.portfoliomanager.domain.dto.PositionDto;
 import com.sudoleg.portfoliomanager.domain.entities.PositionEntity;
 import com.sudoleg.portfoliomanager.mappers.Mapper;
@@ -7,13 +14,8 @@ import com.sudoleg.portfoliomanager.repositories.FinancialInstrumentRepository;
 import com.sudoleg.portfoliomanager.repositories.PortfolioRepository;
 import com.sudoleg.portfoliomanager.repositories.PositionRepository;
 import com.sudoleg.portfoliomanager.services.PositionService;
-import jakarta.persistence.EntityNotFoundException;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class PositionServiceImpl implements PositionService {
@@ -23,7 +25,8 @@ public class PositionServiceImpl implements PositionService {
     private final FinancialInstrumentRepository financialInstrumentRepository;
     private final Mapper<PositionEntity, PositionDto> mapper;
 
-    public PositionServiceImpl(PositionRepository positionRepository, Mapper<PositionEntity, PositionDto> mapper, PortfolioRepository portfolioRepository, FinancialInstrumentRepository financialInstrumentRepository) {
+    public PositionServiceImpl(PositionRepository positionRepository, Mapper<PositionEntity, PositionDto> mapper,
+            PortfolioRepository portfolioRepository, FinancialInstrumentRepository financialInstrumentRepository) {
         this.positionRepository = positionRepository;
         this.portfolioRepository = portfolioRepository;
         this.financialInstrumentRepository = financialInstrumentRepository;
@@ -53,9 +56,9 @@ public class PositionServiceImpl implements PositionService {
     @Override
     public List<PositionEntity> findAll() {
         return StreamSupport.stream(positionRepository
-                                .findAll()
-                                .spliterator(),
-                        false)
+                .findAll()
+                .spliterator(),
+                false)
                 .collect(Collectors.toList());
     }
 
@@ -65,6 +68,11 @@ public class PositionServiceImpl implements PositionService {
             throw new EntityNotFoundException("Portfolio not found!");
         }
         return positionRepository.findByPortfolioPortfolioId(portfolioId);
+    }
+
+    @Override
+    public void delete(Long id) {
+        this.positionRepository.deleteById(id);
     }
 
 }
