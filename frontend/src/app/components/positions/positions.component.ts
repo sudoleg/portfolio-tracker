@@ -1,11 +1,11 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Position } from '../../interfaces/position';
 import { PositionService } from '../../services/position.service';
 import { SecurityService } from '../../services/security.service';
-import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-positions',
@@ -16,21 +16,22 @@ import { map } from 'rxjs/operators';
 })
 export class PositionsComponent implements OnInit {
 
+  // inject() allows to inject dependencies directly into class properties
   route: ActivatedRoute = inject(ActivatedRoute);
-  positions: Position[] = [];
+  positions = signal<Position[]>([]);
   financialInstrumentNames: Map<number, string> = new Map();
   portfolioId = 0;
 
   constructor(
     private positionService: PositionService,
-    private securityService: SecurityService
+    private securityService: SecurityService,
   ) {
     this.portfolioId = Number(this.route.snapshot.params['id']);
   }
 
   ngOnInit(): void {
     this.positionService.getPositions(this.portfolioId).subscribe(positions => {
-      this.positions = positions;
+      this.positions.set(positions);
       const nameRequests = positions.map(position =>
         this.securityService.getSecurity(position.financialInstrumentId).pipe(
           map(security => {
@@ -41,7 +42,6 @@ export class PositionsComponent implements OnInit {
 
       forkJoin(nameRequests).subscribe();
     });
-    console.log(`Selected portfolio ID: ${this.portfolioId}`)
   }
 
   getSecurityName(id: number): string {
@@ -51,4 +51,12 @@ export class PositionsComponent implements OnInit {
   getTotalValue(position: Position): number {
     return position.quantity * position.purchasePrice;
   }
+
+  deletePosition(position: Position): void {
+    this.positionService.deletePosition(position.id).subscribe(() => {
+      const updatedPositions = this.positions().filter(p => p.id !== position.id);
+      this.positions.set(updatedPositions);
+    });
+  }
+
 }

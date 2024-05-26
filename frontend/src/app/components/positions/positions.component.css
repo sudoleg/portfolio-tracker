@@ -33,9 +33,31 @@
     flex: 1;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    /* Center align items vertically */
 }
 
 .position-info p {
     margin: 0 0.5rem;
     color: rgb(141, 152, 141);
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: red;
+    /* Default color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-button:hover {
+    color: darkred;
+    /* Color when hovered */
+}
+
+.material-icons {
+    font-size: 1.5rem;
 }
