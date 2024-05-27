@@ -18,12 +18,13 @@ public class FinancialInstrumentDto {
     @Schema(description = "ISIN", example = "US0378331005", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private String isin;
 
-    @Schema(description = "Name of the financial instrument", example = "AAPL", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(description = "Name of the company.", example = "Apple Inc.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private String name;
 
-    @Schema(description = "Description of the financial instrument",
-            example = "Apple Inc. is an American multinational corporation and technology company headquartered in Cupertino, California, in Silicon Valley. It designs, develops, and sells consumer electronics, computer software, and online services.",
-            requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(description = "Ticker symbol for financial instrument. Unique identifiers assigned to publicly traded companies and other financial instruments on stock exchanges.", example = "AAPL", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    private String ticker;
+
+    @Schema(description = "Description of the financial instrument.", example = "Apple Inc. is an American multinational corporation and technology company headquartered in Cupertino, California, in Silicon Valley. It designs, develops, and sells consumer electronics, computer software, and online services.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private String description;
 
 }
