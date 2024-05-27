@@ -63,11 +63,11 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public List<PositionEntity> findAllByPortfolioId(Integer portfolioId) {
+    public List<PositionEntity> findAllByPortfolioId(Long portfolioId) {
         if (!portfolioRepository.existsById(portfolioId)) {
             throw new EntityNotFoundException("Portfolio not found!");
         }
-        return positionRepository.findByPortfolioPortfolioId(portfolioId);
+        return positionRepository.findByPortfolioId(portfolioId);
     }
 
     @Override

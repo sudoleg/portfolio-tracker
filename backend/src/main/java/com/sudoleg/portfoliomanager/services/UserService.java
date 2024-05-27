@@ -11,15 +11,16 @@ public interface UserService {
 
     List<UserEntity> findAll();
 
-    Optional<UserEntity> findOne(Integer id);
+    Optional<UserEntity> findOne(Long id);
 
     Optional<UserEntity> findByIdentifier(String identifier);
 
-    boolean isExists(Integer id);
+    boolean isExists(Long id);
 
-    UserEntity partialUpdate(Integer id, UserEntity userEntity);
+    UserEntity partialUpdate(Long id, UserEntity userEntity);
 
-    void delete(Integer id);
+    void delete(Long id);
 
     Optional<UserEntity> getUserByUsername(String username);
+
 }

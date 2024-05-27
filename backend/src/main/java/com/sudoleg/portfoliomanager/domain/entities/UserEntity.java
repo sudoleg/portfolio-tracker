@@ -23,7 +23,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
-    private Integer id;
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String username;

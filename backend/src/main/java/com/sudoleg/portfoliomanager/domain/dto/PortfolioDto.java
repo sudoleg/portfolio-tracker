@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PortfolioDto {
     @Schema(description = "Automatically generated portfolio ID", example = "1", accessMode = Schema.AccessMode.READ_ONLY)
-    private Integer portfolioId;
+    private Long id;
 
     @Schema(description = "Name of the portfolio", example = "My Portfolio", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
 
     @Schema(description = "User ID of the portfolio owner", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
-    private Integer userId;
+    private Long userId;
 }

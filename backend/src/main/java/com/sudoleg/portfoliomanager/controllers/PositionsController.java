@@ -50,7 +50,7 @@ public class PositionsController {
 
     @GetMapping(path = "")
     public ResponseEntity<List<PositionDto>> getAllPositions(
-            @RequestParam(value = "portfolioId", required = false) Integer portfolioId) {
+            @RequestParam(value = "portfolioId", required = false) Long portfolioId) {
         List<PositionEntity> positionEntities;
 
         if (portfolioId != null) {

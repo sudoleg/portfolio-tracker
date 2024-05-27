@@ -28,175 +28,168 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureMockMvc
 public class PortfolioControllerIntegrationTest {
 
-    private final MockMvc mockMvc;
-    private final ObjectMapper objectMapper;
+        private final MockMvc mockMvc;
+        private final ObjectMapper objectMapper;
 
-    private final PortfolioService portfolioService;
+        private final PortfolioService portfolioService;
 
-    @Autowired
-    public PortfolioControllerIntegrationTest(MockMvc mockMvc, ObjectMapper objectMapper, PortfolioService portfolioService) {
-        this.mockMvc = mockMvc;
-        this.objectMapper = objectMapper;
-        this.portfolioService = portfolioService;
-    }
+        @Autowired
+        public PortfolioControllerIntegrationTest(MockMvc mockMvc, ObjectMapper objectMapper,
+                        PortfolioService portfolioService) {
+                this.mockMvc = mockMvc;
+                this.objectMapper = objectMapper;
+                this.portfolioService = portfolioService;
+        }
 
-    @Test
-    public void testPortfolioCreationReturnsCorrectStatusCode() throws Exception {
-        PortfolioDto portfolioDto = TestDataUtil.createTestPortfolioDtoA(null);
-        portfolioDto.setPortfolioId(null);
-        String portfolioJson = objectMapper.writeValueAsString(portfolioDto);
+        @Test
+        public void testPortfolioCreationReturnsCorrectStatusCode() throws Exception {
+                PortfolioDto portfolioDto = TestDataUtil.createTestPortfolioDtoA(null);
+                portfolioDto.setId(null);
+                String portfolioJson = objectMapper.writeValueAsString(portfolioDto);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.post("/portfolios")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(portfolioJson)
-        ).andExpect(
-                MockMvcResultMatchers.status().isCreated()
-        );
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.post("/portfolios")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(portfolioJson))
+                                .andExpect(
+                                                MockMvcResultMatchers.status().isCreated());
+        }
 
-    @Test
-    public void testPortfolioCreationReturnsSavedPortfolio() throws Exception {
-        PortfolioDto portfolioDto = TestDataUtil.createTestPortfolioDtoA(null);
-        portfolioDto.setPortfolioId(null);
-        String portfolioJson = objectMapper.writeValueAsString(portfolioDto);
+        @Test
+        public void testPortfolioCreationReturnsSavedPortfolio() throws Exception {
+                PortfolioDto portfolioDto = TestDataUtil.createTestPortfolioDtoA(null);
+                portfolioDto.setId(null);
+                String portfolioJson = objectMapper.writeValueAsString(portfolioDto);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.post("/portfolios")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(portfolioJson)
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.portfolioId").isNumber()
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.name").value(portfolioDto.getName())
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.user").isEmpty()
-        );
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.post("/portfolios")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(portfolioJson))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.portfolioId").isNumber())
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.name").value(portfolioDto.getName()))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.user").isEmpty());
+        }
 
-    @Test
-    public void testFindAllPortfoliosReturnsCorrectList() throws Exception {
-        UserEntity userA = TestDataUtil.createTestUserA();
-        PortfolioEntity portfolioA = TestDataUtil.createTestPortfolioEntityA(userA);
-        PortfolioEntity portfolioB = TestDataUtil.createTestPortfolioB(userA);
+        @Test
+        public void testFindAllPortfoliosReturnsCorrectList() throws Exception {
+                UserEntity userA = TestDataUtil.createTestUserA();
+                PortfolioEntity portfolioA = TestDataUtil.createTestPortfolioEntityA(userA);
+                PortfolioEntity portfolioB = TestDataUtil.createTestPortfolioB(userA);
 
-        portfolioService.save(portfolioA);
-        portfolioService.save(portfolioB);
+                portfolioService.save(portfolioA);
+                portfolioService.save(portfolioB);
 
-        mockMvc.perform(
-                        MockMvcRequestBuilders.get("/portfolios"))
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath("[0].portfolioId").value(portfolioA.getPortfolioId())
-                )
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath("[0].name").value(portfolioA.getName())
-                );
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.get("/portfolios"))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("[0].portfolioId")
+                                                                .value(portfolioA.getId()))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("[0].name").value(portfolioA.getName()));
+        }
 
-    @Test
-    public void testFindOnePortfolioReturns404IfNotExist() throws Exception {
-        mockMvc.perform(
-                        MockMvcRequestBuilders.get("/portfolios/156"))
-                .andExpect(
-                        MockMvcResultMatchers.status().isNotFound()
-                );
-    }
+        @Test
+        public void testFindOnePortfolioReturns404IfNotExist() throws Exception {
+                mockMvc.perform(
+                                MockMvcRequestBuilders.get("/portfolios/156"))
+                                .andExpect(
+                                                MockMvcResultMatchers.status().isNotFound());
+        }
 
-    @Test
-    public void testFindOnePortfolioReturnsCorrectResponse() throws Exception {
-        UserEntity userA = TestDataUtil.createTestUserA();
-        PortfolioEntity portfolioA = TestDataUtil.createTestPortfolioEntityA(userA);
-        portfolioService.save(portfolioA);
+        @Test
+        public void testFindOnePortfolioReturnsCorrectResponse() throws Exception {
+                UserEntity userA = TestDataUtil.createTestUserA();
+                PortfolioEntity portfolioA = TestDataUtil.createTestPortfolioEntityA(userA);
+                portfolioService.save(portfolioA);
 
-        mockMvc.perform(
-                        MockMvcRequestBuilders.get("/portfolios/1"))
-                .andExpect(
-                        MockMvcResultMatchers.status().isOk()
-                )
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath("$.portfolioId").value(portfolioA.getPortfolioId())
-                )
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath("$.name").value(portfolioA.getName())
-                );
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.get("/portfolios/1"))
+                                .andExpect(
+                                                MockMvcResultMatchers.status().isOk())
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.portfolioId")
+                                                                .value(portfolioA.getId()))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.name").value(portfolioA.getName()));
+        }
 
-    @Test
-    public void testPortfolioFullUpdateReturnsUpdatedPortfolio() throws Exception {
-        PortfolioEntity portfolioEntity = TestDataUtil.createTestPortfolioEntityA(null);
-        PortfolioEntity savedPortfolio = portfolioService.save(portfolioEntity);
+        @Test
+        public void testPortfolioFullUpdateReturnsUpdatedPortfolio() throws Exception {
+                PortfolioEntity portfolioEntity = TestDataUtil.createTestPortfolioEntityA(null);
+                PortfolioEntity savedPortfolio = portfolioService.save(portfolioEntity);
 
-        PortfolioDto portfolioDto = TestDataUtil.createTestPortfolioDtoA(null);
-        portfolioDto.setName("UPDATED");
-        String portfolioJson = objectMapper.writeValueAsString(portfolioDto);
+                PortfolioDto portfolioDto = TestDataUtil.createTestPortfolioDtoA(null);
+                portfolioDto.setName("UPDATED");
+                String portfolioJson = objectMapper.writeValueAsString(portfolioDto);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.put("/portfolios/" + portfolioDto.getPortfolioId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(portfolioJson)
-        ).andExpect(
-                MockMvcResultMatchers.status().isOk()
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.portfolioId").value(savedPortfolio.getPortfolioId())
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.name").value(portfolioDto.getName())
-        );
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.put("/portfolios/" + portfolioDto.getId())
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(portfolioJson))
+                                .andExpect(
+                                                MockMvcResultMatchers.status().isOk())
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath(
+                                                                "$.portfolioId").value(savedPortfolio.getId()))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.name").value(portfolioDto.getName()));
+        }
 
-    @Test
-    public void testPartialUpdateOnExistingPortfolioReturnsHttpOk() throws Exception {
-        PortfolioEntity savedPortfolio = TestDataUtil.createTestPortfolioEntityA(null);
-        portfolioService.save(savedPortfolio);
-        PortfolioDto testPortfolioDto = TestDataUtil.createTestPortfolioDtoA(null);
+        @Test
+        public void testPartialUpdateOnExistingPortfolioReturnsHttpOk() throws Exception {
+                PortfolioEntity savedPortfolio = TestDataUtil.createTestPortfolioEntityA(null);
+                portfolioService.save(savedPortfolio);
+                PortfolioDto testPortfolioDto = TestDataUtil.createTestPortfolioDtoA(null);
 
-        testPortfolioDto.setName("UPDATED");
-        String portfolioDtoJson = objectMapper.writeValueAsString(testPortfolioDto);
+                testPortfolioDto.setName("UPDATED");
+                String portfolioDtoJson = objectMapper.writeValueAsString(testPortfolioDto);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.patch("/portfolios/" + savedPortfolio.getPortfolioId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(portfolioDtoJson)
-        ).andExpect(MockMvcResultMatchers.status().isOk());
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.patch("/portfolios/" + savedPortfolio.getId())
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(portfolioDtoJson))
+                                .andExpect(MockMvcResultMatchers.status().isOk());
+        }
 
-    @Test
-    public void testPartialUpdateOnExistingPortfolioReturnsUpdatedPortfolio() throws Exception {
-        PortfolioEntity savedPortfolio = TestDataUtil.createTestPortfolioEntityA(null);
-        portfolioService.save(savedPortfolio);
-        PortfolioDto testPortfolioDto = TestDataUtil.createTestPortfolioDtoA(null);
+        @Test
+        public void testPartialUpdateOnExistingPortfolioReturnsUpdatedPortfolio() throws Exception {
+                PortfolioEntity savedPortfolio = TestDataUtil.createTestPortfolioEntityA(null);
+                portfolioService.save(savedPortfolio);
+                PortfolioDto testPortfolioDto = TestDataUtil.createTestPortfolioDtoA(null);
 
-        testPortfolioDto.setName("UPDATED");
-        String portfolioDtoJson = objectMapper.writeValueAsString(testPortfolioDto);
+                testPortfolioDto.setName("UPDATED");
+                String portfolioDtoJson = objectMapper.writeValueAsString(testPortfolioDto);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.patch("/portfolios/" + savedPortfolio.getPortfolioId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(portfolioDtoJson)
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.name").value("UPDATED")
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.portfolioId").value(savedPortfolio.getPortfolioId())
-        );
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.patch("/portfolios/" + savedPortfolio.getId())
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(portfolioDtoJson))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.name").value("UPDATED"))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.portfolioId")
+                                                                .value(savedPortfolio.getId()));
+        }
 
-    @Test
-    public void testDeleteNonExistentPortfolioReturns404() throws Exception {
-        mockMvc.perform(
-                MockMvcRequestBuilders.delete("/portfolios/156")
-        ).andExpect(MockMvcResultMatchers.status().isNotFound());
-    }
+        @Test
+        public void testDeleteNonExistentPortfolioReturns404() throws Exception {
+                mockMvc.perform(
+                                MockMvcRequestBuilders.delete("/portfolios/156"))
+                                .andExpect(MockMvcResultMatchers.status().isNotFound());
+        }
 
-    @Test
-    public void testDeleteUserReturns204NoContent() throws Exception {
-        PortfolioEntity portfolioEntity = TestDataUtil.createTestPortfolioEntityA(null);
-        PortfolioEntity savedPortfolio = portfolioService.save(portfolioEntity);
-        mockMvc.perform(
-                MockMvcRequestBuilders.delete("/portfolios/" + savedPortfolio.getPortfolioId())
-        ).andExpect(
-                MockMvcResultMatchers.status().isNoContent()
-        );
-        Optional<PortfolioEntity> result = portfolioService.findOne(portfolioEntity.getPortfolioId());
-        assertThat(result).isEmpty();
-    }
+        @Test
+        public void testDeleteUserReturns204NoContent() throws Exception {
+                PortfolioEntity portfolioEntity = TestDataUtil.createTestPortfolioEntityA(null);
+                PortfolioEntity savedPortfolio = portfolioService.save(portfolioEntity);
+                mockMvc.perform(
+                                MockMvcRequestBuilders.delete("/portfolios/" + savedPortfolio.getId())).andExpect(
+                                                MockMvcResultMatchers.status().isNoContent());
+                Optional<PortfolioEntity> result = portfolioService.findOne(portfolioEntity.getId());
+                assertThat(result).isEmpty();
+        }
 
 }

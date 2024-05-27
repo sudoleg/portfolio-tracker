@@ -27,189 +27,177 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureMockMvc
 public class UserControllerIntegrationTests {
 
-    private MockMvc mockMvc;
-    private UserService userService;
+        private MockMvc mockMvc;
+        private UserService userService;
 
-    private ObjectMapper objectMapper;
+        private ObjectMapper objectMapper;
 
-    @Autowired
-    public UserControllerIntegrationTests(MockMvc mockMvc, UserService userService, ObjectMapper objectMapper) {
-        this.mockMvc = mockMvc;
-        this.userService = userService;
-        this.objectMapper = objectMapper;
-    }
+        @Autowired
+        public UserControllerIntegrationTests(MockMvc mockMvc, UserService userService, ObjectMapper objectMapper) {
+                this.mockMvc = mockMvc;
+                this.userService = userService;
+                this.objectMapper = objectMapper;
+        }
 
-    @Test
-    public void testUserCreationReturns201Created() throws Exception {
-        UserEntity userEntity = TestDataUtil.createTestUserA();
-        userEntity.setId(null);
-        String userJson = objectMapper.writeValueAsString(userEntity);
+        @Test
+        public void testUserCreationReturns201Created() throws Exception {
+                UserEntity userEntity = TestDataUtil.createTestUserA();
+                userEntity.setId(null);
+                String userJson = objectMapper.writeValueAsString(userEntity);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.post("/users")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(userJson)
-        ).andExpect(
-                MockMvcResultMatchers.status().isCreated()
-        );
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.post("/users")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(userJson))
+                                .andExpect(
+                                                MockMvcResultMatchers.status().isCreated());
+        }
 
-    @Test
-    public void testUserCreationReturnsSavedUSer() throws Exception {
-        UserEntity testUserA = TestDataUtil.createTestUserA();
-        testUserA.setId(null);
-        String userJson = objectMapper.writeValueAsString(testUserA);
+        @Test
+        public void testUserCreationReturnsSavedUSer() throws Exception {
+                UserEntity testUserA = TestDataUtil.createTestUserA();
+                testUserA.setId(null);
+                String userJson = objectMapper.writeValueAsString(testUserA);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.post("/users")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(userJson)
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.id").isNumber()
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.name").value(testUserA.getName())
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.surname").value(testUserA.getSurname())
-        );
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.post("/users")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(userJson))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.id").isNumber())
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.name").value(testUserA.getName()))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.surname")
+                                                                .value(testUserA.getSurname()));
+        }
 
-    @Test
-    public void testListAllUsersReturnsOk() throws Exception {
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/users")
-        ).andExpect(
-                MockMvcResultMatchers.status().is2xxSuccessful()
-        );
-    }
+        @Test
+        public void testListAllUsersReturnsOk() throws Exception {
+                mockMvc.perform(
+                                MockMvcRequestBuilders.get("/users")).andExpect(
+                                                MockMvcResultMatchers.status().is2xxSuccessful());
+        }
 
-    @Test
-    public void testListAllUsersReturnsCorrectList() throws Exception {
-        UserEntity userA = TestDataUtil.createTestUserA();
-        userService.save(userA);
+        @Test
+        public void testListAllUsersReturnsCorrectList() throws Exception {
+                UserEntity userA = TestDataUtil.createTestUserA();
+                userService.save(userA);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/users")
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("[0].id").isNumber()
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("[0].username").value(userA.getUsername())
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("[0].name").value(userA.getName())
-        );
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.get("/users")).andExpect(
+                                                MockMvcResultMatchers.jsonPath("[0].id").isNumber())
+                                .andExpect(
+                                                MockMvcResultMatchers
+                                                                .jsonPath("[0].username").value(userA.getUsername()))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("[0].name").value(userA.getName()));
+        }
 
-    @Test
-    public void testGetUserByIdReturns404IfNotExist() throws Exception {
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/users/42")
-        ).andExpect(
-                MockMvcResultMatchers.status().isNotFound()
-        );
-    }
+        @Test
+        public void testGetUserByIdReturns404IfNotExist() throws Exception {
+                mockMvc.perform(
+                                MockMvcRequestBuilders.get("/users/42")).andExpect(
+                                                MockMvcResultMatchers.status().isNotFound());
+        }
 
-    @Test
-    public void testGetUserByIdReturnsCorrectUser() throws Exception {
-        UserEntity userA = TestDataUtil.createTestUserA();
-        userService.save(userA);
+        @Test
+        public void testGetUserByIdReturnsCorrectUser() throws Exception {
+                UserEntity userA = TestDataUtil.createTestUserA();
+                userService.save(userA);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/users/1")
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.id").isNumber()
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.username").value(userA.getUsername())
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.name").value(userA.getName())
-        );
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.get("/users/1")).andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.id").isNumber())
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.username").value(userA.getUsername()))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.name").value(userA.getName()));
+        }
 
-    @Test
-    public void testUserFullUpdateReturnsUpdatedUser() throws Exception {
-        UserEntity userEntity = TestDataUtil.createTestUserA();
-        UserEntity savedUser = userService.save(userEntity);
+        @Test
+        public void testUserFullUpdateReturnsUpdatedUser() throws Exception {
+                UserEntity userEntity = TestDataUtil.createTestUserA();
+                UserEntity savedUser = userService.save(userEntity);
 
-        UserDto userDto = TestDataUtil.createTestUserDtoA();
-        userDto.setUsername("UPDATED");
+                UserDto userDto = TestDataUtil.createTestUserDtoA();
+                userDto.setUsername("UPDATED");
 
-        String userJson = objectMapper.writeValueAsString(userDto);
+                String userJson = objectMapper.writeValueAsString(userDto);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.put("/users/" + savedUser.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(userJson)
-        ).andExpect(
-                MockMvcResultMatchers.status().isOk()
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.username").value(userDto.getUsername())
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.id").value(userDto.getId())
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.email").value(userDto.getEmail())
-        );
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.put("/users/" + savedUser.getId())
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(userJson))
+                                .andExpect(
+                                                MockMvcResultMatchers.status().isOk())
+                                .andExpect(
+                                                MockMvcResultMatchers
+                                                                .jsonPath("$.username").value(userDto.getUsername()))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.id").value(userDto.getId()))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.email").value(userDto.getEmail()));
+        }
 
-    @Test
-    public void testPartialUpdateOnExistingUserReturnsHttpOk() throws Exception {
-        UserEntity userEntity = TestDataUtil.createTestUserA();
-        UserEntity savedUser = userService.save(userEntity);
+        @Test
+        public void testPartialUpdateOnExistingUserReturnsHttpOk() throws Exception {
+                UserEntity userEntity = TestDataUtil.createTestUserA();
+                UserEntity savedUser = userService.save(userEntity);
 
-        UserDto testUserDto = TestDataUtil.createTestUserDtoA();
-        testUserDto.setName("UPDATED");
-        String userDtoJson = objectMapper.writeValueAsString(testUserDto);
+                UserDto testUserDto = TestDataUtil.createTestUserDtoA();
+                testUserDto.setName("UPDATED");
+                String userDtoJson = objectMapper.writeValueAsString(testUserDto);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.patch("/users/" + savedUser.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(userDtoJson)
-        ).andExpect(MockMvcResultMatchers.status().isOk());
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.patch("/users/" + savedUser.getId())
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(userDtoJson))
+                                .andExpect(MockMvcResultMatchers.status().isOk());
+        }
 
-    @Test
-    public void testPartialUpdateOnExistingUserReturnsUpdatedUser() throws Exception {
-        UserEntity userEntity = TestDataUtil.createTestUserA();
-        UserEntity savedUser = userService.save(userEntity);
+        @Test
+        public void testPartialUpdateOnExistingUserReturnsUpdatedUser() throws Exception {
+                UserEntity userEntity = TestDataUtil.createTestUserA();
+                UserEntity savedUser = userService.save(userEntity);
 
-        UserDto testUserDto = TestDataUtil.createTestUserDtoA();
-        testUserDto.setName("UPDATED");
-        String userDtoJson = objectMapper.writeValueAsString(testUserDto);
+                UserDto testUserDto = TestDataUtil.createTestUserDtoA();
+                testUserDto.setName("UPDATED");
+                String userDtoJson = objectMapper.writeValueAsString(testUserDto);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.patch("/users/" + savedUser.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(userDtoJson)
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.name").value("UPDATED")
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.surname").value(savedUser.getSurname())
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.id").value(savedUser.getId())
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.email").value(savedUser.getEmail())
-        );
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.patch("/users/" + savedUser.getId())
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(userDtoJson))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.name").value("UPDATED"))
+                                .andExpect(
+                                                MockMvcResultMatchers
+                                                                .jsonPath("$.surname").value(savedUser.getSurname()))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.id").value(savedUser.getId()))
+                                .andExpect(
+                                                MockMvcResultMatchers.jsonPath("$.email").value(savedUser.getEmail()));
+        }
 
-    @Test
-    public void testDeleteUserReturns204NoContent() throws Exception {
-        UserEntity userEntity = TestDataUtil.createTestUserA();
-        UserEntity savedUser = userService.save(userEntity);
+        @Test
+        public void testDeleteUserReturns204NoContent() throws Exception {
+                UserEntity userEntity = TestDataUtil.createTestUserA();
+                UserEntity savedUser = userService.save(userEntity);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.delete("/users/" + savedUser.getId())
-        ).andExpect(
-                MockMvcResultMatchers.status().isNoContent()
-        );
+                mockMvc.perform(
+                                MockMvcRequestBuilders.delete("/users/" + savedUser.getId())).andExpect(
+                                                MockMvcResultMatchers.status().isNoContent());
 
-        Optional<UserEntity> result = userService.findOne(userEntity.getId());
-        assertThat(result).isEmpty();
-    }
+                Optional<UserEntity> result = userService.findOne(userEntity.getId());
+                assertThat(result).isEmpty();
+        }
 
-    @Test
-    public void testDeleteNonExistentUserReturns404() throws Exception {
-        mockMvc.perform(
-                MockMvcRequestBuilders.delete("/users/999")
-        ).andExpect(
-                MockMvcResultMatchers.status().isNotFound()
-        );
-    }
+        @Test
+        public void testDeleteNonExistentUserReturns404() throws Exception {
+                mockMvc.perform(
+                                MockMvcRequestBuilders.delete("/users/999")).andExpect(
+                                                MockMvcResultMatchers.status().isNotFound());
+        }
 
 }

@@ -29,7 +29,7 @@ public class PortfolioEntityRepositoryIntegrationTests {
         PortfolioEntity portfolioEntity = TestDataUtil.createTestPortfolioEntityA(userEntity);
         underTest.save(portfolioEntity);
 
-        Optional<PortfolioEntity> result = underTest.findById(portfolioEntity.getPortfolioId());
+        Optional<PortfolioEntity> result = underTest.findById(portfolioEntity.getId());
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(portfolioEntity);
     }
@@ -50,7 +50,7 @@ public class PortfolioEntityRepositoryIntegrationTests {
         Iterable<PortfolioEntity> result = underTest.findAll();
         assertThat(result).hasSize(3).containsExactly(portfolioEntityA, portfolioEntityB, portfolioEntityC);
 
-        Optional<PortfolioEntity> retrievedPortfolioA = underTest.findById(portfolioEntityA.getPortfolioId());
+        Optional<PortfolioEntity> retrievedPortfolioA = underTest.findById(portfolioEntityA.getId());
         assertThat(retrievedPortfolioA).isPresent();
         assertThat(retrievedPortfolioA.get().getUserEntity()).isEqualTo(userEntityA);
     }
@@ -63,7 +63,7 @@ public class PortfolioEntityRepositoryIntegrationTests {
         portfolioEntityA.setName("UPDATED");
         underTest.save(portfolioEntityA);
 
-        Optional<PortfolioEntity> result = underTest.findById(portfolioEntityA.getPortfolioId());
+        Optional<PortfolioEntity> result = underTest.findById(portfolioEntityA.getId());
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(portfolioEntityA);
     }
@@ -74,8 +74,8 @@ public class PortfolioEntityRepositoryIntegrationTests {
         PortfolioEntity portfolioEntityA = TestDataUtil.createTestPortfolioEntityA(userEntityA);
         underTest.save(portfolioEntityA);
 
-        underTest.deleteById(portfolioEntityA.getPortfolioId());
-        Optional<PortfolioEntity> result = underTest.findById(portfolioEntityA.getPortfolioId());
+        underTest.deleteById(portfolioEntityA.getId());
+        Optional<PortfolioEntity> result = underTest.findById(portfolioEntityA.getId());
         assertThat(result).isEmpty();
     }
 

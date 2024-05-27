@@ -86,7 +86,7 @@ VALUES
 
 
 -- Insert portfolios with explicit IDs
-INSERT INTO portfolios (portfolio_id, name, user_id)
+INSERT INTO portfolios (id, name, user_id)
 VALUES
     (1, 'Technology Growth', 1),
     (2, 'Dividend Income', 1),

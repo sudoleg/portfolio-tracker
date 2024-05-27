@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserDto {
     @Schema(description = "Automatically generated user ID of the user", example = "1", accessMode = Schema.AccessMode.READ_ONLY)
-    private Integer id;
+    private Long id;
 
     @Schema(description = "", example = "my-username", accessMode = Schema.AccessMode.READ_WRITE)
     private String username;

@@ -11,8 +11,8 @@ import java.util.List;
  * Repositories are used to perform database operations automatically.
  */
 @Repository
-public interface PortfolioRepository extends CrudRepository<PortfolioEntity, Integer> {
+public interface PortfolioRepository extends CrudRepository<PortfolioEntity, Long> {
 
-    List<PortfolioEntity> findByUserEntity_Id(Integer userId);
+    List<PortfolioEntity> findByUserEntity_Id(Long userId);
 
 }

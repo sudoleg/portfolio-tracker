@@ -14,7 +14,7 @@ public interface PositionService {
 
     List<PositionEntity> findAll();
 
-    List<PositionEntity> findAllByPortfolioId(Integer portfolioId);
+    List<PositionEntity> findAllByPortfolioId(Long portfolioId);
 
     void delete(Long id);
 

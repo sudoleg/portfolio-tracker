@@ -40,18 +40,18 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public Optional<PortfolioEntity> findOne(Integer id) {
+    public Optional<PortfolioEntity> findOne(Long id) {
         return portfolioRepository.findById(id);
     }
 
     @Override
-    public boolean isExists(Integer id) {
+    public boolean isExists(Long id) {
         return portfolioRepository.existsById(id);
     }
 
     @Override
-    public PortfolioEntity partialUpdate(Integer id, PortfolioEntity portfolioEntity) {
-        portfolioEntity.setPortfolioId(id);
+    public PortfolioEntity partialUpdate(Long id, PortfolioEntity portfolioEntity) {
+        portfolioEntity.setId(id);
         return portfolioRepository.findById(id).map(existingUser -> {
             Optional.ofNullable(portfolioEntity.getName()).ifPresent(existingUser::setName);
             return portfolioRepository.save(existingUser);
@@ -59,7 +59,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         portfolioRepository.deleteById(id);
     }
 
@@ -77,7 +77,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public List<PortfolioEntity> getUsersPortfolios(Integer userId) {
+    public List<PortfolioEntity> getUsersPortfolios(Long userId) {
         userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found!"));
         return portfolioRepository.findByUserEntity_Id(userId);
     }

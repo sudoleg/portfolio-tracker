@@ -6,17 +6,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Data
 public class PositionDto {
 
     @Schema(description = "ID of the position", accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
     @Schema(description = "Reference to portfolio (by it's ID)", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-    private Integer portfolioId;
+    private Long portfolioId;
 
     @Schema(description = "Quantity", example = "42", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private Integer quantity;

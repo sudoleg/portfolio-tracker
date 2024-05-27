@@ -12,15 +12,15 @@ public interface PortfolioService {
 
     List<PortfolioEntity> findAll();
 
-    Optional<PortfolioEntity> findOne(Integer id);
+    Optional<PortfolioEntity> findOne(Long id);
 
-    boolean isExists(Integer id);
+    boolean isExists(Long id);
 
-    PortfolioEntity partialUpdate(Integer id, PortfolioEntity portfolioEntity);
+    PortfolioEntity partialUpdate(Long id, PortfolioEntity portfolioEntity);
 
-    void delete(Integer id);
+    void delete(Long id);
 
     PortfolioEntity createPortfolio(PortfolioDto requestDTO);
 
-    List<PortfolioEntity> getUsersPortfolios(Integer userId);
+    List<PortfolioEntity> getUsersPortfolios(Long userId);
 }

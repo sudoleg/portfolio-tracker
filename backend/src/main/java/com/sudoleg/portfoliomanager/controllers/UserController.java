@@ -1,5 +1,22 @@
 package com.sudoleg.portfoliomanager.controllers;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.sudoleg.portfoliomanager.domain.dto.PortfolioDto;
 import com.sudoleg.portfoliomanager.domain.dto.UserDto;
 import com.sudoleg.portfoliomanager.domain.entities.PortfolioEntity;
@@ -7,13 +24,6 @@ import com.sudoleg.portfoliomanager.domain.entities.UserEntity;
 import com.sudoleg.portfoliomanager.mappers.Mapper;
 import com.sudoleg.portfoliomanager.services.PortfolioService;
 import com.sudoleg.portfoliomanager.services.UserService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Presentation layer.
@@ -29,7 +39,8 @@ public class UserController {
     private final UserService userService;
     private final Mapper<UserEntity, UserDto> userMapper;
 
-    public UserController(UserService userService, PortfolioService portfolioService, Mapper<UserEntity, UserDto> userMapper, Mapper<PortfolioEntity, PortfolioDto> portfolioMapper) {
+    public UserController(UserService userService, PortfolioService portfolioService,
+            Mapper<UserEntity, UserDto> userMapper, Mapper<PortfolioEntity, PortfolioDto> portfolioMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
     }
@@ -41,14 +52,13 @@ public class UserController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Integer id) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long id) {
         Optional<UserEntity> result = userService.findOne(id);
         return result.map(userEntity -> {
             UserDto userDto = userMapper.mapToDto(userEntity);
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         }).orElse(
-                new ResponseEntity<>(HttpStatus.NOT_FOUND)
-        );
+                new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping(path = "", params = "username")
@@ -69,9 +79,8 @@ public class UserController {
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<UserDto> fullUpdateUser(
-            @PathVariable Integer id,
-            @RequestBody UserDto userDto
-    ) {
+            @PathVariable Long id,
+            @RequestBody UserDto userDto) {
         if (!userService.isExists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -81,15 +90,13 @@ public class UserController {
 
         UserEntity savedUserEntity = userService.save(userEntity);
         return new ResponseEntity<>(
-                userMapper.mapToDto(savedUserEntity), HttpStatus.OK
-        );
+                userMapper.mapToDto(savedUserEntity), HttpStatus.OK);
     }
 
     @PatchMapping(path = "/{id}")
     public ResponseEntity<UserDto> partialUpdateUser(
-            @PathVariable Integer id,
-            @RequestBody UserDto userDto
-    ) {
+            @PathVariable Long id,
+            @RequestBody UserDto userDto) {
         if (!userService.isExists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -97,12 +104,11 @@ public class UserController {
         UserEntity userEntity = userMapper.mapFromDto(userDto);
         UserEntity updatedUserEntity = userService.partialUpdate(id, userEntity);
         return new ResponseEntity<>(
-                userMapper.mapToDto(updatedUserEntity), HttpStatus.OK
-        );
+                userMapper.mapToDto(updatedUserEntity), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity deleteUser(@PathVariable Integer id) {
+    public ResponseEntity deleteUser(@PathVariable Long id) {
         if (!userService.isExists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

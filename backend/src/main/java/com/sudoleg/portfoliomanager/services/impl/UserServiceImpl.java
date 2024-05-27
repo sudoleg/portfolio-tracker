@@ -1,15 +1,16 @@
 package com.sudoleg.portfoliomanager.services.impl;
 
-import com.sudoleg.portfoliomanager.domain.entities.UserEntity;
-import com.sudoleg.portfoliomanager.exceptions.UserAlreadyExistsException;
-import com.sudoleg.portfoliomanager.repositories.UserRepository;
-import com.sudoleg.portfoliomanager.services.UserService;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import org.springframework.stereotype.Service;
+
+import com.sudoleg.portfoliomanager.domain.entities.UserEntity;
+import com.sudoleg.portfoliomanager.exceptions.UserAlreadyExistsException;
+import com.sudoleg.portfoliomanager.repositories.UserRepository;
+import com.sudoleg.portfoliomanager.services.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,28 +30,29 @@ public class UserServiceImpl implements UserService {
 
     private void checkUsernameTaken(String username) {
         boolean exists = userRepository.findByUsername(username).isPresent();
-        if (exists) throw new UserAlreadyExistsException("Username '" + username + "' is already taken!");
+        if (exists)
+            throw new UserAlreadyExistsException("Username '" + username + "' is already taken!");
     }
 
     private void checkEmailTaken(String email) {
         boolean exists = userRepository.findByUsername(email).isPresent();
-        if (exists) throw new UserAlreadyExistsException("Email '" + email + "' is already taken!");
+        if (exists)
+            throw new UserAlreadyExistsException("Email '" + email + "' is already taken!");
     }
 
     @Override
     public List<UserEntity> findAll() {
         return StreamSupport.stream(userRepository
-                                .findAll()
-                                .spliterator(),
-                        false)
+                .findAll()
+                .spliterator(),
+                false)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<UserEntity> findOne(Integer id) {
+    public Optional<UserEntity> findOne(Long id) {
         return userRepository.findById(id);
     }
-
 
     /**
      * Find user by identifier (username or email).
@@ -67,12 +69,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isExists(Integer id) {
+    public boolean isExists(Long id) {
         return userRepository.existsById(id);
     }
 
     @Override
-    public UserEntity partialUpdate(Integer id, UserEntity userEntity) {
+    public UserEntity partialUpdate(Long id, UserEntity userEntity) {
         userEntity.setId(id);
         return userRepository.findById(id).map(existingUser -> {
             Optional.ofNullable(userEntity.getUsername()).ifPresent(existingUser::setUsername);
@@ -84,7 +86,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         userRepository.deleteById(id);
     }
 

@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PositionRepository extends CrudRepository<PositionEntity, Long> {
-    List<PositionEntity> findByPortfolioPortfolioId(Integer portfolioId);
+    List<PositionEntity> findByPortfolioId(Long portfolioId);
 }

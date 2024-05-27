@@ -12,7 +12,7 @@ public class TestDataUtil {
 
     public static UserEntity createTestUserA() {
         return UserEntity.builder()
-                .id(1)
+                .id(1L)
                 .username("johnd")
                 .name("John")
                 .surname("Doe")
@@ -22,7 +22,7 @@ public class TestDataUtil {
 
     public static UserDto createTestUserDtoA() {
         return UserDto.builder()
-                .id(1)
+                .id(1L)
                 .username("johnd")
                 .name("John")
                 .surname("Doe")
@@ -32,7 +32,7 @@ public class TestDataUtil {
 
     public static UserEntity createTestUserB() {
         return UserEntity.builder()
-                .id(2)
+                .id(2L)
                 .username("perterp")
                 .name("Peter")
                 .surname("Parker")
@@ -42,7 +42,7 @@ public class TestDataUtil {
 
     public static UserEntity createTestUserC() {
         return UserEntity.builder()
-                .id(3)
+                .id(3L)
                 .username("maryj")
                 .name("Mary")
                 .surname("Jane")
@@ -52,7 +52,7 @@ public class TestDataUtil {
 
     public static PortfolioEntity createTestPortfolioEntityA(final UserEntity userEntity) {
         return PortfolioEntity.builder()
-                .portfolioId(1)
+                .id(1L)
                 .name("foo")
                 .userEntity(userEntity)
                 .build();
@@ -60,7 +60,7 @@ public class TestDataUtil {
 
     public static PortfolioDto createTestPortfolioDtoA(final UserDto userDto) {
         return PortfolioDto.builder()
-                .portfolioId(1)
+                .id(1L)
                 .name("foo")
                 .userId(userDto.getId())
                 .build();
@@ -68,7 +68,7 @@ public class TestDataUtil {
 
     public static PortfolioEntity createTestPortfolioB(final UserEntity userEntity) {
         return PortfolioEntity.builder()
-                .portfolioId(2)
+                .id(2L)
                 .name("bar")
                 .userEntity(userEntity)
                 .build();
@@ -76,7 +76,7 @@ public class TestDataUtil {
 
     public static PortfolioEntity createTestPortfolioC(final UserEntity userEntity) {
         return PortfolioEntity.builder()
-                .portfolioId(3)
+                .id(3L)
                 .name("baz")
                 .userEntity(userEntity)
                 .build();
