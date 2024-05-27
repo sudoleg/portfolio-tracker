@@ -1,7 +1,7 @@
 <!-- portfolios.component.html -->
 <div class="portfolios-container">
     <div class="portfolio-card" *ngFor="let portfolio of portfolios()">
-        <a [routerLink]="['/portfolios', portfolio.portfolioId]" class="portfolio-link">
+        <a [routerLink]="['/portfolios', portfolio.id]" class="portfolio-link">
             <div class="portfolio-info">
                 {{ portfolio.name }}
             </div>
