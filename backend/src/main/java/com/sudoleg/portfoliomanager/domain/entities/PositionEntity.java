@@ -7,7 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Represents a holding or position of a financial instrument in a user's investment portfolio.
+ * Represents a holding or position of a financial instrument in a user's
+ * investment portfolio.
  */
 @Data
 @Builder
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class PositionEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "position_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

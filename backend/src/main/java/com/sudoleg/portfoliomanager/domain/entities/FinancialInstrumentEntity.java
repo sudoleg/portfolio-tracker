@@ -34,7 +34,7 @@ public class FinancialInstrumentEntity {
     @Column(unique = true, nullable = true)
     private String ticker;
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 2024)
     private String description;
 
 }
