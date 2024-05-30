@@ -53,10 +53,12 @@ export class PositionsComponent implements OnInit {
   }
 
   deletePosition(position: Position): void {
-    this.positionService.deletePosition(position.id).subscribe(() => {
-      const updatedPositions = this.positions().filter(p => p.id !== position.id);
-      this.positions.set(updatedPositions);
-    });
+    if (position.id) {
+      this.positionService.deletePosition(position.id).subscribe(() => {
+        const updatedPositions = this.positions().filter(p => p.id !== position.id);
+        this.positions.set(updatedPositions);
+      });
+    }
   }
 
 }

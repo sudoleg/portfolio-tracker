@@ -1,6 +1,6 @@
 .securities-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-evenly;
     gap: 2rem;
     padding: 1rem;
@@ -12,19 +12,17 @@
 .security-card {
     background-color: rgb(206, 191, 182);
     border: 1px solid rgb(193, 177, 166);
-    padding: 1rem;
+    padding: 0;
     text-align: center;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    /* Ensure cards take full width within the grid */
-    max-width: 300px;
-    /* Optional: set a maximum width for the cards */
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.2s ease, background-color 0.3s ease;
 }
 
 .security-info h3 {
+    color: rgb(67 90 102);
     margin: 0;
-    color: rgb(154, 160, 163);
 }
 
 .security-info p {
@@ -45,4 +43,24 @@
 
 .add-to-portfolio-btn:hover {
     background-color: rgb(141, 152, 141);
+}
+
+.security-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.security-link:hover {
+    background-color: rgb(141, 152, 141);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.security-link:active {
+    transform: scale(0.97);
 }

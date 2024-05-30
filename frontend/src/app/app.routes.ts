@@ -4,6 +4,7 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
 import { PortfoliosComponent } from './components/portfolios/portfolios.component';
 import { SecuritiesComponent } from './components/securities/securities.component';
 import { PositionsComponent } from './components/positions/positions.component';
+import { SecurityDetailsComponent } from './components/security-details/security-details.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'users', pathMatch: 'full' },
@@ -52,6 +53,10 @@ export const routes: Routes = [
                 path: '',
                 component: SecuritiesComponent,
                 outlet: "primary"
+            }, {
+                path: ':id',
+                component: SecurityDetailsComponent,
+                outlet: 'primary'
             }
         ],
         title: "Securities"

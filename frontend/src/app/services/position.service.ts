@@ -12,6 +12,12 @@ export class PositionService {
 
   constructor(private http: HttpClient) { }
 
+  addPosition(position: Position): Observable<Position> {
+    return this.http.post<Position>(
+      `${this.apiUrl}`, position
+    );
+  }
+
   getPositions(portfolioId: number): Observable<Position[]> {
     return this.http.get<Position[]>(
       `${this.apiUrl}?portfolioId=${portfolioId}`

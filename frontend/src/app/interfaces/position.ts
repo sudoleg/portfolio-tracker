@@ -1,5 +1,5 @@
 export interface Position {
-    id: number,
+    id?: number,
     portfolioId: number,
     quantity: number,
     financialInstrumentId: number,

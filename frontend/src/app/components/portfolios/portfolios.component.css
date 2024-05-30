@@ -88,8 +88,8 @@
 }
 
 .selected-portfolio {
-    background-color: rgba(141, 152, 141, 0.7);
     /* Slightly different color */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: rgba(141, 152, 141, 0.7);
     /* More pronounced shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }

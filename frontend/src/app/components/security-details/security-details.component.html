@@ -1,0 +1,30 @@
+<div class="security-details-container">
+    <div class="security-details-card" *ngIf="security">
+        <div class="security-details-header">{{security.name}}</div>
+        <div class="security-details-info">
+            <p><strong>Ticker:</strong> {{security.ticker}}</p>
+            <p><strong>ISIN:</strong> {{security.isin}}</p>
+            <p><strong>Description:</strong> {{security.description}}</p>
+        </div>
+        @if (isUserLoggedIn) {
+        <div class="security-details-form">
+            <label for="quantity">Quantity:</label>
+            <input id="quantity" type="number" [(ngModel)]="quantity" class="security-details-input">
+
+            <label for="portfolio">Select Portfolio:</label>
+            <select id="portfolio" [(ngModel)]="selectedPortfolioId" class="security-details-select">
+                <option *ngFor="let portfolio of portfolios" [value]="portfolio.id">{{portfolio.name}}</option>
+            </select>
+
+            <button (click)="addToPortfolio(selectedPortfolioId, quantity)" class="security-details-btn">Add to
+                Portfolio</button>
+        </div>
+        }
+    </div>
+    <a class="security-details-link" routerLink="/securities">Back to Securities</a>
+    <!-- Success message -->
+    <div *ngIf="successMessage" class="security-details-success">
+        {{ successMessage }}
+        <a *ngIf="successPortfolioId" [routerLink]="['/portfolios', successPortfolioId]">View Portfolio</a>
+    </div>
+</div>
