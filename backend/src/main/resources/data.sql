@@ -75,31 +75,31 @@ VALUES
     );
 
 -- Insert users with explicit IDs
-INSERT INTO users (id, username, name, surname, email)
+INSERT INTO users (username, name, surname, email)
 VALUES
-    (1, 'jdoe', 'John', 'Doe', 'jdoe@example.com'),
-    (2, 'asmith', 'Alice', 'Smith', 'asmith@example.com'),
-    (3, 'bwhite', 'Bob', 'White', 'bwhite@example.com'),
-    (4, 'cjohnson', 'Carol', 'Johnson', 'cjohnson@example.com'),
-    (5, 'dmiller', 'David', 'Miller', 'dmiller@example.com'),
-    (6, 'ewilliams', 'Emma', 'Williams', 'ewilliams@example.com');
+    ('jdoe', 'John', 'Doe', 'jdoe@example.com'),
+    ('asmith', 'Alice', 'Smith', 'asmith@example.com'),
+    ('bwhite', 'Bob', 'White', 'bwhite@example.com'),
+    ('cjohnson', 'Carol', 'Johnson', 'cjohnson@example.com'),
+    ('dmiller', 'David', 'Miller', 'dmiller@example.com'),
+    ('ewilliams', 'Emma', 'Williams', 'ewilliams@example.com');
 
 
 -- Insert portfolios with explicit IDs
-INSERT INTO portfolios (id, name, user_id)
+INSERT INTO portfolios (name, user_id)
 VALUES
-    (1, 'Technology Growth', 1),
-    (2, 'Dividend Income', 1),
-    (3, 'Healthcare Innovators', 2),
-    (4, 'Low Volatility', 2),
-    (5, 'Energy Sector', 3),
-    (6, 'Emerging Markets', 3),
-    (7, 'Biotech Growth', 4),
-    (8, 'Sustainable Investments', 4),
-    (9, 'High Yield Bonds', 5),
-    (10, 'Real Estate Investment Trusts', 5),
-    (11, 'Consumer Goods', 6),
-    (12, 'Small Cap Growth', 6);
+    ('Technology Growth', 1),
+    ('Dividend Income', 1),
+    ('Healthcare Innovators', 2),
+    ('Low Volatility', 2),
+    ('Energy Sector', 3),
+    ('Emerging Markets', 3),
+    ('Biotech Growth', 4),
+    ('Sustainable Investments', 4),
+    ('High Yield Bonds', 5),
+    ( 'Real Estate Investment Trusts', 5),
+    ( 'Consumer Goods', 6),
+    ( 'Small Cap Growth', 6);
 
 -- Insert positions for each portfolio using the initial set of tickers
 INSERT INTO positions (portfolio_id, quantity, financial_instrument_id, purchase_price)

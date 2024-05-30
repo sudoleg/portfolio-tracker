@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 public class PortfolioEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "portfolio_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
