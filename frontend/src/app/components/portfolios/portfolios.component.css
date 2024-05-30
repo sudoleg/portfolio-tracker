@@ -34,7 +34,7 @@
 }
 
 .portfolio-link:hover {
-    background-color: rgb(226, 211, 202);
+    background-color: rgb(141, 152, 141);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -84,5 +84,12 @@
 }
 
 .add-to-portfolio-btn:hover {
-    background-color: rgb(141, 152, 141);
+    background-color: rgb(141, 154, 160, 163152, 141);
+}
+
+.selected-portfolio {
+    background-color: rgba(141, 152, 141, 0.7);
+    /* Slightly different color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* More pronounced shadow */
 }

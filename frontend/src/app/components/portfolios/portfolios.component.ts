@@ -18,6 +18,7 @@ export class PortfoliosComponent implements OnInit {
   portfolios = signal<Portfolio[]>([]);
   newPortfolioName: any;
   impersonatedUserId: number | null;
+  selectedPortfolio = signal<Portfolio | null>(null);
 
   constructor(
     private portfolioService: PortfolioService,
@@ -39,6 +40,10 @@ export class PortfoliosComponent implements OnInit {
     }
   }
 
+  selectPortfolio(p: Portfolio) {
+    this.selectedPortfolio.set(p);
+  }
+
   addPortfolio(): void {
     if (this.newPortfolioName.trim()) {
       const newPortfolio: Portfolio = {
@@ -52,6 +57,8 @@ export class PortfoliosComponent implements OnInit {
     }
   }
 
-
+  isSelectedPortfolio(portfolio: Portfolio): boolean {
+    return this.selectedPortfolio()?.id === portfolio.id;
+  }
 
 }

@@ -1,7 +1,7 @@
-<!-- portfolios.component.html -->
 <div class="portfolios-container">
-    <div class="portfolio-card" *ngFor="let portfolio of portfolios()">
-        <a [routerLink]="['/portfolios', portfolio.id]" class="portfolio-link">
+    <div class="portfolio-card" *ngFor="let portfolio of portfolios()"
+        [ngClass]="{'selected-portfolio': isSelectedPortfolio(portfolio)}">
+        <a [routerLink]="['/portfolios', portfolio.id]" (click)="selectPortfolio(portfolio)" class="portfolio-link">
             <div class="portfolio-info">
                 {{ portfolio.name }}
             </div>
@@ -13,4 +13,5 @@
             class="new-portfolio-input">
         <button (click)="addPortfolio()" class="add-to-portfolio-btn">Add New</button>
     </div>
+    <!-- <p>Selected portfolio: {{selectedPortfolio()?.name}}</p> -->
 </div>
