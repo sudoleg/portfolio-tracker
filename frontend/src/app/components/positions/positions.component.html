@@ -1,20 +1,26 @@
 <div class="positions-container">
-    <div class="position-header">
-        <p>Security</p>
-        <p>Quantity</p>
-        <p>Purchase Price</p>
-        <p>Total Value</p>
-        <p>Actions</p> <!-- Add a header for actions -->
-    </div>
-    <div class="position-card" *ngFor="let position of positions()">
-        <div class="position-info">
-            <p>{{ getSecurityName(position.financialInstrumentId) }}</p>
-            <p>{{ position.quantity }}</p>
-            <p>{{ position.purchasePrice | number:'1.2-2' }}</p>
-            <p>{{ getTotalValue(position) | number:'1.2-2' }}</p>
-            <button (click)="deletePosition(position)" class="delete-button">
-                <span class="material-icons">delete</span>
-            </button>
-        </div>
-    </div>
+    <table class="positions-table">
+        <thead>
+            <tr class="position-header">
+                <th>Security</th>
+                <th>Quantity</th>
+                <th>Purchase Price</th>
+                <th>Total Value</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="position-card" *ngFor="let position of positions()">
+                <td>{{ getSecurityName(position.financialInstrumentId) }}</td>
+                <td>{{ position.quantity }}</td>
+                <td>{{ position.purchasePrice | number:'1.2-2' }}</td>
+                <td>{{ getTotalValue(position) | number:'1.2-2' }}</td>
+                <td>
+                    <button (click)="deletePosition(position)" class="delete-button">
+                        <span class="material-icons">delete</span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

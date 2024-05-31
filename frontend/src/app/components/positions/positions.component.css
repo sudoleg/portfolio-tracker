@@ -1,45 +1,32 @@
 .positions-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
     padding: 1rem;
     background-color: rgb(236, 230, 227);
     border-radius: 8px;
 }
 
-.position-header {
-    display: flex;
-    justify-content: space-between;
+.positions-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.position-header th {
     background-color: rgb(206, 191, 182);
     border: 1px solid rgb(193, 177, 166);
-    padding-left: 1rem;
-    padding-right: 1rem;
-    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    text-align: left;
     font-weight: bold;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: rgb(67, 90, 102);
 }
 
-.position-card {
-    display: flex;
-    justify-content: space-between;
+.position-card td {
     background-color: rgb(206, 191, 182);
     border: 1px solid rgb(193, 177, 166);
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 1rem;
+    color: rgb(67, 90, 102);
 }
 
-.position-info {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* Center align items vertically */
-}
-
-.position-info p {
-    color: rgb(67 90 102);
-    margin: 0 0.5rem;
+.position-card td:last-child {
+    text-align: center;
 }
 
 .delete-button {
@@ -47,7 +34,6 @@
     border: none;
     cursor: pointer;
     color: red;
-    /* Default color */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -55,7 +41,6 @@
 
 .delete-button:hover {
     color: darkred;
-    /* Color when hovered */
 }
 
 .material-icons {
