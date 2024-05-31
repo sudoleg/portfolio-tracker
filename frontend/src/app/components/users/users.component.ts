@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { User } from '../../interfaces/user';
-import { UserService } from '../../services/user.service';
 import { ImpersonationService } from '../../services/impersonation.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-users',
@@ -13,7 +13,8 @@ import { ImpersonationService } from '../../services/impersonation.service';
 })
 export class UsersComponent {
 
-  users: User[] = []
+  users: User[] = [];
+  successMessage = signal("");
 
   constructor(private userService: UserService, private impersonationService: ImpersonationService) {
     userService.getUsers().subscribe(users => {
@@ -22,7 +23,10 @@ export class UsersComponent {
   }
 
   impersonateUser(userId: number) {
-    this.impersonationService.setImpersonatedUserId(userId)
+    this.impersonationService.setImpersonatedUserId(userId);
+    this.userService.getUser(userId).subscribe(result => {
+      this.successMessage.set(`You are now 'logged in' as ${result.name} ${result.surname}!`)
+    })
   }
 
 }

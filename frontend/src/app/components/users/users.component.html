@@ -8,4 +8,5 @@
         </div>
         <button class="impersonate-btn" (click)="impersonateUser(user.id)">Impersonate</button>
     </div>
+    <div *ngIf="successMessage()" class="success-message">{{ successMessage() }}</div>
 </div>

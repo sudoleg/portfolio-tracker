@@ -21,9 +21,9 @@
         </div>
         }
     </div>
-    <a class="security-details-link" routerLink="/securities">Back to Securities</a>
+    <a class="security-details-link" routerLink="/securities">Back to securities</a>
     <!-- Success message -->
-    <div *ngIf="successMessage" class="security-details-success">
+    <div *ngIf="successMessage" class="success-message">
         {{ successMessage }}
         <a *ngIf="successPortfolioId" [routerLink]="['/portfolios', successPortfolioId]">View Portfolio</a>
     </div>
