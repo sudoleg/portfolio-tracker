@@ -7,6 +7,8 @@
 .positions-table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
+    /* Ensures columns have fixed width */
 }
 
 .position-header th {
@@ -16,6 +18,12 @@
     text-align: left;
     font-weight: bold;
     color: rgb(67, 90, 102);
+    overflow: hidden;
+    /* Ensures text overflow is hidden */
+    text-overflow: ellipsis;
+    /* Adds ellipsis for overflowed text */
+    white-space: nowrap;
+    /* Prevents text wrapping */
 }
 
 .position-card td {
@@ -23,6 +31,12 @@
     border: 1px solid rgb(193, 177, 166);
     padding: 0.5rem 1rem;
     color: rgb(67, 90, 102);
+    overflow: hidden;
+    /* Ensures text overflow is hidden */
+    text-overflow: ellipsis;
+    /* Adds ellipsis for overflowed text */
+    white-space: nowrap;
+    /* Prevents text wrapping */
 }
 
 .position-card td:last-child {
@@ -45,4 +59,32 @@
 
 .material-icons {
     font-size: 1.5rem;
+}
+
+/* Fixed column widths */
+.col-security {
+    width: 30%;
+}
+
+.col-quantity {
+    width: 10%;
+}
+
+.col-price {
+    width: 10%;
+}
+
+.col-total {
+    width: 15%;
+}
+
+.col-actions {
+    width: 10%;
+}
+
+/* Warning message style */
+.warning-message {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1rem;
 }

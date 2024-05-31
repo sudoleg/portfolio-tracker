@@ -39,7 +39,7 @@ export const routes: Routes = [
                 outlet: "leftAside"
             },
             {
-                path: ':id',
+                path: ':portfolioId',
                 component: PositionsComponent,
                 outlet: 'primary'
             }

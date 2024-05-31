@@ -2,20 +2,20 @@
     <table class="positions-table">
         <thead>
             <tr class="position-header">
-                <th>Security</th>
-                <th>Quantity</th>
-                <th>Purchase Price</th>
-                <th>Total Value</th>
-                <th>Actions</th>
+                <th class="col-security">Security</th>
+                <th class="col-quantity">Quantity</th>
+                <th class="col-price">Purchase Price</th>
+                <th class="col-total">Total Value</th>
+                <th class="col-actions">Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr class="position-card" *ngFor="let position of positions()">
-                <td>{{ getSecurityName(position.financialInstrumentId) }}</td>
-                <td>{{ position.quantity }}</td>
-                <td>{{ position.purchasePrice | number:'1.2-2' }}</td>
-                <td>{{ getTotalValue(position) | number:'1.2-2' }}</td>
-                <td>
+                <td class="col-security">{{ getSecurityName(position.financialInstrumentId) }}</td>
+                <td class="col-quantity">{{ position.quantity }}</td>
+                <td class="col-price">{{ position.purchasePrice | number:'1.2-2' }}</td>
+                <td class="col-total">{{ getTotalValue(position) | number:'1.2-2' }}</td>
+                <td class="col-actions">
                     <button (click)="deletePosition(position)" class="delete-button">
                         <span class="material-icons">delete</span>
                     </button>
@@ -23,4 +23,9 @@
             </tr>
         </tbody>
     </table>
+    @if (!positions().length) {
+    <p class="warning-message">This portfolio is empty. Go to <a [routerLink]="['/securities']">securities</a> to add
+        and view
+        them here.</p>
+    }
 </div>
