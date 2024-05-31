@@ -1,0 +1,46 @@
+.impersonation-container {
+    padding: 1rem;
+    background-color: rgb(236, 230, 227);
+    border-radius: 8px;
+    border: 1px solid rgb(193, 177, 166);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+}
+
+.impersonation-container h2 {
+    color: rgb(67, 90, 102);
+    margin-bottom: 1rem;
+}
+
+.impersonation-container p {
+    color: rgb(67, 90, 102);
+    margin: 0.5rem 0;
+}
+
+.stop-impersonation-button {
+    background-color: rgb(206, 191, 182);
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: rgb(67, 90, 102);
+    cursor: pointer;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.stop-impersonation-button:hover {
+    background-color: rgb(193, 177, 166);
+    color: rgb(236, 230, 227);
+}
+
+.no-impersonation-message {
+    color: rgb(67, 90, 102);
+    background-color: rgb(206, 191, 182);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgb(193, 177, 166);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+    text-align: center;
+}

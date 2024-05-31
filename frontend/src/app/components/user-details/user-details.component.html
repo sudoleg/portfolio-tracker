@@ -1,10 +1,10 @@
-<div *ngIf="impersonatedUser; else noImpersonation">
-    <h2>Currently impersonating</h2>
+<div class="impersonation-container" *ngIf="impersonatedUser; else noImpersonation">
+    <h2>Currently Impersonating</h2>
     <p><strong>Name:</strong> {{ impersonatedUser.name }} {{ impersonatedUser.surname }}</p>
     <p><strong>Username:</strong> {{ impersonatedUser.username }}</p>
     <p><strong>Email:</strong> {{ impersonatedUser.email }}</p>
-    <button (click)="clearImpersonation()">Stop impersonation</button>
+    <button (click)="clearImpersonation()" class="stop-impersonation-button">Stop Impersonation</button>
 </div>
 <ng-template #noImpersonation>
-    <p>No user is currently being impersonated.</p>
+    <p class="no-impersonation-message">No user is currently being impersonated.</p>
 </ng-template>
