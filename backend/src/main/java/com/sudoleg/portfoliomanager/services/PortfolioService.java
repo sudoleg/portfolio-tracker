@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface PortfolioService {
 
-    PortfolioEntity save(PortfolioEntity portfolioEntity);
+    PortfolioEntity save(Long id, PortfolioDto portfolioDto);
 
     List<PortfolioEntity> findAll();
 
@@ -16,11 +16,10 @@ public interface PortfolioService {
 
     boolean isExists(Long id);
 
-    PortfolioEntity partialUpdate(Long id, PortfolioEntity portfolioEntity);
-
     void delete(Long id);
 
     PortfolioEntity createPortfolio(PortfolioDto requestDTO);
 
     List<PortfolioEntity> getUsersPortfolios(Long userId);
+
 }
