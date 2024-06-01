@@ -72,18 +72,6 @@ public class PortfolioController {
         return new ResponseEntity<>(portfolioMapper.mapToDto(savedPortfolio), HttpStatus.OK);
     }
 
-    @PatchMapping(path = "/{id}")
-    public ResponseEntity<PortfolioDto> partialUpdatePortfolio(
-            @PathVariable Long id,
-            @RequestBody PortfolioDto portfolioDto) {
-        if (!portfolioService.isExists(id)) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        PortfolioEntity updatedPortfolioEntity = portfolioService.partialUpdate(id, portfolioDto);
-        return new ResponseEntity<>(portfolioMapper.mapToDto(updatedPortfolioEntity), HttpStatus.OK);
-    }
-
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deletePortfolio(@PathVariable Long id) {
         if (!portfolioService.isExists(id)) {

@@ -30,7 +30,6 @@ public class PortfolioControllerIntegrationTest {
 
         private final MockMvc mockMvc;
         private final ObjectMapper objectMapper;
-
         private final PortfolioService portfolioService;
 
         @Autowired

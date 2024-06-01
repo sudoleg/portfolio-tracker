@@ -64,21 +64,6 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public PortfolioEntity partialUpdate(Long portfolioId, PortfolioDto portfolioDto) {
-        if (!portfolioRepository.existsById(portfolioId)) {
-            throw new EntityNotFoundException("Portfolio not found!");
-        }
-
-        PortfolioEntity portfolioEntity = portfolioMapper.mapFromDto(portfolioDto);
-        portfolioEntity.setId(portfolioId);
-
-        return portfolioRepository.findById(portfolioId).map(existingUser -> {
-            Optional.ofNullable(portfolioEntity.getName()).ifPresent(existingUser::setName);
-            return portfolioRepository.save(existingUser);
-        }).orElseThrow(() -> new RuntimeException("Portfolio doesn't exist!"));
-    }
-
-    @Override
     public void delete(Long id) {
         portfolioRepository.deleteById(id);
     }

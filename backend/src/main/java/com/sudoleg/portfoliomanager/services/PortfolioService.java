@@ -16,8 +16,6 @@ public interface PortfolioService {
 
     boolean isExists(Long id);
 
-    PortfolioEntity partialUpdate(Long id, PortfolioDto portfolioDto);
-
     void delete(Long id);
 
     PortfolioEntity createPortfolio(PortfolioDto requestDTO);
