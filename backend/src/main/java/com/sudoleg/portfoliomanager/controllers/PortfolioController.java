@@ -72,6 +72,16 @@ public class PortfolioController {
         return new ResponseEntity<>(portfolioMapper.mapToDto(savedPortfolio), HttpStatus.OK);
     }
 
+    @PatchMapping(path = "/{id}")
+    public ResponseEntity<PortfolioDto> partialUpdatePorftolio(
+            @PathVariable Long id,
+            @RequestBody PortfolioDto portfolioDto) {
+        portfolioDto.setId(id);
+        PortfolioEntity updatedPortfolio = this.portfolioService.partialUpdate(id, portfolioDto);
+        return new ResponseEntity<>(portfolioMapper.mapToDto(updatedPortfolio), HttpStatus.OK);
+
+    }
+
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deletePortfolio(@PathVariable Long id) {
         portfolioService.delete(id);

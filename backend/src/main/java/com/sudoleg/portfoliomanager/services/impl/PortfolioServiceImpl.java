@@ -89,4 +89,23 @@ public class PortfolioServiceImpl implements PortfolioService {
         userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found!"));
         return portfolioRepository.findByUserEntity_Id(userId);
     }
+
+    @Override
+    public PortfolioEntity partialUpdate(Long id, PortfolioDto portfolioDto) {
+        PortfolioEntity portfolioEntity = portfolioRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Portfolio not found"));
+
+        if (portfolioDto.getName() != null) {
+            portfolioEntity.setName(portfolioDto.getName());
+        }
+
+        if (portfolioDto.getUserId() != null) {
+            UserEntity userEntity = userRepository.findById(portfolioDto.getUserId())
+                    .orElseThrow(() -> new EntityNotFoundException("User not found"));
+            portfolioEntity.setUserEntity(userEntity);
+        }
+
+        return portfolioRepository.save(portfolioEntity);
+    }
+
 }

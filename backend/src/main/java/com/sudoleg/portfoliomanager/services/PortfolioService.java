@@ -10,6 +10,8 @@ public interface PortfolioService {
 
     PortfolioEntity save(Long id, PortfolioDto portfolioDto);
 
+    PortfolioEntity partialUpdate(Long id, PortfolioDto portfolioDto);
+
     List<PortfolioEntity> findAll();
 
     Optional<PortfolioEntity> findOne(Long id);
