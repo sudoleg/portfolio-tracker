@@ -74,9 +74,6 @@ public class PortfolioController {
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deletePortfolio(@PathVariable Long id) {
-        if (!portfolioService.isExists(id)) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         portfolioService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

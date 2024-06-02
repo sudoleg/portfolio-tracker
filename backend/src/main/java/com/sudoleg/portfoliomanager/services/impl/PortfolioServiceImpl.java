@@ -65,6 +65,9 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     @Override
     public void delete(Long id) {
+        if (!portfolioRepository.existsById(id)) {
+            throw new EntityNotFoundException("Portfolio not found!");
+        }
         portfolioRepository.deleteById(id);
     }
 
