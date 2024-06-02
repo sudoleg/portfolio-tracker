@@ -8,7 +8,7 @@ import { Position } from '../interfaces/position';
 })
 export class PositionService {
 
-  private apiUrl = "http://localhost:8080/positions"
+  private apiUrl = "http://localhost:8080/api/v1/positions"
 
   constructor(private http: HttpClient) { }
 

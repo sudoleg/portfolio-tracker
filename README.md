@@ -6,7 +6,7 @@ I created this portfolio manager to practice my skills and gain experience in we
 
 ### API docs
 
-- OpenAPI descriptions are available under http://localhost:8080/api-docs
+- OpenAPI descriptions are available under http://localhost:8080/api/v1/api-docs
 - The Swagger UI is available under http://localhost:8080/swagger.html
 
 ## Used technologies and tutorials
