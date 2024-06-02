@@ -1,0 +1,66 @@
+.portfolio-actions-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 1rem;
+    background-color: rgb(236, 230, 227);
+    border-radius: 8px;
+}
+
+.portfolio-actions-header {
+    color: rgb(67 90 102);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.portfolio-actions-form {
+    background-color: rgb(206, 191, 182);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid rgb(193, 177, 166);
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.portfolio-actions-label {
+    margin: 0.5rem 0;
+    color: rgb(80, 80, 80);
+}
+
+.portfolio-actions-select,
+.portfolio-actions-input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 1rem 1rem;
+    box-sizing: border-box;
+}
+
+.portfolio-actions-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: rgb(154, 160, 163);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 1rem 1rem;
+}
+
+.portfolio-actions-btn:hover {
+    background-color: rgb(141, 152, 141);
+}
+
+.portfolio-actions-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.delete-btn:hover {
+    background-color: rgb(255, 99, 99);
+}

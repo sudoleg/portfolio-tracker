@@ -5,6 +5,7 @@ import { PortfoliosComponent } from './components/portfolios/portfolios.componen
 import { SecuritiesComponent } from './components/securities/securities.component';
 import { PositionsComponent } from './components/positions/positions.component';
 import { SecurityDetailsComponent } from './components/security-details/security-details.component';
+import { PortfolioActionsComponent } from './components/portfolio-actions/portfolio-actions.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'users', pathMatch: 'full' },
@@ -39,9 +40,14 @@ export const routes: Routes = [
                 outlet: "leftAside"
             },
             {
+                path: '',
+                component: PortfolioActionsComponent,
+                outlet: 'rightAside'
+            },
+            {
                 path: ':portfolioId',
                 component: PositionsComponent,
-                outlet: 'primary'
+                outlet: 'primary',
             }
         ],
         title: "Portfolios"

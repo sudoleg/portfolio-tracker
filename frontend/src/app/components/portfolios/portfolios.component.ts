@@ -47,6 +47,7 @@ export class PortfoliosComponent implements OnInit {
   addPortfolio(): void {
     if (this.newPortfolioName.trim()) {
       const newPortfolio: Portfolio = {
+        id: null,
         name: this.newPortfolioName,
         userId: this.impersonationService.getImpersonatedUserId() || 0
       };
