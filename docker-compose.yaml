@@ -11,7 +11,7 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - postgres
+      - backend-network
     restart: unless-stopped
 
   pgadmin:
@@ -23,15 +23,46 @@ services:
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
       - pgadmin:/var/lib/pgadmin
-
     ports:
       - "${PGADMIN_PORT:-5050}:80"
     networks:
+      - backend-network
+    restart: unless-stopped
+
+  backend:
+    container_name: backend
+    image: my-springboot-app
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: changeme
+    ports:
+      - "8080:8080"
+    depends_on:
       - postgres
+    networks:
+      - backend-network
+    restart: unless-stopped
+
+  frontend:
+    container_name: frontend
+    image: my-angular-app
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      - BACKEND_URL=http://backend:8080
+    ports:
+      - "4200:80"
+    networks:
+      - backend-network
     restart: unless-stopped
 
 networks:
-  postgres:
+  backend-network:
     driver: bridge
 
 volumes:

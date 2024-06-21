@@ -25,18 +25,14 @@ export class PortfoliosComponent implements OnInit {
     private impersonationService: ImpersonationService,
     private router: Router
   ) {
-    this.impersonatedUserId = this.impersonationService.getImpersonatedUserId()
-    if (this.impersonatedUserId == null) {
-      alert("Impersonate a user!")
-      this.router.navigate(['']);
-    }
+    this.impersonatedUserId = this.impersonationService.getImpersonatedUserId();
   }
 
   ngOnInit(): void {
     if (this.impersonatedUserId != null) {
       this.portfolioService.getPortfolios(this.impersonatedUserId).subscribe(
         portfolios => this.portfolios.set(portfolios)
-      )
+      );
     }
   }
 

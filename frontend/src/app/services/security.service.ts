@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Security } from '../interfaces/security';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SecurityService {
 
-  private apiUrl = "http://localhost:8080/api/v1/securities"
+  private apiUrl = `${environment.apiUrl}/api/v1/securities`
 
   constructor(private http: HttpClient) { }
 
