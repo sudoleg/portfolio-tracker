@@ -8,11 +8,8 @@ body {
 .container {
     display: flex;
     flex-direction: column;
-    /* Full viewport height */
     height: 100vh;
-    /* 80% of viewport width */
     width: 70vw;
-    /* Center horizontally */
     margin: 0 auto;
 }
 
@@ -23,38 +20,21 @@ footer {
 
 .layout-wrapper {
     display: flex;
-    flex: 1;
-    /* Take up remaining space */
-    justify-content: space-between;
     margin-top: 10px;
 }
 
-.left-aside {
-    /* Allow to shrink but not grow */
-    flex: 0 1 auto;
-    /* Initial width */
-    width: 20%;
-    /* Allow to shrink to zero */
-    min-width: 0;
-}
-
-.right-aside {
-    /* Allow to grow and take up remaining space */
-    flex: 1;
-    /* Initial width */
-    width: 20%;
-}
-
-.content {
+.primary-content {
+    flex-grow: 3;
     margin-left: 10px;
-    margin-right: 10px;
-    flex: 3;
-    /* Allow to grow and take up remaining space */
+}
+
+.secondary-content {
+    flex-shrink: 0;
+    min-width: 0;
 }
 
 footer {
     width: 100%;
     padding: 10px 0;
-    /* Pushes footer to the bottom */
     margin-top: auto;
 }

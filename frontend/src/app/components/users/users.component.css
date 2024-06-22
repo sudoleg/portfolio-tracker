@@ -6,7 +6,9 @@
     padding: 2rem;
     background-color: rgb(236, 230, 227);
     /* Make sure the container takes full width */
-    width: 100%;
+    width: 70%;
+    margin: auto;
+    border-radius: 8px;
 }
 
 .user-card {

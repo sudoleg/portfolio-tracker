@@ -13,20 +13,16 @@
     <!-- Main Layout Wrapper -->
     <div class="layout-wrapper">
 
-        <!-- Left Aside -->
-        <aside class="left-aside">
-            <router-outlet name="leftAside"></router-outlet> <!-- Named outlet for the left aside -->
+        <!-- Secondary Content Area -->
+        <aside class="secondary-content">
+            <router-outlet name="secondary"></router-outlet> <!-- Named outlet for secondary content -->
         </aside>
 
-        <!-- Main Content Area -->
-        <main class="content">
+        <!-- Primary Content Area -->
+        <main class="primary-content">
             <router-outlet></router-outlet> <!-- Default outlet for main content -->
         </main>
 
-        <!-- Right Aside -->
-        <aside class="right-aside">
-            <router-outlet name="rightAside"></router-outlet> <!-- Named outlet for the right aside -->
-        </aside>
     </div>
 
     <!-- Footer -->

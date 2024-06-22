@@ -6,6 +6,8 @@
     padding: 0 1rem;
     background-color: rgb(236, 230, 227);
     border-radius: 8px;
+    width: 70%;
+    margin: auto;
 }
 
 .portfolio-actions-header {

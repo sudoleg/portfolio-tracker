@@ -6,7 +6,8 @@
     padding: 1rem;
     background-color: rgb(236, 230, 227);
     border-radius: 8px;
-    margin: 1rem;
+    width: 70%;
+    margin: auto;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
