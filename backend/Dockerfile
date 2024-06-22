@@ -1,5 +1,5 @@
 # Use a Maven image to build the application
-FROM maven:3.8.4-openjdk-17 AS build
+FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
 
 # Copy the pom.xml and download the dependencies
