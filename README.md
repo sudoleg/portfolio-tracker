@@ -1,4 +1,4 @@
-# Portfolio Manager
+# Portfolio tracker
 
 I created this portfolio tracker to practice my skills and gain more experience in web development, particularly in the development of RESTful APIs with SpringBoot and UIs with Angular (17). This (very) basic portfolio tracker allows a user to create multiple portfolios, add and remove stocks to/from them. Portfolios may also be renamed and deleted.
 
@@ -27,3 +27,4 @@ This will build and start the containers for the Postgres DB, the backend and th
 - [Ultimate Guide to SpringBoot](https://youtu.be/Nv2DERaMx-4?si=FHX_haHS5XoMwo3i)
 - [PostgreSQL & pgAdmin with docker-compose](https://github.com/khezen/compose-postgres/tree/master)
 - [Custom REST-API error handling in SpringBoot](https://www.toptal.com/java/spring-boot-rest-api-error-handling)
+- [A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
