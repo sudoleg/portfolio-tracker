@@ -6,6 +6,7 @@
 /* Success message styles */
 .success-message {
     margin-top: 1rem;
+    margin-bottom: 1rem;
     padding: 1rem;
     background-color: #d4edda;
     color: #155724;

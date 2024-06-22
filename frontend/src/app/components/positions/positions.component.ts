@@ -29,7 +29,7 @@ export class PositionsComponent {
   ) {
     //this.portfolioId = Number(this.route.snapshot.params['id']);
     toObservable(this.portfolioId).subscribe(id => {
-      this.loadPositionsInPortfolio(id)
+      this.loadPositionsInPortfolio(id);
     })
   }
 

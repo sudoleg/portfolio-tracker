@@ -23,7 +23,6 @@ export class PortfoliosComponent implements OnInit {
   constructor(
     private portfolioService: PortfolioService,
     private impersonationService: ImpersonationService,
-    private router: Router
   ) {
     this.impersonatedUserId = this.impersonationService.getImpersonatedUserId();
   }

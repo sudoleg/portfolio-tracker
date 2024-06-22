@@ -1,25 +1,40 @@
 <div class="portfolio-actions-container">
     <h2 class="portfolio-actions-header">Edit portfolios</h2>
 
-    <div *ngIf="portfolios.length > 0" class="portfolio-actions-form">
+    @if (portfolios().length) {
+    <div class="portfolio-actions-form">
         <label for="portfolioSelect" class="portfolio-actions-label">Select Portfolio:</label>
         <select id="portfolioSelect" [(ngModel)]="selectedPortfolioId" class="portfolio-actions-select">
-            <option *ngFor="let portfolio of portfolios" [value]="portfolio.id">
+            <option *ngFor="let portfolio of portfolios()" [value]="portfolio.id">
                 {{ portfolio.name }}
             </option>
         </select>
     </div>
+    }
+    @else {
+    <p>No portfolios to edit!</p>
+    }
+
 
     <div *ngIf="selectedPortfolioId" class="portfolio-actions-form">
         <label for="portfolioName" class="portfolio-actions-label">New Portfolio Name:</label>
         <input id="portfolioName" type="text" [(ngModel)]="updatedPortfolioName" placeholder="Enter new portfolio name"
             class="portfolio-actions-input" />
 
-        <button (click)="updatePortfolio(selectedPortfolioId)" class="portfolio-actions-btn">Update Portfolio</button>
+        <button (click)="updatePortfolio()" class="portfolio-actions-btn">Update Portfolio</button>
     </div>
 
     <div *ngIf="selectedPortfolioId" class="portfolio-actions-buttons">
-        <button (click)="deletePortfolio(selectedPortfolioId)" class="portfolio-actions-btn delete-btn">Delete
-            Portfolio (and its positions)</button>
+        <button (click)="deletePortfolio()" class="portfolio-actions-btn delete-btn">
+            Delete Portfolio (and its positions)
+        </button>
     </div>
+
+    @if (message()) {
+    <div class="success-message">
+        {{ message() }}
+        <a [routerLink]="['/portfolios']">View portfolios</a>
+    </div>
+    }
+
 </div>

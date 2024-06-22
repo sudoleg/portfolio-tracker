@@ -40,17 +40,17 @@ export const routes: Routes = [
                 outlet: "leftAside"
             },
             {
-                path: '',
-                component: PortfolioActionsComponent,
-                outlet: 'rightAside'
-            },
-            {
                 path: ':portfolioId',
                 component: PositionsComponent,
                 outlet: 'primary',
             }
         ],
         title: "Portfolios"
+    },
+    {
+        path: 'portfolios-edit',
+        component: PortfolioActionsComponent,
+        outlet: 'primary'
     },
     {
         path: 'securities',
