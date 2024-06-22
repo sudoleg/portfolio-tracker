@@ -7,7 +7,7 @@ I created this portfolio tracker to practice my skills and gain more experience 
 Ensure that [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) are installed on your machine before running the application.
 
 ```bash
-docker-compose up --build
+docker-compose up --build postgres backend frontend
 ```
 
 This will build and start the containers for the Postgres DB, the backend and the frontend.  You can then access the frontend on <http://localhost>. Impersonate a user to start. The DB already has some initial data.
