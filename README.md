@@ -4,12 +4,13 @@ I created this portfolio tracker to practice my skills and gain more experience 
 
 ## Run the app - installation
 
+Ensure that [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) are installed on your machine before running the application.
+
 ```bash
-chmod +x start-app.sh
-./start-app.sh
+docker-compose up --build
 ```
 
-This will build and start the containers for the Postgres DB and the backend. Afterwards it installs npm dependencies and starts the frontend via npm. (There is an issue I'm working on, therefore the frontend is not yet dockerized.) You can then access the frontend on <http://localhost:4200>. Impersonate a user to start. The DB already has some initial data.
+This will build and start the containers for the Postgres DB, the backend and the frontend.  You can then access the frontend on <http://localhost>. Impersonate a user to start. The DB already has some initial data.
 
 ### API docs
 

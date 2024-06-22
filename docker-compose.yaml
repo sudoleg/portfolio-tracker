@@ -31,7 +31,7 @@ services:
 
   backend:
     container_name: backend
-    image: my-springboot-app
+    image: sudoleg/portfolio-tracker-backend
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -49,14 +49,14 @@ services:
 
   frontend:
     container_name: frontend
-    image: my-angular-app
+    image: sudoleg/portfolio-tracker-frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
     environment:
       - BACKEND_URL=http://backend:8080
     ports:
-      - "4200:80"
+      - "80:80"
     networks:
       - backend-network
     restart: unless-stopped

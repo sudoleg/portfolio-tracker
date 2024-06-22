@@ -1,9 +1,9 @@
 # Stage 1: Build the Angular application
-FROM node:18-alpine AS build
+FROM node:20-alpine AS build
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+COPY . /app/
 
 # Install dependencies
 RUN npm ci
@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Serve the application with Nginx
-FROM nginx:1-alpine
+FROM nginx:1.27-alpine-slim
 COPY --from=build /app/dist/frontend/browser /usr/share/nginx/html
 
 # Expose port 80
