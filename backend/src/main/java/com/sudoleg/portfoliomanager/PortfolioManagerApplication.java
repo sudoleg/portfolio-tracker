@@ -1,5 +1,7 @@
 package com.sudoleg.portfoliomanager;
 
+import java.util.List;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -27,18 +29,17 @@ public class PortfolioManagerApplication {
 
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
+		List<String> allowedDomains = List.of(
+				"http://localhost:4200",
+				"http://localhost:8080",
+				"http://localhost");
 
-		String[] allowedDomains = new String[2];
-		allowedDomains[0] = "http://localhost:4200";
-		allowedDomains[1] = "http://localhost:8080";
-
-		System.out.println("CORS configuration....");
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins(allowedDomains)
-						.allowedMethods("*");
+						.allowedOrigins(allowedDomains.toArray(new String[0]))
+						.allowedMethods("GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS");
 			}
 		};
 	}
