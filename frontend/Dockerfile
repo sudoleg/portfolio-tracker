@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Serve the application with Nginx
-FROM nginx:1.27-alpine-slim
+FROM nginx:1.28-alpine-slim
 COPY --from=build /app/dist/frontend/browser /usr/share/nginx/html
 
 # Expose port 80
