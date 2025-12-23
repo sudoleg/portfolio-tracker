@@ -11,7 +11,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Use a minimal base image with Java 17 runtime
-FROM openjdk:17.0.2-jdk-slim
+FROM openjdk:25-jdk-slim
 
 # Set the working directory in the container
 WORKDIR /app
